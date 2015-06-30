@@ -144,7 +144,7 @@
     }];
 }
 
-
+/*
 -(void)getFacebookFriends: (FriendsCallbackSuccess)success error:(FriendsCallbackError)inError
 {
     //NSLog(@"getFacebookFriends");
@@ -154,10 +154,10 @@
     //Give the app ID (the one we copied before in our FB application at developer's site), permission keys and the audience that can see what we do (in case we do a POST)
     NSDictionary *FacebookOptions = @{ACFacebookAppIdKey: @"872717522798477", ACFacebookPermissionsKey: @[@"public_profile",@"email",@"user_friends"],ACFacebookAudienceKey:ACFacebookAudienceFriends};
     //Request access to the account with the options that we established before
-    /*[store requestAccessToAccountsWithType:facebookAccount options:FacebookOptions completion:^(BOOL granted, NSError *error) {
+    [store requestAccessToAccountsWithType:facebookAccount options:FacebookOptions completion:^(BOOL granted, NSError *error) {
         //Check if everything inside our app that we created at facebook developer is valid
         //if (granted)
-        {*/
+        {
             NSArray *accounts = [store accountsWithAccountType:facebookAccount];
             //Get the accounts linked to facebook in the device
             if ([accounts count]>0) {
@@ -209,14 +209,13 @@
                     }
                 }];
             }
-        }else{
+        } else{
             //If there was an error, show in console the code number
             NSLog(@"ERROR: %@", error);
             self.error = inError;
         }
-        
-    }];*/
-}
+    }];
+}*/
 
 - (void) printArrayValues
 {
