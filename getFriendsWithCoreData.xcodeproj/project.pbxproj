@@ -15,6 +15,12 @@
 		50ABA19D1B4122490084CF2F /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 50ABA19C1B4122490084CF2F /* Images.xcassets */; };
 		50ABA1A01B4122490084CF2F /* LaunchScreen.xib in Resources */ = {isa = PBXBuildFile; fileRef = 50ABA19E1B4122490084CF2F /* LaunchScreen.xib */; };
 		50ABA1AC1B4122490084CF2F /* getFriendsWithCoreDataTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 50ABA1AB1B4122490084CF2F /* getFriendsWithCoreDataTests.m */; };
+		50ABA1BB1B422D800084CF2F /* FBSDKCoreKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 50ABA1B81B422D800084CF2F /* FBSDKCoreKit.framework */; };
+		50ABA1BC1B422D800084CF2F /* FBSDKLoginKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 50ABA1B91B422D800084CF2F /* FBSDKLoginKit.framework */; };
+		50ABA1BD1B422D800084CF2F /* FBSDKShareKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 50ABA1BA1B422D800084CF2F /* FBSDKShareKit.framework */; };
+		50ABA1BF1B422E090084CF2F /* Social.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 50ABA1BE1B422E090084CF2F /* Social.framework */; };
+		50ABA1CA1B42432D0084CF2F /* FriendsTable.m in Sources */ = {isa = PBXBuildFile; fileRef = 50ABA1C91B42432D0084CF2F /* FriendsTable.m */; };
+		50ABA1CD1B42471D0084CF2F /* showingFriendsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 50ABA1CC1B42471D0084CF2F /* showingFriendsViewController.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -42,6 +48,15 @@
 		50ABA1A51B4122490084CF2F /* getFriendsWithCoreDataTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = getFriendsWithCoreDataTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		50ABA1AA1B4122490084CF2F /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		50ABA1AB1B4122490084CF2F /* getFriendsWithCoreDataTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = getFriendsWithCoreDataTests.m; sourceTree = "<group>"; };
+		50ABA1B81B422D800084CF2F /* FBSDKCoreKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = FBSDKCoreKit.framework; sourceTree = "<group>"; };
+		50ABA1B91B422D800084CF2F /* FBSDKLoginKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = FBSDKLoginKit.framework; sourceTree = "<group>"; };
+		50ABA1BA1B422D800084CF2F /* FBSDKShareKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = FBSDKShareKit.framework; sourceTree = "<group>"; };
+		50ABA1BE1B422E090084CF2F /* Social.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Social.framework; path = System/Library/Frameworks/Social.framework; sourceTree = SDKROOT; };
+		50ABA1C01B423AE60084CF2F /* getFriendsWithCoreData 2.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = "getFriendsWithCoreData 2.xcdatamodel"; sourceTree = "<group>"; };
+		50ABA1C81B42432D0084CF2F /* FriendsTable.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FriendsTable.h; sourceTree = "<group>"; };
+		50ABA1C91B42432D0084CF2F /* FriendsTable.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FriendsTable.m; sourceTree = "<group>"; };
+		50ABA1CB1B42471D0084CF2F /* showingFriendsViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = showingFriendsViewController.h; path = "showing Friends/showingFriendsViewController.h"; sourceTree = "<group>"; };
+		50ABA1CC1B42471D0084CF2F /* showingFriendsViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = showingFriendsViewController.m; path = "showing Friends/showingFriendsViewController.m"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -49,6 +64,10 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				50ABA1BF1B422E090084CF2F /* Social.framework in Frameworks */,
+				50ABA1BC1B422D800084CF2F /* FBSDKLoginKit.framework in Frameworks */,
+				50ABA1BB1B422D800084CF2F /* FBSDKCoreKit.framework in Frameworks */,
+				50ABA1BD1B422D800084CF2F /* FBSDKShareKit.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -65,6 +84,11 @@
 		50ABA1801B4122490084CF2F = {
 			isa = PBXGroup;
 			children = (
+				50ABA1C41B423D210084CF2F /* CoreData */,
+				50ABA1BE1B422E090084CF2F /* Social.framework */,
+				50ABA1B81B422D800084CF2F /* FBSDKCoreKit.framework */,
+				50ABA1B91B422D800084CF2F /* FBSDKLoginKit.framework */,
+				50ABA1BA1B422D800084CF2F /* FBSDKShareKit.framework */,
 				50ABA18B1B4122490084CF2F /* getFriendsWithCoreData */,
 				50ABA1A81B4122490084CF2F /* getFriendsWithCoreDataTests */,
 				50ABA18A1B4122490084CF2F /* Products */,
@@ -87,10 +111,11 @@
 				50ABA1911B4122490084CF2F /* AppDelegate.m */,
 				50ABA1961B4122490084CF2F /* ViewController.h */,
 				50ABA1971B4122490084CF2F /* ViewController.m */,
+				50ABA1CB1B42471D0084CF2F /* showingFriendsViewController.h */,
+				50ABA1CC1B42471D0084CF2F /* showingFriendsViewController.m */,
 				50ABA1991B4122490084CF2F /* Main.storyboard */,
 				50ABA19C1B4122490084CF2F /* Images.xcassets */,
 				50ABA19E1B4122490084CF2F /* LaunchScreen.xib */,
-				50ABA1931B4122490084CF2F /* getFriendsWithCoreData.xcdatamodeld */,
 				50ABA18C1B4122490084CF2F /* Supporting Files */,
 			);
 			path = getFriendsWithCoreData;
@@ -120,6 +145,16 @@
 				50ABA1AA1B4122490084CF2F /* Info.plist */,
 			);
 			name = "Supporting Files";
+			sourceTree = "<group>";
+		};
+		50ABA1C41B423D210084CF2F /* CoreData */ = {
+			isa = PBXGroup;
+			children = (
+				50ABA1C81B42432D0084CF2F /* FriendsTable.h */,
+				50ABA1C91B42432D0084CF2F /* FriendsTable.m */,
+				50ABA1931B4122490084CF2F /* getFriendsWithCoreData.xcdatamodeld */,
+			);
+			name = CoreData;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -223,8 +258,10 @@
 			buildActionMask = 2147483647;
 			files = (
 				50ABA1921B4122490084CF2F /* AppDelegate.m in Sources */,
+				50ABA1CA1B42432D0084CF2F /* FriendsTable.m in Sources */,
 				50ABA1951B4122490084CF2F /* getFriendsWithCoreData.xcdatamodeld in Sources */,
 				50ABA1981B4122490084CF2F /* ViewController.m in Sources */,
+				50ABA1CD1B42471D0084CF2F /* showingFriendsViewController.m in Sources */,
 				50ABA18F1B4122490084CF2F /* main.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -351,6 +388,10 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)",
+				);
 				INFOPLIST_FILE = getFriendsWithCoreData/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -361,6 +402,10 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)",
+				);
 				INFOPLIST_FILE = getFriendsWithCoreData/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -420,6 +465,7 @@
 				50ABA1B11B4122490084CF2F /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		50ABA1B21B4122490084CF2F /* Build configuration list for PBXNativeTarget "getFriendsWithCoreDataTests" */ = {
 			isa = XCConfigurationList;
@@ -428,6 +474,7 @@
 				50ABA1B41B4122490084CF2F /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 
@@ -435,10 +482,12 @@
 		50ABA1931B4122490084CF2F /* getFriendsWithCoreData.xcdatamodeld */ = {
 			isa = XCVersionGroup;
 			children = (
+				50ABA1C01B423AE60084CF2F /* getFriendsWithCoreData 2.xcdatamodel */,
 				50ABA1941B4122490084CF2F /* getFriendsWithCoreData.xcdatamodel */,
 			);
-			currentVersion = 50ABA1941B4122490084CF2F /* getFriendsWithCoreData.xcdatamodel */;
-			path = getFriendsWithCoreData.xcdatamodeld;
+			currentVersion = 50ABA1C01B423AE60084CF2F /* getFriendsWithCoreData 2.xcdatamodel */;
+			name = getFriendsWithCoreData.xcdatamodeld;
+			path = getFriendsWithCoreData/getFriendsWithCoreData.xcdatamodeld;
 			sourceTree = "<group>";
 			versionGroupType = wrapper.xcdatamodel;
 		};
