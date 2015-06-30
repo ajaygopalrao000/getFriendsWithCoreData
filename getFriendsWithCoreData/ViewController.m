@@ -52,8 +52,11 @@
     [getFriends addTarget:self action:@selector(showFriends:) forControlEvents:UIControlEventTouchUpInside];
     [self.view addSubview:getFriends];
     
-   // NSLog(@" END ");
-    
+//    UIButton * deleteData = [[UIButton alloc] initWithFrame:CGRectMake(150, 600, 200, 45)];
+//    [getFriends setTitle:@"Delete Data" forState:UIControlStateNormal];
+//    [getFriends setTitleColor:[UIColor blueColor] forState:UIControlStateNormal];
+//    [getFriends addTarget:self action:@selector(deleteMethod:) forControlEvents:UIControlEventTouchUpInside];
+//    [self.view addSubview:deleteData];
 
 }
 
@@ -114,8 +117,6 @@
                 NSDictionary *param=[NSDictionary dictionaryWithObjectsAndKeys:@"picture.width(1000).height(1000),name,link",@"fields", nil];
                 //Generate the facebook request to the graph api, we'll call the taggle friends api, that will give us the details from our list of friends
                 SLRequest *facebookRequest = [SLRequest requestForServiceType:SLServiceTypeFacebook requestMethod:SLRequestMethodGET URL:[NSURL URLWithString:@"https://graph.facebook.com/v2.0/me/taggable_friends"] parameters:param];
-                //                SLRequest *facebookRequest = [SLRequest requestForServiceType:SLServiceTypeFacebook requestMethod:SLRequestMethodGET URL:[NSURL URLWithString:@"https://graph.facebook.com/USER_ID/friends?format=json&limit=25&offset=25&__after_id=LAST_ID"] parameters:param];
-                //
                 //Set the parameters and request to the FB account
                 [facebookRequest setAccount:facebookAccount];
                 
@@ -133,13 +134,6 @@
                         NSArray *allFriends = [json objectForKey:@"data"];
                         //Prepare the array that we will send
                         friendsArray = [[NSMutableArray alloc]init];
-                        //NSLog(@" allFriends Count is : %li", [allFriends count]);
-                        //NSLog(@"UserName & id is : ");
-                        
-                        // Core Data
-                        
-                        // Friends_Table * objFriend = [NSEntityDescription insertNewObjectForEntityForName:@"Friends_Table" inManagedObjectContext:appDel.managedObjectContext];
-                        
                         
                         for (NSDictionary *userInfo in allFriends)
                         {
@@ -156,36 +150,20 @@
                             friendCollection = [[NSDictionary alloc]initWithObjects:@[userName, imageUrl, userID] forKeys:@[@"username", @"picURL", @"uId"]];
                             //Store each dictionary inside the array that we created
                             [friendsArray addObject:friendCollection];
-                            
-                            // Core Data
-                            
-                            
-                            // storing the data
-                            //                            objFriend.name = userName;
-                            //                            objFriend.uId = userID;
-                            //                            objFriend.url = imageUrl;
-                            
                         }
                        // NSLog(@" The total no. of friends is : %li",[friendsArray count]);
                         [self addMethod];
                         //Send the array that we created to a success call
                         success(friendsArray);
-                        //NSLog(@" Friends Array is %@",friendsArray);
-                        //NSLog(@" Data Source is %@",dataSource);
-                        //[self printArrayValues];
+                        
                     }
-                    
-                    //NSLog(@"URL %@", urlResponse);
-                    //NSLog(@"%@", [[NSString alloc]initWithData:responseData encoding:NSUTF8StringEncoding]);
                 }];
             }
-            //[self getEmployeeDataFromCoreData];
         }else{
             //If there was an error, show in console the code number
             NSLog(@"ERROR: %@", error);
             self.error = inError;
         }
-        //NSLog(@" Size of friends array at the end is %li",[friendsArray count]);
         
     }];
 }
@@ -222,12 +200,9 @@
         
         for (int i = 0; i<2; i++) {
             FriendsTable * objEmployee = [dataSource objectAtIndex:i];
-            //NSDictionary * dict = [friendsArray objectAtIndex:i];
             NSLog(@" Name %i is %@",i, objEmployee.name);
             NSLog(@" user id %i is %@",i,objEmployee.uId);
             NSLog(@" URl %i is %@",i, objEmployee.url);
-            //NSLog(@" data %i is %@",i, objEmployee.data);
-            
         }
         
         
@@ -241,55 +216,37 @@
     //NSLog(@" in addMethod ");
     NSLog(@" Friends array size is %li",[friendsArray count]);
     NSDictionary * dict;
-//    int count = 0;
     for (int i = 0; i<[friendsArray count]; i++) {
     FriendsTable * objFriend = [NSEntityDescription insertNewObjectForEntityForName:@"FriendsTable" inManagedObjectContext:appDel.managedObjectContext];
-    
-//        objFriend.name = [NSString stringWithFormat:@" name %i",i];
-//        objFriend.uId = [NSString stringWithFormat:@" uId %i",i];
-//        objFriend.url = [NSString stringWithFormat:@" url %i",i];
-        
         dict = [friendsArray objectAtIndex:i];
         
         NSURL *picUrl = [NSURL URLWithString:[dict objectForKey:@"picURL"]];
         NSData * data = [NSData dataWithContentsOfURL:picUrl];
-//        
         objFriend.name = [dict objectForKey:@"username"];
         objFriend.uId = [dict objectForKey:@"uId"];
         objFriend.url = [dict objectForKey:@"picURL"];
         objFriend.data = data;
-        //NSLog(@"Data is %@",data);
         
-        
-        //++count;
-    
-    
-    NSError * error;
+        NSError * error;
     [appDel.managedObjectContext save:&error];
     
     if (error == nil) {
-        
-        //[table reloadData];
-//        [self getEmployeeDataFromCoreData];
     }
     }
-//    NSLog(@"Count is %i",count);
-    [self getEmployeeDataFromCoreData];
-    
+    [self getEmployeeDataFromCoreData];    
     
 }
 
 
 -(void)deleteMethod
 {
-    //NSLog(@"deleteMethod");
+    NSLog(@"deleteMethod");
     NSFetchRequest * allCars = [[NSFetchRequest alloc] init];
     [allCars setEntity:[NSEntityDescription entityForName:@"FriendsTable" inManagedObjectContext:appDel.managedObjectContext]];
     [allCars setIncludesPropertyValues:NO]; //only fetch the managedObjectID
     
     NSError * error = nil;
     NSArray * cars = [appDel.managedObjectContext executeFetchRequest:allCars error:&error];
-    //[allCars release];
     //error handling goes here
     for (NSManagedObject * car in cars) {
         [appDel.managedObjectContext deleteObject:car];

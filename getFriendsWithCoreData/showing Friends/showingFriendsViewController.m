@@ -33,9 +33,6 @@
     table.dataSource = self;
     [self.view addSubview:table];
     [self getEmployeeDataFromCoreData];
-    
-    //selectedIndex = -1;
-    
 }
 
 
@@ -47,10 +44,8 @@
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section;
 {
-    //    return [dataSource count];
-    //NSLog(@"numberOfRowsInSection with count is %li ",[friendsArray count]);
-    //return [friendsArray count];
-    return 25;
+    return [dataSource count];
+    //return 25;
 }
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath;
 {
@@ -62,23 +57,6 @@
         cell = [[UITableViewCell alloc]initWithStyle:UITableViewCellStyleDefault reuseIdentifier:@"cell"];
     }
     
-    //NSLog(@"friendsArray size is %li",[friendsArray count]);
-//    NSDictionary * dict = [friendsArray objectAtIndex:indexPath.row];
-//    UIImage *image;
-//    //Get the image from the url received
-//    NSURL *picUrl = [NSURL URLWithString:[dict objectForKey:@"picURL"]];
-//    
-//    image = [UIImage imageWithData:[NSData dataWithContentsOfURL:picUrl]];
-//    [cell.imageView setContentMode:UIViewContentModeScaleAspectFit];
-//    //Hide the activity indicator
-//    [cell.imageView setNeedsLayout];
-//    cell.imageView.image = image;
-//    
-//    cell.textLabel.text = [dict objectForKey:@"username"];
-//    cell.detailTextLabel.text = [dict objectForKey:@"uId"];
-//    //cell.imageView.image = nil; // or cell.poster.image = [UIImage imageNamed:@"placeholder.png"];
-//    
-//    
     UIImage * image;
     
     FriendsTable * objEmployee = [dataSource objectAtIndex:indexPath.row];
