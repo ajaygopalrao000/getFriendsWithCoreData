@@ -20,6 +20,9 @@ typedef void (^FriendsCallbackError)(NSString *errorString);
     UITableView * table;
 }
 
+
+
+@property (weak, nonatomic) IBOutlet FBSDKLoginButton *loginButton;
 @property (strong,nonatomic)FriendsCallbackSuccess success;
 @property (strong,nonatomic)FriendsCallbackError error;
 //Create an array that will be used for storing the dictionary of friends from facebook

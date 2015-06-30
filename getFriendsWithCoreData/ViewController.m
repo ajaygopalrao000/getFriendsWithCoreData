@@ -26,10 +26,11 @@
 
 @implementation ViewController
 
+//@synthesize loginButton;
+
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view, typically from a nib.
-    
     appDel = [[UIApplication sharedApplication] delegate];
     
     self.title = @" List of Friends ";
@@ -40,11 +41,16 @@
     //[self addMethod];
     [self deleteMethod];
     
+    //REMOVED IT AND ADDED IT AS IBOUTLET
+    //IBOUTLETS ARE INITILIAZED BY DEFAULT
     // facebook login
     
+    self.loginButton.readPermissions = @[@"public_profile", @"email", @"user_friends"];
+    
     FBSDKLoginButton *loginButton = [[FBSDKLoginButton alloc] init];
-    loginButton.center = self.view.center;
+   loginButton.center = self.view.center;
     [self.view addSubview:loginButton];
+    
     
     UIButton * getFriends = [[UIButton alloc] initWithFrame:CGRectMake(80, 400, 200, 45)];
     [getFriends setTitle:@"Get My Friends List" forState:UIControlStateNormal];
@@ -53,8 +59,12 @@
     [self.view addSubview:getFriends];
     
    // NSLog(@" END ");
-    
+    [FBSDKProfile enableUpdatesOnAccessTokenChange:YES];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(onProfileUpdated:) name:FBSDKProfileDidChangeNotification object:nil];
+}
 
+- (void)onProfileUpdated:(NSNotification*)notification {
+    
 }
 
 // Getting facebook data
@@ -77,20 +87,57 @@
     else
     {
         NSLog(@" [results count] != 25 ");
-        [self getFacebookFriends:^(NSArray *successArray) {
-            //Receive the array that is generated after success
+        [self fetchFacebookFriends:^(NSArray *successArray) {
             self.theFriendsArray = successArray;
+            
+            
+            //COREDATA
+            //Prepare the array that we will send
+            friendsArray = [[NSMutableArray alloc]init];
+            for (NSDictionary *userInfo in successArray)
+            {
+                
+                NSString *userName = [userInfo objectForKey:@"name"];
+                NSString *userID = [userInfo objectForKey:@"id"];
+                
+                NSDictionary *pictureData = [[userInfo objectForKey:@"picture"] objectForKey:@"data"];
+                NSString *imageUrl = [pictureData objectForKey:@"url"];
+                //Save all the user information in a dictionary that will contain the basic info that we need
+                friendCollection = [[NSDictionary alloc]initWithObjects:@[userName, imageUrl, userID] forKeys:@[@"username", @"picURL", @"uId"]];
+                //Store each dictionary inside the array that we created
+                [friendsArray addObject:friendCollection];
+                
+            }
+            [self addMethod];
+            //
+            
             dispatch_async(dispatch_get_main_queue(), ^{
                 showingFriendsViewController * showNavCont = [[showingFriendsViewController alloc] init];
                 [self.navigationController pushViewController:showNavCont animated:YES];
                 //[table reloadData];
             });
-        } error:^(NSString *errorString) {
+            
+        }error:^(NSString *errorString) {
+            
         }];
-        
     }
     
 }
+
+-(void)fetchFacebookFriends:(FriendsCallbackSuccess)success error:(FriendsCallbackError)inError {
+    
+    FBSDKGraphRequest * request = [[FBSDKGraphRequest alloc] initWithGraphPath:[NSString stringWithFormat:@"/%@/taggable_friends", [[FBSDKProfile currentProfile] userID]] parameters:Nil HTTPMethod:@"GET"];
+    
+    [request startWithCompletionHandler:^(FBSDKGraphRequestConnection *connection, id result, NSError *error) {
+        if (error == nil) {
+            NSArray *allFriends = [result objectForKey:@"data"];
+            success(allFriends);
+        } else {
+            inError(error.description);
+        }
+    }];
+}
+
 
 -(void)getFacebookFriends: (FriendsCallbackSuccess)success error:(FriendsCallbackError)inError
 {
@@ -101,10 +148,10 @@
     //Give the app ID (the one we copied before in our FB application at developer's site), permission keys and the audience that can see what we do (in case we do a POST)
     NSDictionary *FacebookOptions = @{ACFacebookAppIdKey: @"872717522798477", ACFacebookPermissionsKey: @[@"public_profile",@"email",@"user_friends"],ACFacebookAudienceKey:ACFacebookAudienceFriends};
     //Request access to the account with the options that we established before
-    [store requestAccessToAccountsWithType:facebookAccount options:FacebookOptions completion:^(BOOL granted, NSError *error) {
+    /*[store requestAccessToAccountsWithType:facebookAccount options:FacebookOptions completion:^(BOOL granted, NSError *error) {
         //Check if everything inside our app that we created at facebook developer is valid
-        if (granted)
-        {
+        //if (granted)
+        {*/
             NSArray *accounts = [store accountsWithAccountType:facebookAccount];
             //Get the accounts linked to facebook in the device
             if ([accounts count]>0) {
@@ -113,7 +160,7 @@
                 //Set the parameters that we require for our friend list
                 NSDictionary *param=[NSDictionary dictionaryWithObjectsAndKeys:@"picture.width(1000).height(1000),name,link",@"fields", nil];
                 //Generate the facebook request to the graph api, we'll call the taggle friends api, that will give us the details from our list of friends
-                SLRequest *facebookRequest = [SLRequest requestForServiceType:SLServiceTypeFacebook requestMethod:SLRequestMethodGET URL:[NSURL URLWithString:@"https://graph.facebook.com/v2.0/me/taggable_friends"] parameters:param];
+                SLRequest *facebookRequest = [SLRequest requestForServiceType:SLServiceTypeFacebook requestMethod:SLRequestMethodGET URL:[NSURL URLWithString:@"https://graph.facebook.com/v2.0/me/taggable_friends?limit=999"] parameters:param];
                 //                SLRequest *facebookRequest = [SLRequest requestForServiceType:SLServiceTypeFacebook requestMethod:SLRequestMethodGET URL:[NSURL URLWithString:@"https://graph.facebook.com/USER_ID/friends?format=json&limit=25&offset=25&__after_id=LAST_ID"] parameters:param];
                 //
                 //Set the parameters and request to the FB account
@@ -178,7 +225,7 @@
                     //NSLog(@"URL %@", urlResponse);
                     //NSLog(@"%@", [[NSString alloc]initWithData:responseData encoding:NSUTF8StringEncoding]);
                 }];
-            }
+            }/*
             //[self getEmployeeDataFromCoreData];
         }else{
             //If there was an error, show in console the code number
@@ -187,7 +234,7 @@
         }
         //NSLog(@" Size of friends array at the end is %li",[friendsArray count]);
         
-    }];
+    }];*/
 }
 
 - (void) printArrayValues
