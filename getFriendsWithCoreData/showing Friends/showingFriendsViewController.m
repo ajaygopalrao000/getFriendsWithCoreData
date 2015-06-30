@@ -44,10 +44,8 @@
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section;
 {
-    //    return [dataSource count];
-    //NSLog(@"numberOfRowsInSection with count is %li ",[friendsArray count]);
-    //return [friendsArray count];
-    return 25;
+    return [dataSource count];
+    //return 25;
 }
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath;
 {
