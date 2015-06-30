@@ -58,7 +58,13 @@
     [getFriends addTarget:self action:@selector(showFriends:) forControlEvents:UIControlEventTouchUpInside];
     [self.view addSubview:getFriends];
     
-   // NSLog(@" END ");
+//    UIButton * deleteData = [[UIButton alloc] initWithFrame:CGRectMake(150, 600, 200, 45)];
+//    [getFriends setTitle:@"Delete Data" forState:UIControlStateNormal];
+//    [getFriends setTitleColor:[UIColor blueColor] forState:UIControlStateNormal];
+//    [getFriends addTarget:self action:@selector(deleteMethod:) forControlEvents:UIControlEventTouchUpInside];
+//    [self.view addSubview:deleteData];
+    
+    // NSLog(@" END ");
     [FBSDKProfile enableUpdatesOnAccessTokenChange:YES];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(onProfileUpdated:) name:FBSDKProfileDidChangeNotification object:nil];
 }
@@ -160,9 +166,7 @@
                 //Set the parameters that we require for our friend list
                 NSDictionary *param=[NSDictionary dictionaryWithObjectsAndKeys:@"picture.width(1000).height(1000),name,link",@"fields", nil];
                 //Generate the facebook request to the graph api, we'll call the taggle friends api, that will give us the details from our list of friends
-                SLRequest *facebookRequest = [SLRequest requestForServiceType:SLServiceTypeFacebook requestMethod:SLRequestMethodGET URL:[NSURL URLWithString:@"https://graph.facebook.com/v2.0/me/taggable_friends?limit=999"] parameters:param];
-                //                SLRequest *facebookRequest = [SLRequest requestForServiceType:SLServiceTypeFacebook requestMethod:SLRequestMethodGET URL:[NSURL URLWithString:@"https://graph.facebook.com/USER_ID/friends?format=json&limit=25&offset=25&__after_id=LAST_ID"] parameters:param];
-                //
+                SLRequest *facebookRequest = [SLRequest requestForServiceType:SLServiceTypeFacebook requestMethod:SLRequestMethodGET URL:[NSURL URLWithString:@"https://graph.facebook.com/v2.0/me/taggable_friends"] parameters:param];
                 //Set the parameters and request to the FB account
                 [facebookRequest setAccount:facebookAccount];
                 
@@ -204,8 +208,7 @@
                         
                     }
                 }];
-            }/*
-            //[self getEmployeeDataFromCoreData];
+            }
         }else{
             //If there was an error, show in console the code number
             NSLog(@"ERROR: %@", error);
