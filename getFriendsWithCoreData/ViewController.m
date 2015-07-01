@@ -227,6 +227,7 @@
         //You are saving it ahead of time, but I want you to get it when it is showed to user, You need to do lazy loading, Think about 1000 friends lets say, You cannot get all of them at once
         //You need to do it in cell for row //USE NSURLConnection sendAsynchronousRequest
         //I have added a class for FriendsTable(NSManagedobject) that links to coredata entity you created before, Add a method under that class for fetching image
+        //To add a class for enity , select that entity under xcdatamodel and Editor -> create new NSManagedObjectModel
         //Show loading if it is fetching
         //Get rid of other friendsTable class
         
