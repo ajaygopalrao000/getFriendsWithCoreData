@@ -21,6 +21,7 @@
 		50ABA1BF1B422E090084CF2F /* Social.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 50ABA1BE1B422E090084CF2F /* Social.framework */; };
 		50ABA1CA1B42432D0084CF2F /* FriendsTable.m in Sources */ = {isa = PBXBuildFile; fileRef = 50ABA1C91B42432D0084CF2F /* FriendsTable.m */; };
 		50ABA1CD1B42471D0084CF2F /* showingFriendsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 50ABA1CC1B42471D0084CF2F /* showingFriendsViewController.m */; };
+		E2B872A11B447D320041763A /* FriendsTable.m in Sources */ = {isa = PBXBuildFile; fileRef = E2B872A01B447D310041763A /* FriendsTable.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -57,6 +58,9 @@
 		50ABA1C91B42432D0084CF2F /* FriendsTable.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FriendsTable.m; sourceTree = "<group>"; };
 		50ABA1CB1B42471D0084CF2F /* showingFriendsViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = showingFriendsViewController.h; path = "showing Friends/showingFriendsViewController.h"; sourceTree = "<group>"; };
 		50ABA1CC1B42471D0084CF2F /* showingFriendsViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = showingFriendsViewController.m; path = "showing Friends/showingFriendsViewController.m"; sourceTree = "<group>"; };
+		E2B8729C1B447D140041763A /* getFriendsWithCoreData-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "getFriendsWithCoreData-Bridging-Header.h"; sourceTree = "<group>"; };
+		E2B8729F1B447D310041763A /* FriendsTable.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FriendsTable.h; sourceTree = "<group>"; };
+		E2B872A01B447D310041763A /* FriendsTable.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FriendsTable.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -84,6 +88,8 @@
 		50ABA1801B4122490084CF2F = {
 			isa = PBXGroup;
 			children = (
+				E2B8729F1B447D310041763A /* FriendsTable.h */,
+				E2B872A01B447D310041763A /* FriendsTable.m */,
 				50ABA1C41B423D210084CF2F /* CoreData */,
 				50ABA1BE1B422E090084CF2F /* Social.framework */,
 				50ABA1B81B422D800084CF2F /* FBSDKCoreKit.framework */,
@@ -92,6 +98,7 @@
 				50ABA18B1B4122490084CF2F /* getFriendsWithCoreData */,
 				50ABA1A81B4122490084CF2F /* getFriendsWithCoreDataTests */,
 				50ABA18A1B4122490084CF2F /* Products */,
+				E2B8729C1B447D140041763A /* getFriendsWithCoreData-Bridging-Header.h */,
 			);
 			sourceTree = "<group>";
 		};
@@ -263,6 +270,7 @@
 				50ABA1981B4122490084CF2F /* ViewController.m in Sources */,
 				50ABA1CD1B42471D0084CF2F /* showingFriendsViewController.m in Sources */,
 				50ABA18F1B4122490084CF2F /* main.m in Sources */,
+				E2B872A11B447D320041763A /* FriendsTable.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -388,6 +396,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CLANG_ENABLE_MODULES = YES;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)",
@@ -395,6 +404,8 @@
 				INFOPLIST_FILE = getFriendsWithCoreData/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_OBJC_BRIDGING_HEADER = "getFriendsWithCoreData-Bridging-Header.h";
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 			};
 			name = Debug;
 		};
@@ -402,6 +413,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CLANG_ENABLE_MODULES = YES;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)",
@@ -409,6 +421,7 @@
 				INFOPLIST_FILE = getFriendsWithCoreData/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_OBJC_BRIDGING_HEADER = "getFriendsWithCoreData-Bridging-Header.h";
 			};
 			name = Release;
 		};
