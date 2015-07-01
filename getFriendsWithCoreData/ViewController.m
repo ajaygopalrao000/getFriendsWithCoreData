@@ -21,6 +21,10 @@
     
     NSMutableArray *friendsArray;
     NSDictionary *friendCollection;
+    
+    // new fields for username and user image
+    UILabel *userNameLabel;
+    UIImageView * userImageView;
 }
 @end
 
@@ -32,14 +36,11 @@
     [super viewDidLoad];
     // Do any additional setup after loading the view, typically from a nib.
     appDel = [[UIApplication sharedApplication] delegate];
-    
     self.title = @" List of Friends ";
     self.view.backgroundColor = [UIColor whiteColor];
-    //[self showFriends];
-    
     dataSource = [[NSMutableArray alloc] init];
-    //[self addMethod];
-    [self deleteMethod];
+    
+    //[self deleteMethod];
     
     //REMOVED IT AND ADDED IT AS IBOUTLET
     //IBOUTLETS ARE INITILIAZED BY DEFAULT
@@ -51,6 +52,25 @@
    loginButton.center = self.view.center;
     [self.view addSubview:loginButton];
     
+    // User name => display's name of the user logged in
+    
+    userNameLabel = [[UILabel alloc] initWithFrame:CGRectMake(40, 80, 180, 45)];
+    userNameLabel.textAlignment = NSTextAlignmentCenter;
+    userNameLabel.text = @"Hello : ";
+    
+    userNameLabel.textColor = [UIColor blueColor];
+    
+    [self.view addSubview:userNameLabel];
+    
+    // User Image => display's profile picture of the user
+    
+    userImageView = [[UIImageView alloc] initWithFrame:CGRectMake(80, 140, 225, 150)];
+    
+    [self.view addSubview:userImageView];
+    
+    // calling getUserData method to set the logged in user detail's like name, image.
+    [self getUserData];
+  
     
     UIButton * getFriends = [[UIButton alloc] initWithFrame:CGRectMake(80, 400, 200, 45)];
     [getFriends setTitle:@"Get My Friends List" forState:UIControlStateNormal];
@@ -58,15 +78,36 @@
     [getFriends addTarget:self action:@selector(showFriends:) forControlEvents:UIControlEventTouchUpInside];
     [self.view addSubview:getFriends];
     
-//    UIButton * deleteData = [[UIButton alloc] initWithFrame:CGRectMake(150, 600, 200, 45)];
-//    [getFriends setTitle:@"Delete Data" forState:UIControlStateNormal];
-//    [getFriends setTitleColor:[UIColor blueColor] forState:UIControlStateNormal];
-//    [getFriends addTarget:self action:@selector(deleteMethod:) forControlEvents:UIControlEventTouchUpInside];
-//    [self.view addSubview:deleteData];
+    UIButton * deleteData = [[UIButton alloc] initWithFrame:CGRectMake(80, 450, 200, 45)];
+    [deleteData setTitle:@"Delete Data" forState:UIControlStateNormal];
+    [deleteData setTitleColor:[UIColor blueColor] forState:UIControlStateNormal];
+    [deleteData addTarget:self action:@selector(deleteMethod) forControlEvents:UIControlEventTouchUpInside];
+    [self.view addSubview:deleteData];
     
     // NSLog(@" END ");
     [FBSDKProfile enableUpdatesOnAccessTokenChange:YES];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(onProfileUpdated:) name:FBSDKProfileDidChangeNotification object:nil];
+}
+
+// get's the details of the user who is currently logged in
+- (void) getUserData
+{
+    if ([FBSDKAccessToken currentAccessToken]) {
+        [[[FBSDKGraphRequest alloc] initWithGraphPath:@"me" parameters:nil]
+         startWithCompletionHandler:^(FBSDKGraphRequestConnection *connection, id result, NSError *error) {
+             if (!error) {
+                 //NSLog(@"fetched user:%@", result);
+                 NSString *userNme = [result objectForKey:@"name"];
+                 NSString *userImageURL = [NSString stringWithFormat:@"https://graph.facebook.com/%@/picture?type=large", [result objectForKey:@"id"]];
+                 NSURL *picUrl = [NSURL URLWithString:userImageURL];
+                 //NSLog(@" Name : %@ \n imageURl : %@",userNme, userImageURL);
+                 userNameLabel.text = [NSString stringWithFormat:@" Hello : %@",userNme];
+                 userImageView.image = [UIImage imageWithData:[NSData dataWithContentsOfURL:picUrl]];
+                 
+             }
+         }];
+    }
+    
 }
 
 - (void)onProfileUpdated:(NSNotification*)notification {
@@ -95,7 +136,6 @@
         NSLog(@" [results count] != 25 ");
         [self fetchFacebookFriends:^(NSArray *successArray) {
             self.theFriendsArray = successArray;
-            
             
             //COREDATA
             //Prepare the array that we will send
@@ -143,92 +183,6 @@
         }
     }];
 }
-
-/*
--(void)getFacebookFriends: (FriendsCallbackSuccess)success error:(FriendsCallbackError)inError
-{
-    //NSLog(@"getFacebookFriends");
-    ACAccountStore *store = [[ACAccountStore alloc]init];
-    //Specify the account that we're going to use, in this case Facebook
-    ACAccountType *facebookAccount = [store accountTypeWithAccountTypeIdentifier:ACAccountTypeIdentifierFacebook];
-    //Give the app ID (the one we copied before in our FB application at developer's site), permission keys and the audience that can see what we do (in case we do a POST)
-    NSDictionary *FacebookOptions = @{ACFacebookAppIdKey: @"872717522798477", ACFacebookPermissionsKey: @[@"public_profile",@"email",@"user_friends"],ACFacebookAudienceKey:ACFacebookAudienceFriends};
-    //Request access to the account with the options that we established before
-    [store requestAccessToAccountsWithType:facebookAccount options:FacebookOptions completion:^(BOOL granted, NSError *error) {
-        //Check if everything inside our app that we created at facebook developer is valid
-        //if (granted)
-        {
-            NSArray *accounts = [store accountsWithAccountType:facebookAccount];
-            //Get the accounts linked to facebook in the device
-            if ([accounts count]>0) {
-                ACAccount *facebookAccount = [accounts lastObject];
-                
-                //Set the parameters that we require for our friend list
-                NSDictionary *param=[NSDictionary dictionaryWithObjectsAndKeys:@"picture.width(1000).height(1000),name,link",@"fields", nil];
-                //Generate the facebook request to the graph api, we'll call the taggle friends api, that will give us the details from our list of friends
-                SLRequest *facebookRequest = [SLRequest requestForServiceType:SLServiceTypeFacebook requestMethod:SLRequestMethodGET URL:[NSURL URLWithString:@"https://graph.facebook.com/v2.0/me/taggable_friends"] parameters:param];
-                //Set the parameters and request to the FB account
-                [facebookRequest setAccount:facebookAccount];
-                
-                [facebookRequest performRequestWithHandler:^(NSData *responseData, NSHTTPURLResponse *urlResponse, NSError *error) {
-                    // Read the returned response
-                    if(!error){
-                        self.success = success;
-                        //Read the response in a JSON format
-                        id json =[NSJSONSerialization JSONObjectWithData:responseData options:kNilOptions error:&error];
-                        //NSLog(@"Dictionary contains data: %@", json );
-                        if([json objectForKey:@"error"]!=nil)
-                        {
-                        }
-                        //Get the data inside of the json in an array
-                        NSArray *allFriends = [json objectForKey:@"data"];
-                        //Prepare the array that we will send
-                        friendsArray = [[NSMutableArray alloc]init];
-                        
-                        for (NSDictionary *userInfo in allFriends)
-                        {
-                            
-                            NSString *userName = [userInfo objectForKey:@"name"];
-                            
-                            NSString *userID = [userInfo objectForKey:@"id"];
-                            
-                            //NSLog(@"user_ID %@",userID);
-                            
-                            NSDictionary *pictureData = [[userInfo objectForKey:@"picture"] objectForKey:@"data"];
-                            NSString *imageUrl = [pictureData objectForKey:@"url"];
-                            //Save all the user information in a dictionary that will contain the basic info that we need
-                            friendCollection = [[NSDictionary alloc]initWithObjects:@[userName, imageUrl, userID] forKeys:@[@"username", @"picURL", @"uId"]];
-                            //Store each dictionary inside the array that we created
-                            [friendsArray addObject:friendCollection];
-                        }
-                       // NSLog(@" The total no. of friends is : %li",[friendsArray count]);
-                        [self addMethod];
-                        //Send the array that we created to a success call
-                        success(friendsArray);
-                        
-                    }
-                }];
-            }
-        } else{
-            //If there was an error, show in console the code number
-            NSLog(@"ERROR: %@", error);
-            self.error = inError;
-        }
-    }];
-}*/
-
-- (void) printArrayValues
-{
-    NSLog(@" Friends array count is %li",[friendsArray count]);
-    for (int i =0; i<25; i++) {
-        NSDictionary * dict = [friendsArray objectAtIndex:i];
-        NSLog(@" Name %i is %@",i, [dict objectForKey:@"username"]);
-        NSLog(@" image url is %@",[dict objectForKey:@"picURL"]);
-    }
-}
-
-
-
 
 -(void)getEmployeeDataFromCoreData
 {

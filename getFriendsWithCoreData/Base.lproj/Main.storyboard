@@ -17,10 +17,10 @@
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                         <subviews>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="CAw-WP-mZk" customClass="FBSDKLoginButton">
-                                <rect key="frame" x="15" y="60" width="570" height="50"/>
+                                <rect key="frame" x="15" y="300" width="570" height="50"/>
                                 <color key="backgroundColor" red="0.58153803660000003" green="0.0" blue="0.58136001400000004" alpha="1" colorSpace="calibratedRGB"/>
                                 <constraints>
-                                    <constraint firstAttribute="height" constant="50" id="u3T-Vn-g4d"/>
+                                    <constraint firstAttribute="height" constant="50" id="fid-Db-qrh"/>
                                 </constraints>
                                 <state key="normal" title="Button">
                                     <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
@@ -29,7 +29,7 @@
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
                         <constraints>
-                            <constraint firstItem="CAw-WP-mZk" firstAttribute="top" secondItem="kh9-bI-dsS" secondAttribute="top" constant="60" id="YTQ-uE-vN0"/>
+                            <constraint firstItem="CAw-WP-mZk" firstAttribute="top" secondItem="kh9-bI-dsS" secondAttribute="top" constant="300" id="YTQ-uE-vN0"/>
                             <constraint firstItem="CAw-WP-mZk" firstAttribute="leading" secondItem="kh9-bI-dsS" secondAttribute="leading" constant="15" id="kcR-ob-mXV"/>
                             <constraint firstAttribute="trailing" secondItem="CAw-WP-mZk" secondAttribute="trailing" constant="15" id="nSL-0A-Tqd"/>
                         </constraints>

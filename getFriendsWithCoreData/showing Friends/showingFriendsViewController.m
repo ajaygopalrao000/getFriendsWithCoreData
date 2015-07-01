@@ -60,8 +60,11 @@
     UIImage * image;
     
     FriendsTable * objEmployee = [dataSource objectAtIndex:indexPath.row];
-    NSURL *picUrl = [NSURL URLWithString:objEmployee.url];
-    image = [UIImage imageWithData:[NSData dataWithContentsOfURL:picUrl]];
+//    NSURL *picUrl = [NSURL URLWithString:objEmployee.url];
+//    image = [UIImage imageWithData:[NSData dataWithContentsOfURL:picUrl]];
+
+    // retrieved stored data of the image from core data
+    image = [UIImage imageWithData:objEmployee.data];
     [cell.imageView setContentMode:UIViewContentModeScaleAspectFit];
         //Hide the activity indicator
     [cell.imageView setNeedsLayout];
