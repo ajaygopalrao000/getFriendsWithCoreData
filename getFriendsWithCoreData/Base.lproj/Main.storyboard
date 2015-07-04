@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="7706" systemVersion="14D136" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="vXZ-lx-hvc">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="7706" systemVersion="14E46" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="hxb-kJ-t7x">
     <dependencies>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="7703"/>
     </dependencies>
@@ -7,39 +7,191 @@
         <!--View Controller-->
         <scene sceneID="ufC-wZ-h7g">
             <objects>
-                <viewController id="vXZ-lx-hvc" customClass="ViewController" sceneMemberID="viewController">
+                <viewController useStoryboardIdentifierAsRestorationIdentifier="YES" id="vXZ-lx-hvc" customClass="ViewController" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="jyV-Pf-zRb"/>
                         <viewControllerLayoutGuide type="bottom" id="2fi-mo-0CV"/>
                     </layoutGuides>
                     <view key="view" contentMode="scaleToFill" id="kh9-bI-dsS">
-                        <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="504"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                         <subviews>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="CAw-WP-mZk" customClass="FBSDKLoginButton">
-                                <rect key="frame" x="15" y="300" width="570" height="50"/>
-                                <color key="backgroundColor" red="0.58153803660000003" green="0.0" blue="0.58136001400000004" alpha="1" colorSpace="calibratedRGB"/>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="9ia-Fr-EQh">
+                                <rect key="frame" x="60" y="320" width="200" height="35"/>
                                 <constraints>
-                                    <constraint firstAttribute="height" constant="50" id="fid-Db-qrh"/>
+                                    <constraint firstAttribute="height" constant="35" id="MuD-A4-eG4"/>
+                                    <constraint firstAttribute="width" constant="200" id="dSf-EH-wp7"/>
                                 </constraints>
-                                <state key="normal" title="Button">
+                                <fontDescription key="fontDescription" name="BradleyHandITCTT-Bold" family="Bradley Hand" pointSize="18"/>
+                                <state key="normal" title="Get My Friend List">
+                                    <color key="titleColor" red="0.045442745289931974" green="0.54897268767345642" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                                     <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                 </state>
+                                <connections>
+                                    <action selector="getMyFrndsBtnClicked:" destination="vXZ-lx-hvc" eventType="touchUpInside" id="Pfw-Ft-xyg"/>
+                                    <segue destination="F9O-rY-AjK" kind="show" identifier="ShowFriendsListSegue" id="K3i-2f-JYk"/>
+                                </connections>
+                            </button>
+                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="profile_Pic_Default 128*128.png" translatesAutoresizingMaskIntoConstraints="NO" id="52G-Kz-HXE">
+                                <rect key="frame" x="96" y="80" width="128" height="135"/>
+                            </imageView>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Hello : User" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="0CQ-HD-sSW">
+                                <rect key="frame" x="20" y="20" width="280" height="40"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="280" id="bsD-Xc-CqA"/>
+                                    <constraint firstAttribute="height" constant="40" id="pct-Fr-YVo"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" name="Chalkduster" family="Chalkduster" pointSize="20"/>
+                                <color key="textColor" red="0.0" green="0.47843137250000001" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="eML-bf-xyC">
+                                <rect key="frame" x="110" y="380" width="100" height="30"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="30" id="0fi-It-5HW"/>
+                                    <constraint firstAttribute="width" constant="100" id="4tK-JP-ic1"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" name="BradleyHandITCTT-Bold" family="Bradley Hand" pointSize="18"/>
+                                <state key="normal" title="Delete Data">
+                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                </state>
+                                <connections>
+                                    <action selector="deleteButtonClicked:" destination="vXZ-lx-hvc" eventType="touchUpInside" id="yTi-jX-p13"/>
+                                </connections>
+                            </button>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="CAw-WP-mZk" customClass="FBSDKLoginButton">
+                                <rect key="frame" x="60" y="250" width="200" height="35"/>
+                                <color key="backgroundColor" red="0.28139589783342206" green="0.46848463451156558" blue="0.9397293244949495" alpha="1" colorSpace="calibratedRGB"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="200" id="2FL-l3-gw7"/>
+                                    <constraint firstAttribute="height" constant="35" id="fid-Db-qrh"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" name="BradleyHandITCTT-Bold" family="Bradley Hand" pointSize="18"/>
+                                <color key="tintColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                                <state key="normal" title="Button">
+                                    <color key="titleShadowColor" red="0.28139589780000002" green="0.4684846345" blue="0.93972932450000002" alpha="1" colorSpace="calibratedRGB"/>
+                                </state>
+                                <userDefinedRuntimeAttributes>
+                                    <userDefinedRuntimeAttribute type="number" keyPath="layer.cornerRadius">
+                                        <integer key="value" value="10"/>
+                                    </userDefinedRuntimeAttribute>
+                                </userDefinedRuntimeAttributes>
                             </button>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
                         <constraints>
-                            <constraint firstItem="CAw-WP-mZk" firstAttribute="top" secondItem="kh9-bI-dsS" secondAttribute="top" constant="300" id="YTQ-uE-vN0"/>
-                            <constraint firstItem="CAw-WP-mZk" firstAttribute="leading" secondItem="kh9-bI-dsS" secondAttribute="leading" constant="15" id="kcR-ob-mXV"/>
-                            <constraint firstAttribute="trailing" secondItem="CAw-WP-mZk" secondAttribute="trailing" constant="15" id="nSL-0A-Tqd"/>
+                            <constraint firstItem="52G-Kz-HXE" firstAttribute="top" secondItem="0CQ-HD-sSW" secondAttribute="bottom" constant="20" id="6GQ-ht-VuW"/>
+                            <constraint firstItem="eML-bf-xyC" firstAttribute="top" secondItem="kh9-bI-dsS" secondAttribute="top" constant="380" id="6z5-UM-b6N"/>
+                            <constraint firstItem="eML-bf-xyC" firstAttribute="top" secondItem="9ia-Fr-EQh" secondAttribute="bottom" constant="25" id="E57-a6-3E1"/>
+                            <constraint firstAttribute="centerX" secondItem="52G-Kz-HXE" secondAttribute="centerX" id="Lqc-de-rR0"/>
+                            <constraint firstItem="9ia-Fr-EQh" firstAttribute="top" secondItem="kh9-bI-dsS" secondAttribute="top" constant="320" id="SW8-jF-0CV"/>
+                            <constraint firstItem="CAw-WP-mZk" firstAttribute="top" secondItem="kh9-bI-dsS" secondAttribute="top" constant="250" id="YTQ-uE-vN0"/>
+                            <constraint firstAttribute="centerX" secondItem="CAw-WP-mZk" secondAttribute="centerX" id="bRX-c8-FYR"/>
+                            <constraint firstAttribute="centerX" secondItem="9ia-Fr-EQh" secondAttribute="centerX" id="lhr-iW-Ldd"/>
+                            <constraint firstItem="0CQ-HD-sSW" firstAttribute="top" secondItem="kh9-bI-dsS" secondAttribute="top" constant="20" id="mb3-Oj-1Ly"/>
+                            <constraint firstItem="CAw-WP-mZk" firstAttribute="top" secondItem="52G-Kz-HXE" secondAttribute="bottom" constant="35" id="nTq-SK-eFQ"/>
+                            <constraint firstAttribute="centerX" secondItem="0CQ-HD-sSW" secondAttribute="centerX" id="u3D-Tc-6l9"/>
+                            <constraint firstItem="52G-Kz-HXE" firstAttribute="top" secondItem="kh9-bI-dsS" secondAttribute="top" constant="80" id="y2Y-UL-tGu"/>
+                            <constraint firstAttribute="centerX" secondItem="eML-bf-xyC" secondAttribute="centerX" id="z3S-VJ-6VA"/>
                         </constraints>
                     </view>
+                    <extendedEdge key="edgesForExtendedLayout" bottom="YES"/>
+                    <navigationItem key="navigationItem" id="9Z6-55-7Xs"/>
+                    <simulatedScreenMetrics key="simulatedDestinationMetrics" type="retina4"/>
                     <connections>
-                        <outlet property="loginButton" destination="CAw-WP-mZk" id="fbU-QU-2Vm"/>
+                        <outlet property="getMyFriendButton" destination="9ia-Fr-EQh" id="Jvr-oS-Sd3"/>
+                        <outlet property="loginButton" destination="CAw-WP-mZk" id="Rim-cV-I3z"/>
+                        <outlet property="usrImgView" destination="52G-Kz-HXE" id="z2P-5y-lDE"/>
+                        <outlet property="usrNameLabel" destination="0CQ-HD-sSW" id="2Bh-oG-X2C"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="x5A-6p-PRh" sceneMemberID="firstResponder"/>
             </objects>
+            <point key="canvasLocation" x="1975" y="236"/>
+        </scene>
+        <!--Showing Friends View Controller-->
+        <scene sceneID="1we-Wp-Hw0">
+            <objects>
+                <viewController storyboardIdentifier="showingFriendsViewController" useStoryboardIdentifierAsRestorationIdentifier="YES" id="F9O-rY-AjK" customClass="showingFriendsViewController" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="jkT-pc-EHs"/>
+                        <viewControllerLayoutGuide type="bottom" id="XU6-u7-PGo"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="Q5t-b5-W2G">
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="504"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                    </view>
+                    <extendedEdge key="edgesForExtendedLayout" bottom="YES"/>
+                    <simulatedScreenMetrics key="simulatedDestinationMetrics" type="retina4"/>
+                    <connections>
+                        <segue destination="eCf-cU-Mps" kind="show" identifier="showStoryBoard" id="s6e-Sa-WCa"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="RVh-oR-Hkg" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="2401" y="236"/>
+        </scene>
+        <!--Example Story BoardVC-->
+        <scene sceneID="itw-mO-Pyn">
+            <objects>
+                <viewController id="eCf-cU-Mps" customClass="ExampleStoryBoardVC" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="50S-ft-2CA"/>
+                        <viewControllerLayoutGuide type="bottom" id="LC3-De-bRc"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="zwu-5w-Gl1">
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="504"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="NVI-wH-bQO">
+                                <rect key="frame" x="110" y="30" width="100" height="30"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="100" id="I7m-C9-R4I"/>
+                                    <constraint firstAttribute="height" constant="30" id="dHY-yu-UuU"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <constraints>
+                            <constraint firstItem="NVI-wH-bQO" firstAttribute="top" secondItem="zwu-5w-Gl1" secondAttribute="top" constant="30" id="CrU-vX-znZ"/>
+                            <constraint firstAttribute="centerX" secondItem="NVI-wH-bQO" secondAttribute="centerX" id="dv0-MP-eDu"/>
+                        </constraints>
+                    </view>
+                    <extendedEdge key="edgesForExtendedLayout" bottom="YES"/>
+                    <simulatedScreenMetrics key="simulatedDestinationMetrics" type="retina4"/>
+                    <connections>
+                        <outlet property="exampleLabel" destination="NVI-wH-bQO" id="ZJm-Ij-YeL"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="UzA-gF-sEP" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="2824" y="236"/>
+        </scene>
+        <!--Navigation Controller-->
+        <scene sceneID="AYn-Sa-RGF">
+            <objects>
+                <navigationController automaticallyAdjustsScrollViewInsets="NO" id="hxb-kJ-t7x" sceneMemberID="viewController">
+                    <toolbarItems/>
+                    <simulatedScreenMetrics key="simulatedDestinationMetrics" type="retina4"/>
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="pJV-Ke-fE9">
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
+                        <autoresizingMask key="autoresizingMask"/>
+                    </navigationBar>
+                    <nil name="viewControllers"/>
+                    <connections>
+                        <segue destination="vXZ-lx-hvc" kind="relationship" relationship="rootViewController" id="Xge-v8-92v"/>
+                    </connections>
+                </navigationController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="Wed-IA-BHu" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="1577" y="236"/>
         </scene>
     </scenes>
+    <resources>
+        <image name="profile_Pic_Default 128*128.png" width="128" height="128"/>
+    </resources>
 </document>

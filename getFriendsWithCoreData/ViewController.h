@@ -16,13 +16,16 @@ typedef void (^FriendsCallbackError)(NSString *errorString);
 
 
 @interface ViewController : UIViewController
-{
-    UITableView * table;
-}
+
+
+// References from storyboard
+@property (weak, nonatomic) IBOutlet UILabel *usrNameLabel;
+@property (weak, nonatomic) IBOutlet UIImageView *usrImgView;
+@property (strong, nonatomic) IBOutlet FBSDKLoginButton *loginButton;
+@property (weak, nonatomic) IBOutlet UIButton *getMyFriendButton;
 
 
 
-@property (weak, nonatomic) IBOutlet FBSDKLoginButton *loginButton;
 @property (strong,nonatomic)FriendsCallbackSuccess success;
 @property (strong,nonatomic)FriendsCallbackError error;
 //Create an array that will be used for storing the dictionary of friends from facebook

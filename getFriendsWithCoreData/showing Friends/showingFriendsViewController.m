@@ -9,6 +9,8 @@
 #import "showingFriendsViewController.h"
 #import "FriendsTable.h"
 #import "AppDelegate.h"
+#import "ExampleStoryBoardVC.h"
+
 
 @interface showingFriendsViewController ()
 {
@@ -16,7 +18,10 @@
 }
 @end
 
+
 @implementation showingFriendsViewController
+
+@synthesize colorString;
 
 - (void)viewDidLoad {
     [super viewDidLoad];
@@ -24,15 +29,29 @@
     // Core Data
     
     self.title = @" Friends List ";
-    self.view.backgroundColor = [UIColor whiteColor];
+    //self.view.backgroundColor = [UIColor whiteColor];
     appDel = [[UIApplication sharedApplication] delegate];
     dataSource = [[NSMutableArray alloc] init];
+    
+    //
+    if ([colorString isEqualToString:@"purple"]) {
+        self.view.backgroundColor = [UIColor blueColor];
+    }
+    
     table = [[UITableView alloc]initWithFrame:self.view.frame style:UITableViewStyleGrouped];
     table.delegate = self;
     table.dataSource = self;
     [self.view addSubview:table];
     [self getEmployeeDataFromCoreData];
     
+}
+
+-(void) prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender
+{
+    if ([[segue identifier] isEqualToString:@"showStoryBoard"]) {
+        ExampleStoryBoardVC * destinationViewController = (ExampleStoryBoardVC *)segue.destinationViewController;
+        destinationViewController.titleString = @"purple";
+    }
 }
 
 
@@ -69,6 +88,7 @@
         //Hide the activity indicator
     [cell.imageView setNeedsLayout];
     cell.imageView.image = image;
+    //cell.myf
     
     cell.textLabel.text = objEmployee.name;
     //cell.detailTextLabel.text = objEmployee.empId;
@@ -93,7 +113,12 @@
         [table reloadData];
         
     }
+}
+
+- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
+    [tableView deselectRowAtIndexPath:indexPath animated:YES];
     
+    [self performSegueWithIdentifier:@"showStoryBoard" sender:self];
 }
 
 - (void)tableView:(UITableView *)tableView accessoryButtonTappedForRowWithIndexPath:(NSIndexPath *)indexPath;

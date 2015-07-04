@@ -2,7 +2,7 @@
 //  FriendsTable.h
 //  getFriendsWithCoreData
 //
-//  Created by Vemula, Manoj (Contractor) on 7/1/15.
+//  Created by Gopal Rao on 7/1/15.
 //  Copyright (c) 2015 Gopal Rao. All rights reserved.
 //
 
@@ -16,5 +16,8 @@
 @property (nonatomic, retain) NSString * name;
 @property (nonatomic, retain) NSString * uId;
 @property (nonatomic, retain) NSString * url;
+
+
+- (void)getDataForThisFriend;
 
 @end

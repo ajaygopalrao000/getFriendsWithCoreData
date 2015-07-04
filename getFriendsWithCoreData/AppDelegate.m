@@ -19,10 +19,11 @@
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
     // Override point for customization after application launch.
-    ViewController *objVC = [[ViewController alloc] init];
-    UINavigationController * objNavCon = [[UINavigationController alloc] initWithRootViewController: objVC];
-    self.window.rootViewController = objNavCon ;
+//    ViewController *objVC = [[ViewController alloc] init];
+//    UINavigationController * objNavCon = [[UINavigationController alloc] initWithRootViewController: objVC];
+//    self.window.rootViewController = objNavCon ;
     return [[FBSDKApplicationDelegate sharedInstance] application:application didFinishLaunchingWithOptions:launchOptions];
+//    return YES;
 }
 
 - (BOOL)application:(UIApplication *)application

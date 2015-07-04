@@ -14,23 +14,35 @@
 #import <FBSDKLoginKit/FBSDKLoginKit.h>
 #import "showingFriendsViewController.h"
 
-@interface ViewController ()
+@interface ViewController ()<FBSDKLoginButtonDelegate>
 {
     NSMutableArray * dataSource;
     AppDelegate * appDel;
     
     NSMutableArray *friendsArray;
     NSDictionary *friendCollection;
-    
-    // new fields for username and user image
-    UILabel *userNameLabel;
-    UIImageView * userImageView;
+    BOOL conn;
 }
 @end
 
 @implementation ViewController
 
 //@synthesize loginButton;
+//@synthesize getMyFriendButton;
+
+- (void)  loginButton:(FBSDKLoginButton *)loginButton
+didCompleteWithResult:(FBSDKLoginManagerLoginResult *)result
+                error:(NSError *)error {
+    if (!error) {
+        NSLog(@"Logged In");
+    }
+    
+    
+}
+
+- (void)loginButtonDidLogOut:(FBSDKLoginButton *)loginButton {
+    NSLog(@"Logged Out");
+}
 
 - (void)viewDidLoad {
     [super viewDidLoad];
@@ -40,53 +52,21 @@
     self.view.backgroundColor = [UIColor whiteColor];
     dataSource = [[NSMutableArray alloc] init];
     
-    //[self deleteMethod];
+    //
+    conn = YES;
     
-    //REMOVED IT AND ADDED IT AS IBOUTLET
-    //IBOUTLETS ARE INITILIAZED BY DEFAULT
-    // facebook login
+    self.loginButton = [[FBSDKLoginButton alloc] init];
     
+    //[_loginButton setDelegate:self];
     self.loginButton.readPermissions = @[@"public_profile", @"email", @"user_friends"];
-    
-    FBSDKLoginButton *loginButton = [[FBSDKLoginButton alloc] init];
-   loginButton.center = self.view.center;
-    [self.view addSubview:loginButton];
-    
-    // User name => display's name of the user logged in
-    
-    userNameLabel = [[UILabel alloc] initWithFrame:CGRectMake(40, 80, 180, 45)];
-    userNameLabel.textAlignment = NSTextAlignmentCenter;
-    userNameLabel.text = @"Hello : ";
-    
-    userNameLabel.textColor = [UIColor blueColor];
-    
-    [self.view addSubview:userNameLabel];
-    
-    // User Image => display's profile picture of the user
-    
-    userImageView = [[UIImageView alloc] initWithFrame:CGRectMake(80, 140, 225, 150)];
-    
-    [self.view addSubview:userImageView];
-    
+    self.loginButton.delegate = self;
+   
     // calling getUserData method to set the logged in user detail's like name, image.
     [self getUserData];
   
-    
-    UIButton * getFriends = [[UIButton alloc] initWithFrame:CGRectMake(80, 400, 200, 45)];
-    [getFriends setTitle:@"Get My Friends List" forState:UIControlStateNormal];
-    [getFriends setTitleColor:[UIColor blueColor] forState:UIControlStateNormal];
-    [getFriends addTarget:self action:@selector(showFriends:) forControlEvents:UIControlEventTouchUpInside];
-    [self.view addSubview:getFriends];
-    
-    UIButton * deleteData = [[UIButton alloc] initWithFrame:CGRectMake(80, 450, 200, 45)];
-    [deleteData setTitle:@"Delete Data" forState:UIControlStateNormal];
-    [deleteData setTitleColor:[UIColor blueColor] forState:UIControlStateNormal];
-    [deleteData addTarget:self action:@selector(deleteMethod) forControlEvents:UIControlEventTouchUpInside];
-    [self.view addSubview:deleteData];
-    
-    // NSLog(@" END ");
     [FBSDKProfile enableUpdatesOnAccessTokenChange:YES];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(onProfileUpdated:) name:FBSDKProfileDidChangeNotification object:nil];
+    
 }
 
 // get's the details of the user who is currently logged in
@@ -95,17 +75,23 @@
     if ([FBSDKAccessToken currentAccessToken]) {
         [[[FBSDKGraphRequest alloc] initWithGraphPath:@"me" parameters:nil]
          startWithCompletionHandler:^(FBSDKGraphRequestConnection *connection, id result, NSError *error) {
+             NSLog(@"fetched user:");
              if (!error) {
-                 //NSLog(@"fetched user:%@", result);
+                 NSLog(@"fetched user:%@", result);
                  NSString *userNme = [result objectForKey:@"name"];
                  NSString *userImageURL = [NSString stringWithFormat:@"https://graph.facebook.com/%@/picture?type=large", [result objectForKey:@"id"]];
                  NSURL *picUrl = [NSURL URLWithString:userImageURL];
-                 //NSLog(@" Name : %@ \n imageURl : %@",userNme, userImageURL);
-                 userNameLabel.text = [NSString stringWithFormat:@" Hello : %@",userNme];
-                 userImageView.image = [UIImage imageWithData:[NSData dataWithContentsOfURL:picUrl]];
+                 self.usrNameLabel.text = [NSString stringWithFormat:@" Hello : %@",userNme];
+                 self.usrImgView.image = [UIImage imageWithData:[NSData dataWithContentsOfURL:picUrl]];
                  
+                 //
+                 conn = YES;
              }
          }];
+    }
+    else
+    {
+        conn = NO;
     }
     
 }
@@ -136,7 +122,7 @@
         NSLog(@" [results count] != 25 ");
         [self fetchFacebookFriends:^(NSArray *successArray) {
             self.theFriendsArray = successArray;
-            
+            conn = YES;
             //COREDATA
             //Prepare the array that we will send
             friendsArray = [[NSMutableArray alloc]init];
@@ -158,13 +144,16 @@
             //
             
             dispatch_async(dispatch_get_main_queue(), ^{
-                showingFriendsViewController * showNavCont = [[showingFriendsViewController alloc] init];
-                [self.navigationController pushViewController:showNavCont animated:YES];
-                //[table reloadData];
+//                showingFriendsViewController * showNavCont = [[showingFriendsViewController alloc] init];
+//                [self.navigationController pushViewController:showNavCont animated:YES];
+//                //[table reloadData];
+                //[self performSegueWithIdentifier:@"ShowFriendsListSegue" sender:self];
+                
             });
             
         }error:^(NSString *errorString) {
             
+            conn = NO;
         }];
     }
     
@@ -180,6 +169,8 @@
             success(allFriends);
         } else {
             inError(error.description);
+            NSLog(@"Error in fetchFacebookFriends");
+            return ;
         }
     }];
 }
@@ -223,19 +214,18 @@
     FriendsTable * objFriend = [NSEntityDescription insertNewObjectForEntityForName:@"FriendsTable" inManagedObjectContext:appDel.managedObjectContext];
         dict = [friendsArray objectAtIndex:i];
         
-        NSURL *picUrl = [NSURL URLWithString:[dict objectForKey:@"picURL"]];
-        //You are saving it ahead of time, but I want you to get it when it is showed to user, You need to do lazy loading, Think about 1000 friends lets say, You cannot get all of them at once
+//        NSURL *picUrl = [NSURL URLWithString:[dict objectForKey:@"picURL"]];
+//        //You are saving it ahead of time, but I want you to get it when it is showed to user, You need to do lazy loading, Think about 1000 friends lets say, You cannot get all of them at once
         //You need to do it in cell for row //USE NSURLConnection sendAsynchronousRequest
         //I have added a class for FriendsTable(NSManagedobject) that links to coredata entity you created before, Add a method under that class for fetching image
         //To add a class for enity , select that entity under xcdatamodel and Editor -> create new NSManagedObjectModel
         //Show loading if it is fetching
         //Get rid of other friendsTable class
         
-        NSData * data = [NSData dataWithContentsOfURL:picUrl];
+        
         objFriend.name = [dict objectForKey:@"username"];
         objFriend.uId = [dict objectForKey:@"uId"];
         objFriend.url = [dict objectForKey:@"picURL"];
-        objFriend.data = data;
         
         NSError * error;
     [appDel.managedObjectContext save:&error];
@@ -266,6 +256,37 @@
     [self getEmployeeDataFromCoreData];
     
 }
+
+
+-(void) prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender
+{
+    if ([[segue identifier] isEqualToString:@"ShowFriendsListSegue"]) {
+        showingFriendsViewController * destinationViewController = (showingFriendsViewController *)segue.destinationViewController;
+        destinationViewController.colorString = @"purple";
+    }
+}
+
+- (BOOL)shouldPerformSegueWithIdentifier:(NSString *)identifier sender:(id)sender
+{
+    return conn;
+}
+
+- (IBAction)getMyFrndsBtnClicked:(UIButton *)sender {
+    NSLog(@"getMyFrndsBtnClicked");
+    if (conn) {
+        [self showFriends:sender];
+    }
+    else {
+        UIAlertView * alert = [[UIAlertView alloc] initWithTitle:@"Connection Error !!" message:@" Please Login into your account to retrieve friends list " delegate:self cancelButtonTitle:@"OK" otherButtonTitles: nil];
+        [alert show];
+    }
+}
+
+- (IBAction)deleteButtonClicked:(UIButton *)sender {
+    NSLog(@"deleteButtonClicked");
+    [self deleteMethod];
+}
+
 
 
 - (void)didReceiveMemoryWarning {

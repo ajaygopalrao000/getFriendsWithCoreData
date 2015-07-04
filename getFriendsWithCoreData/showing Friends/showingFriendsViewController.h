@@ -13,4 +13,5 @@
     UITableView * table;
     NSMutableArray * dataSource;
 }
+@property (strong, nonatomic) NSString * colorString;
 @end
