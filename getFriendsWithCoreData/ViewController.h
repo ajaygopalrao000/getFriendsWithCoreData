@@ -21,7 +21,7 @@ typedef void (^FriendsCallbackError)(NSString *errorString);
 // References from storyboard
 @property (weak, nonatomic) IBOutlet UILabel *usrNameLabel;
 @property (weak, nonatomic) IBOutlet UIImageView *usrImgView;
-@property (strong, nonatomic) IBOutlet FBSDKLoginButton *loginButton;
+@property (strong, nonatomic) IBOutlet FBSDKLoginButton *FacebookButton;
 @property (weak, nonatomic) IBOutlet UIButton *getMyFriendButton;
 
 

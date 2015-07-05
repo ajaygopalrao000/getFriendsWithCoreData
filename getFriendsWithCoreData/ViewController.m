@@ -55,11 +55,10 @@ didCompleteWithResult:(FBSDKLoginManagerLoginResult *)result
     //
     conn = YES;
     
-    self.loginButton = [[FBSDKLoginButton alloc] init];
+    self.FacebookButton = [[FBSDKLoginButton alloc] init];
     
-    //[_loginButton setDelegate:self];
-    self.loginButton.readPermissions = @[@"public_profile", @"email", @"user_friends"];
-    self.loginButton.delegate = self;
+    [self.FacebookButton setReadPermissions:@[@"public_profile", @"email", @"user_friends"]];
+    self.FacebookButton.delegate = self;
    
     // calling getUserData method to set the logged in user detail's like name, image.
     [self getUserData];
@@ -92,12 +91,16 @@ didCompleteWithResult:(FBSDKLoginManagerLoginResult *)result
     else
     {
         conn = NO;
+        self.usrNameLabel.text = [NSString stringWithFormat:@" Hello : %@",@"User"];
+        self.usrImgView.image = [UIImage imageNamed:@"profile_Pic_Default 128*128"];
     }
     
 }
 
 - (void)onProfileUpdated:(NSNotification*)notification {
-    
+    conn = NO;
+    if ([FBSDKAccessToken currentAccessToken]) {conn = YES;}
+    [self getUserData];
 }
 
 // Getting facebook data
@@ -124,7 +127,7 @@ didCompleteWithResult:(FBSDKLoginManagerLoginResult *)result
             self.theFriendsArray = successArray;
             conn = YES;
             //COREDATA
-            //Prepare the array that we will send
+            //vPrepare the array that we will send
             friendsArray = [[NSMutableArray alloc]init];
             for (NSDictionary *userInfo in successArray)
             {
