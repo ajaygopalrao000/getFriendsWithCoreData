@@ -82,15 +82,11 @@ didCompleteWithResult:(FBSDKLoginManagerLoginResult *)result
                  NSURL *picUrl = [NSURL URLWithString:userImageURL];
                  self.usrNameLabel.text = [NSString stringWithFormat:@" Hello : %@",userNme];
                  self.usrImgView.image = [UIImage imageWithData:[NSData dataWithContentsOfURL:picUrl]];
-                 
-                 //
-                 conn = YES;
              }
          }];
     }
     else
     {
-        conn = NO;
         self.usrNameLabel.text = [NSString stringWithFormat:@" Hello : %@",@"User"];
         self.usrImgView.image = [UIImage imageNamed:@"profile_Pic_Default 128*128"];
     }
