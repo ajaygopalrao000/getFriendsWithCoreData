@@ -95,7 +95,12 @@ didCompleteWithResult:(FBSDKLoginManagerLoginResult *)result
 
 - (void)onProfileUpdated:(NSNotification*)notification {
     conn = NO;
-    if ([FBSDKAccessToken currentAccessToken]) {conn = YES;}
+    if ([FBSDKAccessToken currentAccessToken]) {
+        //If Logged in
+        conn = YES;
+    } else {
+        //Logged out
+    }
     [self getUserData];
 }
 
