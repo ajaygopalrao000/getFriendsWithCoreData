@@ -96,6 +96,7 @@ didCompleteWithResult:(FBSDKLoginManagerLoginResult *)result
 - (void)onProfileUpdated:(NSNotification*)notification {
     conn = NO;
     if ([FBSDKAccessToken currentAccessToken]) {conn = YES;}
+    NSLog(@"onProfileUpdated");
     [self getUserData];
 }
 
