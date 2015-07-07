@@ -7,12 +7,15 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "FriendsTable.h"
 
 @interface CustomFriendTVCell : UITableViewCell
 
 @property (weak, nonatomic) IBOutlet UIImageView *userFriendImgView;
 
 @property (weak, nonatomic) IBOutlet UILabel *userFriendNameLabel;
+
+@property (strong, nonatomic) FriendsTable *currentFriend;
 
 //Friend property strong
 

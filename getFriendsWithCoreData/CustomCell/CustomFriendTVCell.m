@@ -10,13 +10,15 @@
 
 @implementation CustomFriendTVCell
 
+//UpdateImageMethod { set image to imageview }
 
-//Friendobject didSet { upadate label
-//if friendobject.data {  use image }
-//else {friendobject fetchimage , Notification addobserverwithName"UseFriendObjectID" and selector "UpdateImageMethod"}
-//}
-
-//UpdateImageMethod { set image to imageview } 
+-(void)setCurrentFriend:(FriendsTable *)currentFriend {
+    self.currentFriend = currentFriend;
+    //upadate label
+    //if friendobject.data {  use image }
+    //else {friendobject fetchimage , Notification addobserverwithName"UseFriendObjectID" and selector "UpdateImageMethod"}
+    //}
+}
 
 - (void)awakeFromNib {
     // Initialization code
