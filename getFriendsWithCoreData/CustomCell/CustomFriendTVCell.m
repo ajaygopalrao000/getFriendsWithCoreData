@@ -10,6 +10,11 @@
 
 @implementation CustomFriendTVCell
 
+
+//Friendobject didSet { friendobject fetchimage , Notification addobserver and selector "UpdateImageMethod"}
+
+//UpdateImageMethod { set image to imageview } 
+
 - (void)awakeFromNib {
     // Initialization code
 }

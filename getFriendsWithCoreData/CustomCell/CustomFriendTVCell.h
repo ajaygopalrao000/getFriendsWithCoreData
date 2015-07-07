@@ -14,5 +14,6 @@
 
 @property (weak, nonatomic) IBOutlet UILabel *userFriendNameLabel;
 
+//Friend property strong
 
 @end
