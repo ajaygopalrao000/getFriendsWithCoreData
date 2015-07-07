@@ -11,7 +11,10 @@
 @implementation CustomFriendTVCell
 
 
-//Friendobject didSet { friendobject fetchimage , Notification addobserver and selector "UpdateImageMethod"}
+//Friendobject didSet { upadate label
+//if friendobject.data {  use image }
+//else {friendobject fetchimage , Notification addobserverwithName"UseFriendObjectID" and selector "UpdateImageMethod"}
+//}
 
 //UpdateImageMethod { set image to imageview } 
 

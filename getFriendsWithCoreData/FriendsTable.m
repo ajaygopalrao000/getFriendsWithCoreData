@@ -21,7 +21,7 @@
     //NSURLCONNECTION SENDASYNCHRONOUSREQUEST
 //    NSData * data = [NSData dataWithContentsOfURL:[NSURL URLWithString:self.url]];
 //    self.data = data;
-    //NSNOTIFICATIONS POST Notfication
+    //NSNOTIFICATIONS POST NotficationWithName"UseuID"
 }
 
 @end
