@@ -10,11 +10,19 @@
 #import "FriendsTable.h"
 #import "AppDelegate.h"
 #import "ExampleStoryBoardVC.h"
+#import "CustomFriendTVCell.h"
+#import <Social/Social.h>
+#import <FBSDKCoreKit/FBSDKCoreKit.h>
+#import <FBSDKLoginKit/FBSDKLoginKit.h>
 
 
 @interface showingFriendsViewController ()
 {
     AppDelegate * appDel;
+    
+    
+    NSMutableArray *friendsArray;
+    NSDictionary *friendCollection;
 }
 @end
 
@@ -33,10 +41,13 @@
     appDel = [[UIApplication sharedApplication] delegate];
     dataSource = [[NSMutableArray alloc] init];
     
-    //
-    if ([colorString isEqualToString:@"purple"]) {
-        self.view.backgroundColor = [UIColor blueColor];
-    }
+//    //
+//    if ([colorString isEqualToString:@"purple"]) {
+//        self.view.backgroundColor = [UIColor blueColor];
+//    }
+    
+    [self showFriends];
+    
     
     table = [[UITableView alloc]initWithFrame:self.view.frame style:UITableViewStyleGrouped];
     table.delegate = self;
@@ -68,30 +79,77 @@
 }
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath;
 {
-    //NSLog(@" in cellForRowAtIndexPath start ");
-    UITableViewCell * cell = [tableView dequeueReusableCellWithIdentifier:@"cell"];
+    NSLog(@" in cellForRowAtIndexPath start ");
+//    UITableViewCell * cell = [tableView dequeueReusableCellWithIdentifier:@"cell"];
+//    
+//    if (cell == nil) {
+//        
+//        cell = [[UITableViewCell alloc]initWithStyle:UITableViewCellStyleDefault reuseIdentifier:@"cell"];
+//    }
+//    
+//    UIImage * image;
+//    
+//    // verifying whether coredata is full or empty
+//    NSFetchRequest * fetch = [NSFetchRequest fetchRequestWithEntityName:@"FriendsTable"];
+//    
+//    NSError * error;
+//    
+//    NSArray * results = [appDel.managedObjectContext executeFetchRequest:fetch error:&error];
+//    
+//    NSLog(@"results count in cellForRowAtIndexPath is %li", [results count]);
+//    
+//    FriendsTable * objEmployee = [dataSource objectAtIndex:indexPath.row];
+//    //NSURL *picUrl = [NSURL URLWithString:objEmployee.url];
+//    //image = [UIImage imageWithData:[NSData dataWithContentsOfURL:picUrl]];
+//
+//    // retrieved stored data of the image from core data
+//    image = [UIImage imageWithData:objEmployee.data];
+//    [cell.imageView setContentMode:UIViewContentModeScaleAspectFit];
+//        //Hide the activity indicator
+//    [cell.imageView setNeedsLayout];
+//    cell.imageView.image = image;
+//    //cell.myf
+//    
+//    cell.textLabel.text = objEmployee.name;
+//    //cell.detailTextLabel.text = objEmployee.empId;
+//    return cell;
     
-    if (cell == nil) {
+    // Custom Cell
+    
+    static NSString *simpleTableIdentifier = @"CustomFriendTVCell";
+    
+    CustomFriendTVCell *cell = (CustomFriendTVCell *)[tableView dequeueReusableCellWithIdentifier:simpleTableIdentifier];
+    
+    if (cell == nil)
         
-        cell = [[UITableViewCell alloc]initWithStyle:UITableViewCellStyleDefault reuseIdentifier:@"cell"];
+    {
+        
+        NSArray *nibArray = [[NSBundle mainBundle] loadNibNamed:@"CustomFriendTVCell" owner:self options:nil];
+        
+        cell = [nibArray objectAtIndex:0];
+        
     }
     
     UIImage * image;
     
+    // verifying whether coredata is full or empty
+    NSFetchRequest * fetch = [NSFetchRequest fetchRequestWithEntityName:@"FriendsTable"];
+    NSError * error;
+    
+    NSArray * results = [appDel.managedObjectContext executeFetchRequest:fetch error:&error];
+    
+    //NSLog(@"results count in cellForRowAtIndexPath is %li", [results count]);
+    
     FriendsTable * objEmployee = [dataSource objectAtIndex:indexPath.row];
-//    NSURL *picUrl = [NSURL URLWithString:objEmployee.url];
-//    image = [UIImage imageWithData:[NSData dataWithContentsOfURL:picUrl]];
-
+    
     // retrieved stored data of the image from core data
     image = [UIImage imageWithData:objEmployee.data];
-    [cell.imageView setContentMode:UIViewContentModeScaleAspectFit];
-        //Hide the activity indicator
-    [cell.imageView setNeedsLayout];
-    cell.imageView.image = image;
-    //cell.myf
+
+    cell.userFriendImgView.image = image;
     
-    cell.textLabel.text = objEmployee.name;
-    //cell.detailTextLabel.text = objEmployee.empId;
+    cell.userFriendNameLabel.text = objEmployee.name;
+    
+    
     return cell;
     
 }
@@ -104,7 +162,7 @@
     NSError * error;
     
     NSArray * results = [appDel.managedObjectContext executeFetchRequest:fetch error:&error];
-    NSLog(@" results count in showingFriendsViewController is %li",[results count]);
+    //NSLog(@" results count in showingFriendsViewController is %li",[results count]);
     
     if (error == nil) {
         NSLog(@"error == nil");
@@ -115,21 +173,134 @@
     }
 }
 
-- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
-    [tableView deselectRowAtIndexPath:indexPath animated:YES];
-    
-    [self performSegueWithIdentifier:@"showStoryBoard" sender:self];
-}
-
-- (void)tableView:(UITableView *)tableView accessoryButtonTappedForRowWithIndexPath:(NSIndexPath *)indexPath;
-{
-    
-}
+//- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
+//    [tableView deselectRowAtIndexPath:indexPath animated:YES];
+//    
+//    [self performSegueWithIdentifier:@"showStoryBoard" sender:self];
+//}
+//
+//- (void)tableView:(UITableView *)tableView accessoryButtonTappedForRowWithIndexPath:(NSIndexPath *)indexPath;
+//{
+//    
+//}
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath;
 {
     return 60;
 }
+
+
+// retrieving friends list
+
+-(void) showFriends
+{
+    //NSLog(@"showFriends");
+    NSFetchRequest * fetch = [NSFetchRequest fetchRequestWithEntityName:@"FriendsTable"];
+    
+    NSError * error;
+    
+    NSArray * results = [appDel.managedObjectContext executeFetchRequest:fetch error:&error];
+    //NSLog(@" results count is %li",[results count]);
+    
+    if (error == nil && [results count] == 25) {
+        NSLog(@" [results count] == 25 ");
+        return;
+    }
+    else
+    {
+        NSLog(@" [results count] != 25 ");
+        [self fetchFacebookFriends:^(NSArray *successArray) {
+            self.theFriendsArray = successArray;
+            //COREDATA
+            //vPrepare the array that we will send
+            friendsArray = [[NSMutableArray alloc]init];
+            for (NSDictionary *userInfo in successArray)
+            {
+                
+                NSString *userName = [userInfo objectForKey:@"name"];
+                NSString *userID = [userInfo objectForKey:@"id"];
+                
+                NSDictionary *pictureData = [[userInfo objectForKey:@"picture"] objectForKey:@"data"];
+                //NSLog(@"Picture data is %@",pictureData);
+                NSString *imageUrl = [pictureData objectForKey:@"url"];
+                //Save all the user information in a dictionary that will contain the basic info that we need
+                friendCollection = [[NSDictionary alloc]initWithObjects:@[userName, imageUrl, userID] forKeys:@[@"username", @"picURL", @"uId"]];
+                //Store each dictionary inside the array that we created
+                [friendsArray addObject:friendCollection];
+                
+            }
+            [self addMethod];
+            //
+            
+            dispatch_async(dispatch_get_main_queue(), ^{
+                
+            });
+            
+        }error:^(NSString *errorString) {
+            
+        }];
+    }
+    
+}
+
+-(void)fetchFacebookFriends:(FriendsCallbackSuccess)success error:(FriendsCallbackError)inError {
+    
+    FBSDKGraphRequest * request = [[FBSDKGraphRequest alloc] initWithGraphPath:[NSString stringWithFormat:@"/%@/taggable_friends", [[FBSDKProfile currentProfile] userID]] parameters:Nil HTTPMethod:@"GET"];
+    
+    [request startWithCompletionHandler:^(FBSDKGraphRequestConnection *connection, id result, NSError *error) {
+        if (error == nil) {
+            NSArray *allFriends = [result objectForKey:@"data"];
+            success(allFriends);
+        } else {
+            inError(error.description);
+            NSLog(@"Error in fetchFacebookFriends");
+            return ;
+        }
+    }];
+}
+
+
+-(void)addMethod
+{
+    
+    //NSLog(@" in addMethod ");
+    //NSLog(@" Friends array size is %li",[friendsArray count]);
+    NSDictionary * dict;
+    for (int i = 0; i<[friendsArray count]; i++) {
+        FriendsTable * objFriend = [NSEntityDescription insertNewObjectForEntityForName:@"FriendsTable" inManagedObjectContext:appDel.managedObjectContext];
+        dict = [friendsArray objectAtIndex:i];
+        
+        //        NSURL *picUrl = [NSURL URLWithString:[dict objectForKey:@"picURL"]];
+        //        //You are saving it ahead of time, but I want you to get it when it is showed to user, You need to do lazy loading, Think about 1000 friends lets say, You cannot get all of them at once
+        //You need to do it in cell for row //USE NSURLConnection sendAsynchronousRequest
+        //I have added a class for FriendsTable(NSManagedobject) that links to coredata entity you created before, Add a method under that class for fetching image
+        //To add a class for enity , select that entity under xcdatamodel and Editor -> create new NSManagedObjectModel
+        //Show loading if it is fetching
+        //Get rid of other friendsTable class
+        
+//        NSURL *picUrl = [NSURL URLWithString:[dict objectForKey:@"picURL"]];
+//        NSData * data = [NSData dataWithContentsOfURL:picUrl];
+        
+        objFriend.name = [dict objectForKey:@"username"];
+        objFriend.uId = [dict objectForKey:@"uId"];
+        objFriend.url = [dict objectForKey:@"picURL"];
+        objFriend.data = [NSData dataWithContentsOfURL:[NSURL URLWithString:[dict objectForKey:@"picURL"]]];
+        //NSLog(@" i is %i",i);
+        NSError * error;
+        [appDel.managedObjectContext save:&error];
+        
+        if (error == nil) {
+        }
+    }
+    [self getEmployeeDataFromCoreData];    
+    
+}
+
+
+
+
+
+
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.

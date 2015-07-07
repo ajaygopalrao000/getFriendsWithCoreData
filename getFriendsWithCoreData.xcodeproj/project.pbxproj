@@ -9,8 +9,6 @@
 /* Begin PBXBuildFile section */
 		505486EA1B44A0600067453E /* FriendsTable.m in Sources */ = {isa = PBXBuildFile; fileRef = 505486E91B44A0600067453E /* FriendsTable.m */; };
 		505486ED1B44F3730067453E /* ExampleStoryBoardVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 505486EC1B44F3730067453E /* ExampleStoryBoardVC.m */; };
-		505486F11B44FDA70067453E /* CustomFriendTVCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 505486EF1B44FDA70067453E /* CustomFriendTVCell.m */; };
-		505486F21B44FDA70067453E /* CustomFriendTVCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 505486F01B44FDA70067453E /* CustomFriendTVCell.xib */; };
 		505486F51B479B010067453E /* profile_Pic_Default 128*128.png in Resources */ = {isa = PBXBuildFile; fileRef = 505486F41B479B010067453E /* profile_Pic_Default 128*128.png */; };
 		50ABA18F1B4122490084CF2F /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 50ABA18E1B4122490084CF2F /* main.m */; };
 		50ABA1921B4122490084CF2F /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 50ABA1911B4122490084CF2F /* AppDelegate.m */; };
@@ -25,6 +23,12 @@
 		50ABA1BD1B422D800084CF2F /* FBSDKShareKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 50ABA1BA1B422D800084CF2F /* FBSDKShareKit.framework */; };
 		50ABA1BF1B422E090084CF2F /* Social.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 50ABA1BE1B422E090084CF2F /* Social.framework */; };
 		50ABA1CD1B42471D0084CF2F /* showingFriendsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 50ABA1CC1B42471D0084CF2F /* showingFriendsViewController.m */; };
+		50BCDA8C1B4B79B300FB25D5 /* CustomFriendCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 50BCDA8A1B4B79B300FB25D5 /* CustomFriendCell.m */; };
+		50BCDA8D1B4B79B300FB25D5 /* CustomFriendCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 50BCDA8B1B4B79B300FB25D5 /* CustomFriendCell.xib */; };
+		50BCDA911B4B7A3000FB25D5 /* CustomFriendTVCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 50BCDA8F1B4B7A3000FB25D5 /* CustomFriendTVCell.m */; };
+		50BCDA921B4B7A3000FB25D5 /* CustomFriendTVCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 50BCDA901B4B7A3000FB25D5 /* CustomFriendTVCell.xib */; };
+		50BCDA961B4B7ED200FB25D5 /* profile_Pic.png in Resources */ = {isa = PBXBuildFile; fileRef = 50BCDA951B4B7ED200FB25D5 /* profile_Pic.png */; };
+		50BCDA981B4B802D00FB25D5 /* profilePicFacebook .png in Resources */ = {isa = PBXBuildFile; fileRef = 50BCDA971B4B802D00FB25D5 /* profilePicFacebook .png */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -40,11 +44,8 @@
 /* Begin PBXFileReference section */
 		505486E81B44A0600067453E /* FriendsTable.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = FriendsTable.h; path = getFriendsWithCoreData/FriendsTable.h; sourceTree = "<group>"; };
 		505486E91B44A0600067453E /* FriendsTable.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = FriendsTable.m; path = getFriendsWithCoreData/FriendsTable.m; sourceTree = "<group>"; };
-		505486EB1B44F3730067453E /* ExampleStoryBoardVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ExampleStoryBoardVC.h; sourceTree = "<group>"; };
-		505486EC1B44F3730067453E /* ExampleStoryBoardVC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ExampleStoryBoardVC.m; sourceTree = "<group>"; };
-		505486EE1B44FDA70067453E /* CustomFriendTVCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CustomFriendTVCell.h; sourceTree = "<group>"; };
-		505486EF1B44FDA70067453E /* CustomFriendTVCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CustomFriendTVCell.m; sourceTree = "<group>"; };
-		505486F01B44FDA70067453E /* CustomFriendTVCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = CustomFriendTVCell.xib; sourceTree = "<group>"; };
+		505486EB1B44F3730067453E /* ExampleStoryBoardVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ExampleStoryBoardVC.h; path = getFriendsWithCoreData/ExampleStoryBoardVC.h; sourceTree = "<group>"; };
+		505486EC1B44F3730067453E /* ExampleStoryBoardVC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = ExampleStoryBoardVC.m; path = getFriendsWithCoreData/ExampleStoryBoardVC.m; sourceTree = "<group>"; };
 		505486F41B479B010067453E /* profile_Pic_Default 128*128.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "profile_Pic_Default 128*128.png"; sourceTree = "<group>"; };
 		50ABA1891B4122490084CF2F /* getFriendsWithCoreData.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = getFriendsWithCoreData.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		50ABA18D1B4122490084CF2F /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -67,6 +68,14 @@
 		50ABA1C01B423AE60084CF2F /* getFriendsWithCoreData 2.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = "getFriendsWithCoreData 2.xcdatamodel"; sourceTree = "<group>"; };
 		50ABA1CB1B42471D0084CF2F /* showingFriendsViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = showingFriendsViewController.h; path = "showing Friends/showingFriendsViewController.h"; sourceTree = "<group>"; };
 		50ABA1CC1B42471D0084CF2F /* showingFriendsViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = showingFriendsViewController.m; path = "showing Friends/showingFriendsViewController.m"; sourceTree = "<group>"; };
+		50BCDA891B4B79B300FB25D5 /* CustomFriendCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CustomFriendCell.h; sourceTree = "<group>"; };
+		50BCDA8A1B4B79B300FB25D5 /* CustomFriendCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CustomFriendCell.m; sourceTree = "<group>"; };
+		50BCDA8B1B4B79B300FB25D5 /* CustomFriendCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = CustomFriendCell.xib; sourceTree = "<group>"; };
+		50BCDA8E1B4B7A3000FB25D5 /* CustomFriendTVCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = CustomFriendTVCell.h; path = getFriendsWithCoreData/CustomCell/CustomFriendTVCell.h; sourceTree = "<group>"; };
+		50BCDA8F1B4B7A3000FB25D5 /* CustomFriendTVCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = CustomFriendTVCell.m; path = getFriendsWithCoreData/CustomCell/CustomFriendTVCell.m; sourceTree = "<group>"; };
+		50BCDA901B4B7A3000FB25D5 /* CustomFriendTVCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = CustomFriendTVCell.xib; path = getFriendsWithCoreData/CustomCell/CustomFriendTVCell.xib; sourceTree = "<group>"; };
+		50BCDA951B4B7ED200FB25D5 /* profile_Pic.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = profile_Pic.png; sourceTree = "<group>"; };
+		50BCDA971B4B802D00FB25D5 /* profilePicFacebook .png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "profilePicFacebook .png"; sourceTree = "<group>"; };
 		E2B8729C1B447D140041763A /* getFriendsWithCoreData-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "getFriendsWithCoreData-Bridging-Header.h"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -95,6 +104,8 @@
 		505486F31B479AEC0067453E /* Profile Pictures */ = {
 			isa = PBXGroup;
 			children = (
+				50BCDA971B4B802D00FB25D5 /* profilePicFacebook .png */,
+				50BCDA951B4B7ED200FB25D5 /* profile_Pic.png */,
 				505486F41B479B010067453E /* profile_Pic_Default 128*128.png */,
 			);
 			name = "Profile Pictures";
@@ -103,9 +114,9 @@
 		50ABA1801B4122490084CF2F = {
 			isa = PBXGroup;
 			children = (
+				50BCDA941B4B7AA700FB25D5 /* ExampleStoryBoardVC */,
+				50BCDA931B4B7A4100FB25D5 /* CustomFriendTVCell */,
 				505486F31B479AEC0067453E /* Profile Pictures */,
-				505486E81B44A0600067453E /* FriendsTable.h */,
-				505486E91B44A0600067453E /* FriendsTable.m */,
 				50ABA1C41B423D210084CF2F /* CoreData */,
 				50ABA1BE1B422E090084CF2F /* Social.framework */,
 				50ABA1B81B422D800084CF2F /* FBSDKCoreKit.framework */,
@@ -134,13 +145,11 @@
 				50ABA1911B4122490084CF2F /* AppDelegate.m */,
 				50ABA1961B4122490084CF2F /* ViewController.h */,
 				50ABA1971B4122490084CF2F /* ViewController.m */,
-				505486EB1B44F3730067453E /* ExampleStoryBoardVC.h */,
-				505486EC1B44F3730067453E /* ExampleStoryBoardVC.m */,
 				50ABA1CB1B42471D0084CF2F /* showingFriendsViewController.h */,
 				50ABA1CC1B42471D0084CF2F /* showingFriendsViewController.m */,
-				505486EE1B44FDA70067453E /* CustomFriendTVCell.h */,
-				505486EF1B44FDA70067453E /* CustomFriendTVCell.m */,
-				505486F01B44FDA70067453E /* CustomFriendTVCell.xib */,
+				50BCDA891B4B79B300FB25D5 /* CustomFriendCell.h */,
+				50BCDA8A1B4B79B300FB25D5 /* CustomFriendCell.m */,
+				50BCDA8B1B4B79B300FB25D5 /* CustomFriendCell.xib */,
 				50ABA1991B4122490084CF2F /* Main.storyboard */,
 				50ABA19C1B4122490084CF2F /* Images.xcassets */,
 				50ABA19E1B4122490084CF2F /* LaunchScreen.xib */,
@@ -179,8 +188,29 @@
 			isa = PBXGroup;
 			children = (
 				50ABA1931B4122490084CF2F /* getFriendsWithCoreData.xcdatamodeld */,
+				505486E81B44A0600067453E /* FriendsTable.h */,
+				505486E91B44A0600067453E /* FriendsTable.m */,
 			);
 			name = CoreData;
+			sourceTree = "<group>";
+		};
+		50BCDA931B4B7A4100FB25D5 /* CustomFriendTVCell */ = {
+			isa = PBXGroup;
+			children = (
+				50BCDA8E1B4B7A3000FB25D5 /* CustomFriendTVCell.h */,
+				50BCDA8F1B4B7A3000FB25D5 /* CustomFriendTVCell.m */,
+				50BCDA901B4B7A3000FB25D5 /* CustomFriendTVCell.xib */,
+			);
+			name = CustomFriendTVCell;
+			sourceTree = "<group>";
+		};
+		50BCDA941B4B7AA700FB25D5 /* ExampleStoryBoardVC */ = {
+			isa = PBXGroup;
+			children = (
+				505486EB1B44F3730067453E /* ExampleStoryBoardVC.h */,
+				505486EC1B44F3730067453E /* ExampleStoryBoardVC.m */,
+			);
+			name = ExampleStoryBoardVC;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -263,11 +293,14 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				505486F21B44FDA70067453E /* CustomFriendTVCell.xib in Resources */,
+				50BCDA921B4B7A3000FB25D5 /* CustomFriendTVCell.xib in Resources */,
+				50BCDA981B4B802D00FB25D5 /* profilePicFacebook .png in Resources */,
+				50BCDA961B4B7ED200FB25D5 /* profile_Pic.png in Resources */,
 				50ABA19B1B4122490084CF2F /* Main.storyboard in Resources */,
 				50ABA1A01B4122490084CF2F /* LaunchScreen.xib in Resources */,
 				505486F51B479B010067453E /* profile_Pic_Default 128*128.png in Resources */,
 				50ABA19D1B4122490084CF2F /* Images.xcassets in Resources */,
+				50BCDA8D1B4B79B300FB25D5 /* CustomFriendCell.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -288,8 +321,9 @@
 				50ABA1921B4122490084CF2F /* AppDelegate.m in Sources */,
 				50ABA1951B4122490084CF2F /* getFriendsWithCoreData.xcdatamodeld in Sources */,
 				50ABA1981B4122490084CF2F /* ViewController.m in Sources */,
+				50BCDA911B4B7A3000FB25D5 /* CustomFriendTVCell.m in Sources */,
 				505486ED1B44F3730067453E /* ExampleStoryBoardVC.m in Sources */,
-				505486F11B44FDA70067453E /* CustomFriendTVCell.m in Sources */,
+				50BCDA8C1B4B79B300FB25D5 /* CustomFriendCell.m in Sources */,
 				50ABA1CD1B42471D0084CF2F /* showingFriendsViewController.m in Sources */,
 				505486EA1B44A0600067453E /* FriendsTable.m in Sources */,
 				50ABA18F1B4122490084CF2F /* main.m in Sources */,

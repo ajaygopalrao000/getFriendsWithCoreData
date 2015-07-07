@@ -19,8 +19,8 @@
 
 - (void)getDataForThisFriend {
     //NSURLCONNECTION SENDASYNCHRONOUSREQUEST
-    NSData * data = [NSData dataWithContentsOfURL:[NSURL URLWithString:self.url]];
-    self.data = data;
+//    NSData * data = [NSData dataWithContentsOfURL:[NSURL URLWithString:self.url]];
+//    self.data = data;
     //NSNOTIFICATIONS
 }
 

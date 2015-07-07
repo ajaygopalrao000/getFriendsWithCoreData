@@ -18,17 +18,18 @@
                         <subviews>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="9ia-Fr-EQh">
                                 <rect key="frame" x="60" y="320" width="200" height="35"/>
+                                <accessibility key="accessibilityConfiguration">
+                                    <bool key="isElement" value="NO"/>
+                                </accessibility>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="35" id="MuD-A4-eG4"/>
                                     <constraint firstAttribute="width" constant="200" id="dSf-EH-wp7"/>
                                 </constraints>
                                 <fontDescription key="fontDescription" name="BradleyHandITCTT-Bold" family="Bradley Hand" pointSize="18"/>
                                 <state key="normal" title="Get My Friend List">
-                                    <color key="titleColor" red="0.045442745289931974" green="0.54897268767345642" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                                     <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                 </state>
                                 <connections>
-                                    <action selector="getMyFrndsBtnClicked:" destination="vXZ-lx-hvc" eventType="touchUpInside" id="Pfw-Ft-xyg"/>
                                     <segue destination="F9O-rY-AjK" kind="show" identifier="ShowFriendsListSegue" id="K3i-2f-JYk"/>
                                 </connections>
                             </button>
@@ -100,6 +101,7 @@
                     <simulatedScreenMetrics key="simulatedDestinationMetrics" type="retina4"/>
                     <connections>
                         <outlet property="FacebookButton" destination="CAw-WP-mZk" id="JiB-bn-Gwf"/>
+                        <outlet property="deleteDataButton" destination="eML-bf-xyC" id="Ttd-wJ-zZI"/>
                         <outlet property="getMyFriendButton" destination="9ia-Fr-EQh" id="Jvr-oS-Sd3"/>
                         <outlet property="usrImgView" destination="52G-Kz-HXE" id="z2P-5y-lDE"/>
                         <outlet property="usrNameLabel" destination="0CQ-HD-sSW" id="2Bh-oG-X2C"/>

@@ -6,9 +6,9 @@
 //  Copyright (c) 2015 Gopal Rao. All rights reserved.
 //
 
-#import "CustomFriendTVCell.h"
+#import "CustomFriendCell.h"
 
-@implementation CustomFriendTVCell
+@implementation CustomFriendCell
 
 //didSet myFriend { myFriend.getdataformyriend } //NSNOTIFICATIONS
 

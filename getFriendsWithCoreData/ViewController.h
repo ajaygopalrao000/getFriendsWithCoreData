@@ -9,6 +9,7 @@
 #import <UIKit/UIKit.h>
 #import <FBSDKCoreKit/FBSDKCoreKit.h>
 #import <FBSDKLoginKit/FBSDKLoginKit.h>
+
 //Declare the block that will execute after receiving success from the method
 typedef void (^FriendsCallbackSuccess)(NSArray *successArray);
 //Declre the block that will execute after receiving error from the method
@@ -23,6 +24,7 @@ typedef void (^FriendsCallbackError)(NSString *errorString);
 @property (weak, nonatomic) IBOutlet UIImageView *usrImgView;
 @property (strong, nonatomic) IBOutlet FBSDKLoginButton *FacebookButton;
 @property (weak, nonatomic) IBOutlet UIButton *getMyFriendButton;
+@property (weak, nonatomic) IBOutlet UIButton *deleteDataButton;
 
 
 
