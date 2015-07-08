@@ -89,8 +89,6 @@
     }
     else
     {
-        
-        //NSLog(@" Button Index is : %li",(long) buttonIndex);
         [actionSheet dismissWithClickedButtonIndex:1 animated:YES];
         return;
     }

@@ -71,7 +71,6 @@
     //NSLog(@" in cellForRowAtIndexPath start ");
     
     // Custom Cell
-    
     static NSString *simpleTableIdentifier = @"CustomFriendTVCell";
     
     CustomFriendTVCell *cell = (CustomFriendTVCell *)[tableView dequeueReusableCellWithIdentifier:simpleTableIdentifier];
