@@ -23,14 +23,15 @@
     dispatch_async(imageQueue, ^{
         //NSLog(@" imageQueue ");
         
-        NSURL *url = [NSURL URLWithString:self.url];
-        NSData *imageData = [NSData dataWithContentsOfURL:url];
+        //NSURL *url = [NSURL URLWithString:self.url];
+        //NSData *imageData = [NSData dataWithContentsOfURL:url] ;
         //UIImage *image = [UIImage imageWithData:imageData];
         //objFriend.data = imageData;
-        dispatch_async(dispatch_get_main_queue(), ^{
+        //
             // Update the UI
             //NSLog(@" mainQueue ");
-            self.data = imageData;
+        self.data = [NSData dataWithContentsOfURL:[NSURL URLWithString:self.url]];
+        dispatch_async(dispatch_get_main_queue(), ^{
             [[NSNotificationCenter defaultCenter] postNotificationName:self.uId object:nil];
         });
         
