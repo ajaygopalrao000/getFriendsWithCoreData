@@ -23,6 +23,7 @@
     
     NSMutableArray *friendsArray;
     NSDictionary *friendCollection;
+    int count;
 }
 @end
 
@@ -33,21 +34,14 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    
-    // Core Data
+    count = 0;
     
     self.title = @" Friends List ";
-    //self.view.backgroundColor = [UIColor whiteColor];
+    self.view.backgroundColor = [UIColor whiteColor];
     appDel = [[UIApplication sharedApplication] delegate];
     dataSource = [[NSMutableArray alloc] init];
     
-//    //
-//    if ([colorString isEqualToString:@"purple"]) {
-//        self.view.backgroundColor = [UIColor blueColor];
-//    }
-    
     [self showFriends];
-    
     
     table = [[UITableView alloc]initWithFrame:self.view.frame style:UITableViewStyleGrouped];
     table.delegate = self;
@@ -79,40 +73,7 @@
 }
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath;
 {
-    NSLog(@" in cellForRowAtIndexPath start ");
-//    UITableViewCell * cell = [tableView dequeueReusableCellWithIdentifier:@"cell"];
-//    
-//    if (cell == nil) {
-//        
-//        cell = [[UITableViewCell alloc]initWithStyle:UITableViewCellStyleDefault reuseIdentifier:@"cell"];
-//    }
-//    
-//    UIImage * image;
-//    
-//    // verifying whether coredata is full or empty
-//    NSFetchRequest * fetch = [NSFetchRequest fetchRequestWithEntityName:@"FriendsTable"];
-//    
-//    NSError * error;
-//    
-//    NSArray * results = [appDel.managedObjectContext executeFetchRequest:fetch error:&error];
-//    
-//    NSLog(@"results count in cellForRowAtIndexPath is %li", [results count]);
-//    
-//    FriendsTable * objEmployee = [dataSource objectAtIndex:indexPath.row];
-//    //NSURL *picUrl = [NSURL URLWithString:objEmployee.url];
-//    //image = [UIImage imageWithData:[NSData dataWithContentsOfURL:picUrl]];
-//
-//    // retrieved stored data of the image from core data
-//    image = [UIImage imageWithData:objEmployee.data];
-//    [cell.imageView setContentMode:UIViewContentModeScaleAspectFit];
-//        //Hide the activity indicator
-//    [cell.imageView setNeedsLayout];
-//    cell.imageView.image = image;
-//    //cell.myf
-//    
-//    cell.textLabel.text = objEmployee.name;
-//    //cell.detailTextLabel.text = objEmployee.empId;
-//    return cell;
+    //NSLog(@" in cellForRowAtIndexPath start ");
     
     // Custom Cell
     
@@ -132,22 +93,25 @@
     
     UIImage * image;
     
-    // verifying whether coredata is full or empty
-    NSFetchRequest * fetch = [NSFetchRequest fetchRequestWithEntityName:@"FriendsTable"];
-    NSError * error;
-    
-    NSArray * results = [appDel.managedObjectContext executeFetchRequest:fetch error:&error];
-    
-    //NSLog(@"results count in cellForRowAtIndexPath is %li", [results count]);
+    //FriendsTable * objEmployee = [[FriendsTable alloc] init];
     
     FriendsTable * objEmployee = [dataSource objectAtIndex:indexPath.row];
     
     // retrieved stored data of the image from core data
     image = [UIImage imageWithData:objEmployee.data];
-
+    
+    // Setting the friend object
+    if (count++<1) {
+        NSLog(@" before setting the Friend object ");
+    }
+    
+    cell.currentFriend = objEmployee;
+    
     cell.userFriendImgView.image = image;
     
     cell.userFriendNameLabel.text = objEmployee.name;
+    
+    cell.userFriendIdLabel.text = objEmployee.uId;
     
     
     return cell;
@@ -172,17 +136,6 @@
         
     }
 }
-
-//- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
-//    [tableView deselectRowAtIndexPath:indexPath animated:YES];
-//    
-//    [self performSegueWithIdentifier:@"showStoryBoard" sender:self];
-//}
-//
-//- (void)tableView:(UITableView *)tableView accessoryButtonTappedForRowWithIndexPath:(NSIndexPath *)indexPath;
-//{
-//    
-//}
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath;
 {

@@ -17,14 +17,21 @@
                         <rect key="frame" x="15" y="2" width="60" height="56"/>
                     </imageView>
                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Retrieving...." lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="oMC-cQ-GdW">
-                        <rect key="frame" x="97" y="15" width="209" height="29"/>
+                        <rect key="frame" x="100" y="4" width="209" height="29"/>
                         <fontDescription key="fontDescription" name="Papyrus" family="Papyrus" pointSize="20"/>
                         <color key="textColor" red="0.0" green="0.47843137250000001" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                        <nil key="highlightedColor"/>
+                    </label>
+                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Retrieving label..." lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="rRG-7r-jKd">
+                        <rect key="frame" x="101" y="31" width="250" height="21"/>
+                        <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                        <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
                         <nil key="highlightedColor"/>
                     </label>
                 </subviews>
             </tableViewCellContentView>
             <connections>
+                <outlet property="userFriendIdLabel" destination="rRG-7r-jKd" id="hh5-CD-uoX"/>
                 <outlet property="userFriendImgView" destination="YXb-3c-sRA" id="Nea-3Y-8Vt"/>
                 <outlet property="userFriendNameLabel" destination="oMC-cQ-GdW" id="br3-IM-Os0"/>
             </connections>

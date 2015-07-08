@@ -14,10 +14,18 @@
 
 -(void)setCurrentFriend:(FriendsTable *)currentFriend {
     self.currentFriend = currentFriend;
+    image = [UIImage imageWithData:_currentFriend.data];
+    self.userFriendImgView.image = image;
+    
+    self.userFriendNameLabel.text = _currentFriend.name;
+    
+    NSLog( @" name is %@",_currentFriend.name);
     //upadate label
     //if friendobject.data {  use image }
     //else {friendobject fetchimage , Notification addobserverwithName"UseFriendObjectID" and selector "UpdateImageMethod"}
     //}
+    
+    NSLog(@" Friend object is SET ");
 }
 
 - (void)awakeFromNib {
