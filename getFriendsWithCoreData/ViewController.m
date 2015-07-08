@@ -18,6 +18,10 @@
 {
     AppDelegate * appDel;
     BOOL conn;
+    
+    // ## for camera
+    UIActionSheet * objAction;
+    UIBarButtonItem * add;
 }
 @end
 
@@ -29,6 +33,10 @@
     appDel = [[UIApplication sharedApplication] delegate];
     self.title = @" List of Friends ";
     self.view.backgroundColor = [UIColor whiteColor];
+    
+    // ## Camera
+    add = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemCamera target:self action:@selector(addButtonClicked:)];
+    self.navigationItem.rightBarButtonItem = add;
     
     self.FacebookButton = [[FBSDKLoginButton alloc] init];
     [self.FacebookButton setReadPermissions:@[@"public_profile", @"email", @"user_friends"]];
@@ -43,6 +51,20 @@
     [FBSDKProfile enableUpdatesOnAccessTokenChange:YES];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(onProfileUpdated:) name:FBSDKProfileDidChangeNotification object:nil];
     
+}
+
+
+// ## Camera
+
+- (void) addButtonClicked:(id ) addLocal;
+{
+    //    if ([addLocal isKindOfClass:[UIBarButtonItem class]]) {
+    //        objAction = [[UIActionSheet alloc] initWithTitle:@"Select..." delegate:self cancelButtonTitle:@" Cancel " destructiveButtonTitle:Nil otherButtonTitles:@"Camera",@" Photo Library ", nil];
+    //    }
+    //    else
+    //        objAction = [[UIActionSheet alloc] initWithTitle:@"Select..." delegate:self cancelButtonTitle:@" Cancel " destructiveButtonTitle:Nil otherButtonTitles:@"Camera",@" Photo Library ", nil];
+    objAction = [[UIActionSheet alloc] initWithTitle:@"Select..." delegate:self cancelButtonTitle:@" Cancel " destructiveButtonTitle:Nil otherButtonTitles:@"Camera",@" Photo Library ", nil];
+    [objAction showInView:self.view];
 }
 
 // get's the details of the user who is currently logged in

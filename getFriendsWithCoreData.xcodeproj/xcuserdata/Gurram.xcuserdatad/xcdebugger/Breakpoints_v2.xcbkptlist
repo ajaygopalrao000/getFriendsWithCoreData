@@ -19,12 +19,44 @@
             shouldBeEnabled = "No"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
-            filePath = "getFriendsWithCoreData/showing Friends/showingFriendsViewController.m"
-            timestampString = "458007379.433426"
+            filePath = "getFriendsWithCoreData/CustomCell/CustomFriendTVCell.m"
+            timestampString = "458005618.194074"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "108"
-            endingLineNumber = "108"
+            startingLineNumber = "17"
+            endingLineNumber = "17"
+            landmarkName = "-updateCurrentFriend:"
+            landmarkType = "5">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "getFriendsWithCoreData/CustomCell/CustomFriendTVCell.m"
+            timestampString = "458020013.445281"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "18"
+            endingLineNumber = "18"
+            landmarkName = "-updateCurrentFriend:"
+            landmarkType = "5">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "getFriendsWithCoreData/showing Friends/showingFriendsViewController.m"
+            timestampString = "458022359.586072"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "88"
+            endingLineNumber = "88"
             landmarkName = "-tableView:cellForRowAtIndexPath:"
             landmarkType = "5">
          </BreakpointContent>
@@ -32,16 +64,32 @@
       <BreakpointProxy
          BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
          <BreakpointContent
-            shouldBeEnabled = "No"
+            shouldBeEnabled = "Yes"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "getFriendsWithCoreData/CustomCell/CustomFriendTVCell.m"
-            timestampString = "458005618.194074"
+            timestampString = "458020295.029228"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "17"
-            endingLineNumber = "17"
-            landmarkName = "-setCurrentFriend:"
+            startingLineNumber = "29"
+            endingLineNumber = "29"
+            landmarkName = "-updateCurrentFriend:"
+            landmarkType = "5">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "getFriendsWithCoreData/CustomCell/CustomFriendTVCell.m"
+            timestampString = "458019365.171903"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "15"
+            endingLineNumber = "15"
+            landmarkName = "-updateImageMethod:"
             landmarkType = "5">
          </BreakpointContent>
       </BreakpointProxy>
@@ -51,13 +99,61 @@
             shouldBeEnabled = "No"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
-            filePath = "getFriendsWithCoreData/CustomCell/CustomFriendTVCell.m"
-            timestampString = "458006788.579786"
+            filePath = "getFriendsWithCoreData/FriendsTable.m"
+            timestampString = "458019373.36207"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "18"
-            endingLineNumber = "18"
-            landmarkName = "-setCurrentFriend:"
+            startingLineNumber = "22"
+            endingLineNumber = "22"
+            landmarkName = "-getImageForThisFriend"
+            landmarkType = "5">
+            <Locations>
+               <Location
+                  shouldBeEnabled = "No"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "-[FriendsTable getImageForThisFriend]"
+                  moduleName = "getFriendsWithCoreData"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/Gurram/Desktop/Git%20Projects/getFriendsWithCoreData/getFriendsWithCoreData/FriendsTable.m"
+                  timestampString = "458019373.364619"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "23"
+                  endingLineNumber = "23"
+                  offsetFromSymbolStart = "67">
+               </Location>
+               <Location
+                  shouldBeEnabled = "No"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "__37-[FriendsTable getImageForThisFriend]_block_invoke"
+                  moduleName = "getFriendsWithCoreData"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/Gurram/Desktop/Git%20Projects/getFriendsWithCoreData/getFriendsWithCoreData/FriendsTable.m"
+                  timestampString = "458019373.364807"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "23"
+                  endingLineNumber = "23"
+                  offsetFromSymbolStart = "22">
+               </Location>
+            </Locations>
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "getFriendsWithCoreData/FriendsTable.m"
+            timestampString = "458019378.065113"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "24"
+            endingLineNumber = "24"
+            landmarkName = "-getImageForThisFriend"
             landmarkType = "5">
          </BreakpointContent>
       </BreakpointProxy>

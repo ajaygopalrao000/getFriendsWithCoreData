@@ -21,7 +21,7 @@
     dispatch_queue_t imageQueue = dispatch_queue_create("Image Queue",NULL);
     
     dispatch_async(imageQueue, ^{
-        NSLog(@" imageQueue ");
+        //NSLog(@" imageQueue ");
         
         NSURL *url = [NSURL URLWithString:self.url];
         NSData *imageData = [NSData dataWithContentsOfURL:url];
