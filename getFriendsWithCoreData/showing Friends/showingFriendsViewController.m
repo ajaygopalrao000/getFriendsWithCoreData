@@ -251,25 +251,6 @@
 //        objFriend.data = [NSData dataWithContentsOfURL:[NSURL URLWithString:[dict objectForKey:@"picURL"]]]
 //        ;
         
-        
-        dispatch_queue_t imageQueue = dispatch_queue_create("Image Queue",NULL);
-        
-            dispatch_async(imageQueue, ^{
-                NSLog(@" imageQueue ");
-                
-                NSURL *url = [NSURL URLWithString:[dict objectForKey:@"picURL"]];
-                NSData *imageData = [NSData dataWithContentsOfURL:url];
-                //UIImage *image = [UIImage imageWithData:imageData];
-                //objFriend.data = imageData;
-                dispatch_async(dispatch_get_main_queue(), ^{
-                    // Update the UI
-                   //NSLog(@" mainQueue ");
-                    objFriend.data = imageData;
-                    [table reloadData];
-                });
-                
-            });
-        
         // Continue doing other stuff while images load.
         
         

@@ -18,10 +18,23 @@
 
 
 - (void)getImageForThisFriend {
-    //NSURLCONNECTION SENDASYNCHRONOUSREQUEST
-//    NSData * data = [NSData dataWithContentsOfURL:[NSURL URLWithString:self.url]];
-//    self.data = data;
-    //NSNOTIFICATIONS POST NotficationWithName"UseuID"
+    dispatch_queue_t imageQueue = dispatch_queue_create("Image Queue",NULL);
+    
+    dispatch_async(imageQueue, ^{
+        NSLog(@" imageQueue ");
+        
+        NSURL *url = [NSURL URLWithString:self.url];
+        NSData *imageData = [NSData dataWithContentsOfURL:url];
+        //UIImage *image = [UIImage imageWithData:imageData];
+        //objFriend.data = imageData;
+        dispatch_async(dispatch_get_main_queue(), ^{
+            // Update the UI
+            //NSLog(@" mainQueue ");
+            self.data = imageData;
+            [[NSNotificationCenter defaultCenter] postNotificationName:self.uId object:nil];
+        });
+        
+    });
 }
 
 @end

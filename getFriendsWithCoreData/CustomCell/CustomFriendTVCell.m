@@ -10,7 +10,7 @@
 
 @implementation CustomFriendTVCell
 
--(void)UpdateImageMethod {
+-(void)updateImageMethod: (NSNotification*)note {
     NSLog(@" Friend object is Downloaded and Updated");
     self.userFriendImgView.image = [UIImage imageWithData:_currentFriend.data];
 }
@@ -25,9 +25,9 @@
         self.userFriendImgView.image = [UIImage imageWithData:_currentFriend.data];
     } else {
         NSLog(@" Friend object is Fetching");
+        [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(updateImageMethod:) name:self.currentFriend.uId object:nil];
         self.userFriendImgView.image = [UIImage imageNamed:@"profile_Pic"];
         [self.currentFriend getImageForThisFriend];
-        [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(UpdateImageMethod) name:self.currentFriend.uId object:self];
     }
 }
 
