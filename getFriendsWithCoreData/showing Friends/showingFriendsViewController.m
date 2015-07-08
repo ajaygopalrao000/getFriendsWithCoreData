@@ -51,13 +51,13 @@
     
 }
 
--(void) prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender
-{
-    if ([[segue identifier] isEqualToString:@"showStoryBoard"]) {
-        ExampleStoryBoardVC * destinationViewController = (ExampleStoryBoardVC *)segue.destinationViewController;
-        destinationViewController.titleString = @"purple";
-    }
-}
+//-(void) prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender
+//{
+//    if ([[segue identifier] isEqualToString:@"showStoryBoard"]) {
+//        ExampleStoryBoardVC * destinationViewController = (ExampleStoryBoardVC *)segue.destinationViewController;
+//        destinationViewController.titleString = @"purple";
+//    }
+//}
 
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView;
@@ -98,16 +98,26 @@
     FriendsTable * objEmployee = [dataSource objectAtIndex:indexPath.row];
     
     // retrieved stored data of the image from core data
-    image = [UIImage imageWithData:objEmployee.data];
+    
     
     // Setting the friend object
-    if (count++<1) {
-        NSLog(@" before setting the Friend object ");
+//    if (count++<1) {
+//        NSLog(@" before setting the Friend object ");
+//    }
+    
+    //cell.currentFriend = objEmployee;
+    //[cell setCurrentFriend:objEmployee];
+    
+    // ## Checking data in friend object
+    if (objEmployee.data != nil) {
+        NSLog(@"objEmployee.data != nil");
+        image = [UIImage imageWithData:objEmployee.data];
+        cell.userFriendImgView.image = image;
     }
-    
-    cell.currentFriend = objEmployee;
-    
-    cell.userFriendImgView.image = image;
+    else
+    {
+        NSLog(@"objEmployee.data == nil");
+    }
     
     cell.userFriendNameLabel.text = objEmployee.name;
     
@@ -129,7 +139,7 @@
     //NSLog(@" results count in showingFriendsViewController is %li",[results count]);
     
     if (error == nil) {
-        NSLog(@"error == nil");
+        //NSLog(@"error == nil");
         [dataSource removeAllObjects];
         [dataSource addObjectsFromArray:results];
         [table reloadData];
@@ -219,6 +229,7 @@
     //NSLog(@" in addMethod ");
     //NSLog(@" Friends array size is %li",[friendsArray count]);
     NSDictionary * dict;
+    int lCount = 0;
     for (int i = 0; i<[friendsArray count]; i++) {
         FriendsTable * objFriend = [NSEntityDescription insertNewObjectForEntityForName:@"FriendsTable" inManagedObjectContext:appDel.managedObjectContext];
         dict = [friendsArray objectAtIndex:i];
@@ -237,7 +248,31 @@
         objFriend.name = [dict objectForKey:@"username"];
         objFriend.uId = [dict objectForKey:@"uId"];
         objFriend.url = [dict objectForKey:@"picURL"];
-        objFriend.data = [NSData dataWithContentsOfURL:[NSURL URLWithString:[dict objectForKey:@"picURL"]]];
+//        objFriend.data = [NSData dataWithContentsOfURL:[NSURL URLWithString:[dict objectForKey:@"picURL"]]]
+//        ;
+        
+        
+        dispatch_queue_t imageQueue = dispatch_queue_create("Image Queue",NULL);
+        
+            dispatch_async(imageQueue, ^{
+                NSLog(@" imageQueue ");
+                
+                NSURL *url = [NSURL URLWithString:[dict objectForKey:@"picURL"]];
+                NSData *imageData = [NSData dataWithContentsOfURL:url];
+                //UIImage *image = [UIImage imageWithData:imageData];
+                //objFriend.data = imageData;
+                dispatch_async(dispatch_get_main_queue(), ^{
+                    // Update the UI
+                   //NSLog(@" mainQueue ");
+                    objFriend.data = imageData;
+                    [table reloadData];
+                });
+                
+            });
+        
+        // Continue doing other stuff while images load.
+        
+        
         //NSLog(@" i is %i",i);
         NSError * error;
         [appDel.managedObjectContext save:&error];

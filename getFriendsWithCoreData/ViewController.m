@@ -81,11 +81,11 @@
     if ([FBSDKAccessToken currentAccessToken]) {
         //If Logged in
         conn = YES;
-        NSLog(@"Login");
+        //NSLog(@"Login");
         [self getUserData];
     } else {
         //Logged out
-        NSLog(@"LogOut");
+        //NSLog(@"LogOut");
         [self.getMyFriendButton setEnabled:NO];
         [self.deleteDataButton setEnabled:NO];
     }
