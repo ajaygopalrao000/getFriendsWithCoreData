@@ -18,6 +18,6 @@
 @property (nonatomic, retain) NSString * url;
 
 
-- (void)getDataForThisFriend;
+- (void)getImageForThisFriend;
 
 @end

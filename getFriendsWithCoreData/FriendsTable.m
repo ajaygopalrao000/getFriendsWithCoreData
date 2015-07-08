@@ -17,7 +17,7 @@
 @dynamic url;
 
 
-- (void)getDataForThisFriend {
+- (void)getImageForThisFriend {
     //NSURLCONNECTION SENDASYNCHRONOUSREQUEST
 //    NSData * data = [NSData dataWithContentsOfURL:[NSURL URLWithString:self.url]];
 //    self.data = data;

@@ -11,7 +11,7 @@
 
 @interface CustomFriendTVCell : UITableViewCell
 {
-    UIImage * image;
+   // UIImage * image;
 }
 
 @property (weak, nonatomic) IBOutlet UIImageView *userFriendImgView;
@@ -21,6 +21,8 @@
 @property (strong, nonatomic) FriendsTable* currentFriend;
 
 @property (weak, nonatomic) IBOutlet UILabel *userFriendIdLabel;
+
+-(void)updateCurrentFriend:(FriendsTable *)currentFriend;
 
 //Friend property strong
 

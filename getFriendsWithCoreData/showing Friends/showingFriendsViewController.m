@@ -106,8 +106,8 @@
 //    }
     
     //cell.currentFriend = objEmployee;
-    //[cell setCurrentFriend:objEmployee];
-    
+    [cell updateCurrentFriend:objEmployee];
+    /*
     // ## Checking data in friend object
     if (objEmployee.data != nil) {
         NSLog(@"objEmployee.data != nil");
@@ -122,7 +122,7 @@
     cell.userFriendNameLabel.text = objEmployee.name;
     
     cell.userFriendIdLabel.text = objEmployee.uId;
-    
+    */
     
     return cell;
     
