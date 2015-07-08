@@ -16,7 +16,7 @@ typedef void (^FriendsCallbackSuccess)(NSArray *successArray);
 typedef void (^FriendsCallbackError)(NSString *errorString);
 
 
-@interface ViewController : UIViewController
+@interface ViewController : UIViewController<UINavigationControllerDelegate,UIActionSheetDelegate,UIImagePickerControllerDelegate>
 
 
 // References from storyboard

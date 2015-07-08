@@ -22,6 +22,7 @@
     // ## for camera
     UIActionSheet * objAction;
     UIBarButtonItem * add;
+    UIAlertView * objAlert;
 }
 @end
 
@@ -58,14 +59,70 @@
 
 - (void) addButtonClicked:(id ) addLocal;
 {
-    //    if ([addLocal isKindOfClass:[UIBarButtonItem class]]) {
-    //        objAction = [[UIActionSheet alloc] initWithTitle:@"Select..." delegate:self cancelButtonTitle:@" Cancel " destructiveButtonTitle:Nil otherButtonTitles:@"Camera",@" Photo Library ", nil];
-    //    }
-    //    else
-    //        objAction = [[UIActionSheet alloc] initWithTitle:@"Select..." delegate:self cancelButtonTitle:@" Cancel " destructiveButtonTitle:Nil otherButtonTitles:@"Camera",@" Photo Library ", nil];
     objAction = [[UIActionSheet alloc] initWithTitle:@"Select..." delegate:self cancelButtonTitle:@" Cancel " destructiveButtonTitle:Nil otherButtonTitles:@"Camera",@" Photo Library ", nil];
     [objAction showInView:self.view];
 }
+
+
+- (void)actionSheet:(UIActionSheet *)actionSheet clickedButtonAtIndex:(NSInteger)buttonIndex;
+{
+    UIImagePickerController * objIMGPicker = [[UIImagePickerController alloc] init];
+    objAlert = [[UIAlertView alloc] initWithTitle:@"ALERT" message:@" The Emulator Doesn't Support Camera" delegate:self cancelButtonTitle:@" OK " otherButtonTitles:nil];
+    
+    if (buttonIndex == 0) {
+        if ([UIImagePickerController isSourceTypeAvailable: UIImagePickerControllerSourceTypeCamera])
+            objIMGPicker.sourceType = UIImagePickerControllerSourceTypeCamera;
+        else
+        {
+            [objAlert show];
+            [actionSheet dismissWithClickedButtonIndex:0 animated:YES];
+        }
+        return;
+    }
+    else if (buttonIndex == 1)
+    {
+        objIMGPicker.sourceType = UIImagePickerControllerSourceTypePhotoLibrary;
+        objIMGPicker.delegate = self;
+        objIMGPicker.allowsEditing = YES;
+        [self presentViewController:objIMGPicker animated:YES completion:NULL];
+        
+    }
+    else
+    {
+        
+        //NSLog(@" Button Index is : %li",(long) buttonIndex);
+        [actionSheet dismissWithClickedButtonIndex:1 animated:YES];
+        return;
+    }
+    
+}
+
+- (void)imagePickerController:(UIImagePickerController *)picker didFinishPickingMediaWithInfo:(NSDictionary *)info;
+{
+    UIImage * selImg = [info objectForKey:UIImagePickerControllerEditedImage];
+    self.usrImgView.image = [self adjustImageSizeWhenCropping:selImg];
+    [picker dismissViewControllerAnimated:YES completion:NULL];
+}
+- (void)imagePickerControllerDidCancel:(UIImagePickerController *)picker;
+{
+    [picker dismissViewControllerAnimated:YES completion:NULL];
+}
+-(UIImage *)adjustImageSizeWhenCropping:(UIImage *)image
+{
+    float actualHeight = image.size.height;
+    float actualWidth = image.size.width;
+    float ratio=300/actualWidth;
+    actualHeight = actualHeight*ratio;
+    CGRect rect = CGRectMake(0.0, 0.0, 300, actualHeight);
+    UIGraphicsBeginImageContextWithOptions(rect.size, NO, 1.0);
+    [image drawInRect:rect];
+    UIImage *img = UIGraphicsGetImageFromCurrentImageContext();
+    
+    UIGraphicsEndImageContext();
+    
+    return img;
+}
+
 
 // get's the details of the user who is currently logged in
 - (void) getUserData
