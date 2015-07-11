@@ -107,7 +107,12 @@
                  NSString *userImageURL = [NSString stringWithFormat:@"https://graph.facebook.com/%@/picture?type=large", [result objectForKey:@"id"]];
                  NSURL *picUrl = [NSURL URLWithString:userImageURL];
                  NSData * usrImgData = [NSData dataWithContentsOfURL:picUrl];
-                 NSString * usrEmail = [result objectForKey:@"email"];
+                 NSMutableString * usrEmail = [NSMutableString stringWithString:@"email"];
+                 if ([result objectForKey:@"email"]) {
+                     usrEmail = [result objectForKey:@"email"];
+                 }
+                 
+                 [result objectForKey:@"email"];
                  NSString * usrId = [result objectForKey:@"id"];
                  NSString * usrMobileNo = [NSString stringWithFormat:@"9999999999"];
                  

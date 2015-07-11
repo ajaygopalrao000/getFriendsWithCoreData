@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="7706" systemVersion="14E46" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="hxb-kJ-t7x">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="7706" systemVersion="14D136" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="hxb-kJ-t7x">
     <dependencies>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="7703"/>
     </dependencies>
@@ -100,7 +100,7 @@
                     <navigationItem key="navigationItem" id="9Z6-55-7Xs">
                         <barButtonItem key="rightBarButtonItem" systemItem="edit" id="Pq1-Zo-vkY">
                             <connections>
-                                <segue destination="lwB-xe-bJ6" kind="show" identifier="segueForeditUserInfoVC" id="wU2-rs-Lyw"/>
+                                <segue destination="Zir-yo-HoN" kind="show" id="ibh-mU-eRI"/>
                             </connections>
                         </barButtonItem>
                     </navigationItem>
@@ -126,11 +126,11 @@
                         <viewControllerLayoutGuide type="bottom" id="mak-9o-xR0"/>
                     </layoutGuides>
                     <view key="view" contentMode="scaleToFill" id="qgk-fp-Npl">
-                        <rect key="frame" x="0.0" y="64" width="320" height="504"/>
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="504"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Edit Profile" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="eh9-8x-HE0">
-                                <rect key="frame" x="119.5" y="30" width="81" height="19.5"/>
+                                <rect key="frame" x="120" y="30" width="81" height="20"/>
                                 <fontDescription key="fontDescription" style="UICTFontTextStyleHeadline"/>
                                 <color key="textColor" red="0.01175124032" green="0.47825043509999998" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                                 <nil key="highlightedColor"/>
@@ -247,24 +247,6 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Wed-IA-BHu" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="1577" y="236"/>
-        </scene>
-        <!--Navigation Controller-->
-        <scene sceneID="DlM-zM-QgY">
-            <objects>
-                <navigationController automaticallyAdjustsScrollViewInsets="NO" id="lwB-xe-bJ6" sceneMemberID="viewController">
-                    <toolbarItems/>
-                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="wtC-9B-i4P">
-                        <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
-                        <autoresizingMask key="autoresizingMask"/>
-                    </navigationBar>
-                    <nil name="viewControllers"/>
-                    <connections>
-                        <segue destination="Zir-yo-HoN" kind="relationship" relationship="rootViewController" id="CIA-TV-pVM"/>
-                    </connections>
-                </navigationController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="VF0-90-NaZ" userLabel="First Responder" sceneMemberID="firstResponder"/>
-            </objects>
-            <point key="canvasLocation" x="2206" y="875"/>
         </scene>
     </scenes>
     <resources>
