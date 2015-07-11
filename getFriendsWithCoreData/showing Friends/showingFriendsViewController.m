@@ -91,6 +91,15 @@
     
 }
 
+
+- (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath;
+{
+    return 60;
+}
+
+
+// retrieving friends list
+
 -(void)getEmployeeDataFromCoreData
 {
     
@@ -110,13 +119,6 @@
     }
 }
 
-- (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath;
-{
-    return 60;
-}
-
-
-// retrieving friends list
 
 -(void) showFriends
 {

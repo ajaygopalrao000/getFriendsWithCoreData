@@ -22,7 +22,9 @@
 //    ViewController *objVC = [[ViewController alloc] init];
 //    UINavigationController * objNavCon = [[UINavigationController alloc] initWithRootViewController: objVC];
 //    self.window.rootViewController = objNavCon ;
+    
     return [[FBSDKApplicationDelegate sharedInstance] application:application didFinishLaunchingWithOptions:launchOptions];
+    
 //    return YES;
 }
 

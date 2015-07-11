@@ -9,20 +9,25 @@
 #import "ViewController.h"
 #import "AppDelegate.h"
 #import "FriendsTable.h"
+#import "UserDataTable.h"
 #import <Social/Social.h>
 #import <FBSDKCoreKit/FBSDKCoreKit.h>
 #import <FBSDKLoginKit/FBSDKLoginKit.h>
 #import "showingFriendsViewController.h"
+#import "editUserInfoVC.h"
 
 @interface ViewController ()
 {
     AppDelegate * appDel;
     BOOL conn;
     
+    // ## edit button
+    //UIBarButtonItem * edit;
+    
     // ## for camera
     UIActionSheet * objAction;
-    UIBarButtonItem * add;
     UIAlertView * objAlert;
+    NSMutableArray * usrDataSource;
 }
 @end
 
@@ -36,8 +41,8 @@
     self.view.backgroundColor = [UIColor whiteColor];
     
     // ## Camera
-    add = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemCamera target:self action:@selector(addButtonClicked:)];
-    self.navigationItem.rightBarButtonItem = add;
+//    edit = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemEdit target:self action:@selector(editButtonClicked:)];
+//    self.navigationItem.rightBarButtonItem = edit;
     
     self.FacebookButton = [[FBSDKLoginButton alloc] init];
     [self.FacebookButton setReadPermissions:@[@"public_profile", @"email", @"user_friends"]];
@@ -54,73 +59,40 @@
     
 }
 
+// ## storing user data in the database
 
-// ## Camera
-
-- (void) addButtonClicked:(id ) addLocal;
+-(void)addUserInfoToCoreData : (NSMutableArray *) usrDataArray
 {
-    objAction = [[UIActionSheet alloc] initWithTitle:@"Select..." delegate:self cancelButtonTitle:@" Cancel " destructiveButtonTitle:Nil otherButtonTitles:@"Camera",@" Photo Library ", nil];
-    [objAction showInView:self.view];
-}
-
-
-- (void)actionSheet:(UIActionSheet *)actionSheet clickedButtonAtIndex:(NSInteger)buttonIndex;
-{
-    UIImagePickerController * objIMGPicker = [[UIImagePickerController alloc] init];
-    objAlert = [[UIAlertView alloc] initWithTitle:@"ALERT" message:@" The Emulator Doesn't Support Camera" delegate:self cancelButtonTitle:@" OK " otherButtonTitles:nil];
     
-    if (buttonIndex == 0) {
-        if ([UIImagePickerController isSourceTypeAvailable: UIImagePickerControllerSourceTypeCamera])
-            objIMGPicker.sourceType = UIImagePickerControllerSourceTypeCamera;
-        else
-        {
-            [objAlert show];
-            [actionSheet dismissWithClickedButtonIndex:0 animated:YES];
-        }
-        return;
-    }
-    else if (buttonIndex == 1)
-    {
-        objIMGPicker.sourceType = UIImagePickerControllerSourceTypePhotoLibrary;
-        objIMGPicker.delegate = self;
-        objIMGPicker.allowsEditing = YES;
-        [self presentViewController:objIMGPicker animated:YES completion:NULL];
+    NSLog(@" in addUserInfoToCoreData ");
+    NSLog(@" userDataArray size is %li",[userDataArray count]);
+    NSDictionary * dict;
+    UserDataTable * objUser = [NSEntityDescription insertNewObjectForEntityForName:@"UserDataTable" inManagedObjectContext:appDel.managedObjectContext];
+    
+    
+    dict = [usrDataArray objectAtIndex:0];
+    objUser.userName = [dict objectForKey:@"userNme"];
+    objUser.userImageData = [dict objectForKey:@"usrImgData"];
+    objUser.userEmail = [dict objectForKey:@"usrEmail"];
+    objUser.userId = [dict objectForKey:@"usrId"];
+    objUser.userMobileNo = [dict objectForKey:@"usrMobileNo"];
+    NSLog(@" Name is %@", [dict objectForKey:@"userNme"]);
+    NSLog(@" user id  is %@",[dict objectForKey:@"usrId"]);
+    NSLog(@" Email is %@",[dict objectForKey:@"usrEmail"]);
+    NSError * error;
+    [appDel.managedObjectContext save:&error];
         
-    }
-    else
-    {
-        [actionSheet dismissWithClickedButtonIndex:1 animated:YES];
-        return;
+    if (error == nil) {
+        NSLog(@"Success in storing the data");
     }
     
 }
 
-- (void)imagePickerController:(UIImagePickerController *)picker didFinishPickingMediaWithInfo:(NSDictionary *)info;
+// ## Return from editUserinfoVC when user clicks on cancel
+-(IBAction)retturnFromeditUserInfoVC:(UIStoryboardSegue*)cancelButton
 {
-    UIImage * selImg = [info objectForKey:UIImagePickerControllerEditedImage];
-    self.usrImgView.image = [self adjustImageSizeWhenCropping:selImg];
-    [picker dismissViewControllerAnimated:YES completion:NULL];
-}
-- (void)imagePickerControllerDidCancel:(UIImagePickerController *)picker;
-{
-    [picker dismissViewControllerAnimated:YES completion:NULL];
-}
--(UIImage *)adjustImageSizeWhenCropping:(UIImage *)image
-{
-    float actualHeight = image.size.height;
-    float actualWidth = image.size.width;
-    float ratio=300/actualWidth;
-    actualHeight = actualHeight*ratio;
-    CGRect rect = CGRectMake(0.0, 0.0, 300, actualHeight);
-    UIGraphicsBeginImageContextWithOptions(rect.size, NO, 1.0);
-    [image drawInRect:rect];
-    UIImage *img = UIGraphicsGetImageFromCurrentImageContext();
     
-    UIGraphicsEndImageContext();
-    
-    return img;
 }
-
 
 // get's the details of the user who is currently logged in
 - (void) getUserData
@@ -134,8 +106,42 @@
                  NSString *userNme = [result objectForKey:@"name"];
                  NSString *userImageURL = [NSString stringWithFormat:@"https://graph.facebook.com/%@/picture?type=large", [result objectForKey:@"id"]];
                  NSURL *picUrl = [NSURL URLWithString:userImageURL];
-                 self.usrNameLabel.text = [NSString stringWithFormat:@" Hello : %@",userNme];
-                 self.usrImgView.image = [UIImage imageWithData:[NSData dataWithContentsOfURL:picUrl]];
+                 NSData * usrImgData = [NSData dataWithContentsOfURL:picUrl];
+                 NSString * usrEmail = [result objectForKey:@"email"];
+                 NSString * usrId = [result objectForKey:@"id"];
+                 NSString * usrMobileNo = [NSString stringWithFormat:@"9999999999"];
+                 
+                 
+                 // ## Fetching User data from core data
+                 NSFetchRequest * fetch = [NSFetchRequest fetchRequestWithEntityName:@"UserDataTable"];
+                 NSError * error;
+                 NSArray * results = [appDel.managedObjectContext executeFetchRequest:fetch error:&error];
+                 usrDataSource = [[NSMutableArray alloc] init];
+                 [usrDataSource addObjectsFromArray:results];
+                 
+                 
+                 
+                 //NSLog(@" results count is %li",[results count]);
+                 
+                 if (error == nil && [results count] == 1) {
+                     NSLog(@" [results count] == 1 ");
+                     UserDataTable * objUser = [usrDataSource objectAtIndex:0];
+                     self.usrNameLabel.text = [NSString stringWithFormat:@" Hello : %@",objUser.userName];
+                     self.usrImgView.image = [UIImage imageWithData:objUser.userImageData];
+                     //[self deleteMethod:@"UserDataTable"];
+                 }
+                 else
+                 {
+                     NSLog(@" [results count] != 1 ");
+                     self.usrNameLabel.text = [NSString stringWithFormat:@" Hello : %@",userNme];
+                     self.usrImgView.image = [UIImage imageWithData:[NSData dataWithContentsOfURL:picUrl]];
+                     userDataCollection = [[NSDictionary alloc]initWithObjects:@[userNme, usrImgData, usrEmail, usrId, usrMobileNo] forKeys:@[@"userNme", @"usrImgData", @"usrEmail", @"usrId", @"usrMobileNo"]];
+                     //Store each dictionary inside the array that we created
+                     userDataArray = [[NSMutableArray alloc] init];
+                     [userDataArray addObject:userDataCollection];
+                     [self addUserInfoToCoreData : userDataArray];
+                 }
+                 
                  
                  self.getMyFriendButton.enabled = YES;
                  self.deleteDataButton.enabled = YES;
@@ -159,6 +165,7 @@
         //If Logged in
         conn = YES;
         //NSLog(@"Login");
+        [self deleteMethod:@"UserDataTable"];
         [self getUserData];
     } else {
         //Logged out
@@ -170,11 +177,11 @@
 }
 
 
--(void)deleteMethod
+-(void)deleteMethod : (NSString *) tableName;
 {
-    NSLog(@"deleteMethod");
+    NSLog(@"deleteMethod for %@",tableName);
     NSFetchRequest * allCars = [[NSFetchRequest alloc] init];
-    [allCars setEntity:[NSEntityDescription entityForName:@"FriendsTable" inManagedObjectContext:appDel.managedObjectContext]];
+    [allCars setEntity:[NSEntityDescription entityForName:tableName inManagedObjectContext:appDel.managedObjectContext]];
     [allCars setIncludesPropertyValues:NO]; //only fetch the managedObjectID
     
     NSError * error = nil;
@@ -200,7 +207,7 @@
 
 - (IBAction)deleteButtonClicked:(UIButton *)sender {
     //NSLog(@"deleteButtonClicked");
-    [self deleteMethod];
+    [self deleteMethod:@"FriendsTable"];
 }
 
 

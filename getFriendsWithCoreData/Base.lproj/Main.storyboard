@@ -97,7 +97,13 @@
                         </constraints>
                     </view>
                     <extendedEdge key="edgesForExtendedLayout" bottom="YES"/>
-                    <navigationItem key="navigationItem" id="9Z6-55-7Xs"/>
+                    <navigationItem key="navigationItem" id="9Z6-55-7Xs">
+                        <barButtonItem key="rightBarButtonItem" systemItem="edit" id="Pq1-Zo-vkY">
+                            <connections>
+                                <segue destination="lwB-xe-bJ6" kind="show" identifier="segueForeditUserInfoVC" id="wU2-rs-Lyw"/>
+                            </connections>
+                        </barButtonItem>
+                    </navigationItem>
                     <simulatedScreenMetrics key="simulatedDestinationMetrics" type="retina4"/>
                     <connections>
                         <outlet property="FacebookButton" destination="CAw-WP-mZk" id="JiB-bn-Gwf"/>
@@ -110,6 +116,56 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="x5A-6p-PRh" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="1975" y="236"/>
+        </scene>
+        <!--Edit User InfoVC-->
+        <scene sceneID="lrw-kC-IIy">
+            <objects>
+                <viewController storyboardIdentifier="editUserInfoVC" useStoryboardIdentifierAsRestorationIdentifier="YES" id="Zir-yo-HoN" customClass="editUserInfoVC" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="kEY-pJ-Mee"/>
+                        <viewControllerLayoutGuide type="bottom" id="mak-9o-xR0"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="qgk-fp-Npl">
+                        <rect key="frame" x="0.0" y="64" width="320" height="504"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Edit Profile" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="eh9-8x-HE0">
+                                <rect key="frame" x="119.5" y="30" width="81" height="19.5"/>
+                                <fontDescription key="fontDescription" style="UICTFontTextStyleHeadline"/>
+                                <color key="textColor" red="0.01175124032" green="0.47825043509999998" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <constraints>
+                            <constraint firstItem="eh9-8x-HE0" firstAttribute="top" secondItem="qgk-fp-Npl" secondAttribute="top" constant="30" id="ZTT-PL-neD"/>
+                            <constraint firstAttribute="centerX" secondItem="eh9-8x-HE0" secondAttribute="centerX" id="uoc-nd-Juv"/>
+                        </constraints>
+                    </view>
+                    <extendedEdge key="edgesForExtendedLayout" bottom="YES"/>
+                    <toolbarItems/>
+                    <navigationItem key="navigationItem" id="dWR-au-b81">
+                        <barButtonItem key="leftBarButtonItem" systemItem="cancel" id="z0a-Ek-DbE">
+                            <connections>
+                                <segue destination="ezE-0E-T5P" kind="unwind" unwindAction="retturnFromeditUserInfoVC:" id="Hpd-7P-hrH"/>
+                            </connections>
+                        </barButtonItem>
+                        <barButtonItem key="rightBarButtonItem" systemItem="done" id="nrM-3J-Mdd">
+                            <connections>
+                                <action selector="doneButtonClicked:" destination="Zir-yo-HoN" id="NuD-Fa-XWG"/>
+                            </connections>
+                        </barButtonItem>
+                    </navigationItem>
+                    <nil key="simulatedBottomBarMetrics"/>
+                    <simulatedScreenMetrics key="simulatedDestinationMetrics" type="retina4"/>
+                    <connections>
+                        <outlet property="doneBarButton" destination="dWR-au-b81" id="q1F-Qz-rFn"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="sUo-07-HzA" userLabel="First Responder" sceneMemberID="firstResponder"/>
+                <exit id="ezE-0E-T5P" userLabel="Exit" sceneMemberID="exit"/>
+            </objects>
+            <point key="canvasLocation" x="2738" y="875"/>
         </scene>
         <!--Showing Friends View Controller-->
         <scene sceneID="1we-Wp-Hw0">
@@ -191,6 +247,24 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Wed-IA-BHu" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="1577" y="236"/>
+        </scene>
+        <!--Navigation Controller-->
+        <scene sceneID="DlM-zM-QgY">
+            <objects>
+                <navigationController automaticallyAdjustsScrollViewInsets="NO" id="lwB-xe-bJ6" sceneMemberID="viewController">
+                    <toolbarItems/>
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="wtC-9B-i4P">
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
+                        <autoresizingMask key="autoresizingMask"/>
+                    </navigationBar>
+                    <nil name="viewControllers"/>
+                    <connections>
+                        <segue destination="Zir-yo-HoN" kind="relationship" relationship="rootViewController" id="CIA-TV-pVM"/>
+                    </connections>
+                </navigationController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="VF0-90-NaZ" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="2206" y="875"/>
         </scene>
     </scenes>
     <resources>
