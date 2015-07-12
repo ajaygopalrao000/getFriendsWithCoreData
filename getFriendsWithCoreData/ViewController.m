@@ -27,7 +27,7 @@
     UIActionSheet * objAction;
     UIAlertView * objAlert;
     NSMutableArray * usrDataSource;
-    editUserInfoVC *objeditUserInfoVC;
+    //editUserInfoVC *objeditUserInfoVC;
 }
 @end
 
@@ -58,7 +58,7 @@
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(onProfileUpdated:) name:FBSDKProfileDidChangeNotification object:nil];
     
     // ## calling delegate methods for editUserInfoVC
-    objeditUserInfoVC.delegate = self;
+    //objeditUserInfoVC.delegate = self;
     
 }
 
