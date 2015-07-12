@@ -9,6 +9,7 @@
 #import <UIKit/UIKit.h>
 #import <FBSDKCoreKit/FBSDKCoreKit.h>
 #import <FBSDKLoginKit/FBSDKLoginKit.h>
+#import "editUserInfoVC.h"
 
 //Declare the block that will execute after receiving success from the method
 typedef void (^FriendsCallbackSuccess)(NSArray *successArray);
@@ -18,7 +19,7 @@ typedef void (^FriendsCallbackError)(NSString *errorString);
 
 
 
-@interface ViewController : UIViewController<UINavigationControllerDelegate,UIActionSheetDelegate,UIImagePickerControllerDelegate>
+@interface ViewController : UIViewController<editUserInforVCDelegate,UINavigationControllerDelegate,UIActionSheetDelegate,UIImagePickerControllerDelegate>
 {
     NSMutableArray *userDataArray;
     NSDictionary *userDataCollection;
@@ -33,6 +34,10 @@ typedef void (^FriendsCallbackError)(NSString *errorString);
 @property (strong, nonatomic) IBOutlet FBSDKLoginButton *FacebookButton;
 @property (weak, nonatomic) IBOutlet UIButton *getMyFriendButton;
 @property (weak, nonatomic) IBOutlet UIButton *deleteDataButton;
+@property (weak, nonatomic) IBOutlet UILabel *usrEmailLabel;
+@property (weak, nonatomic) IBOutlet UILabel *userMobileNoLabel;
+
+
 
 // References for edit, cancel bar buttons
 //@property (weak, nonatomic) IBOutlet UIBarButtonItem *editBarButton;

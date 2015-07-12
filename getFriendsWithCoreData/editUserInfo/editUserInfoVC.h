@@ -8,6 +8,13 @@
 
 #import <UIKit/UIKit.h>
 
+// ## creating Delegate
+@protocol editUserInforVCDelegate;
+
+
+//@protocol editUserInforVCDelegate;
+
+
 @interface editUserInfoVC : UIViewController<UITableViewDataSource, UITableViewDelegate, UITextFieldDelegate,UINavigationControllerDelegate,UIActionSheetDelegate,UIImagePickerControllerDelegate>
 {
     UITableView * tableView;
@@ -27,6 +34,10 @@
     
 }
 
+// ## property for delegate
+@property (nonatomic, weak) id<editUserInforVCDelegate> delegate;
+
+
 @property (weak, nonatomic) IBOutlet UINavigationItem *doneBarButton;
 
 @property (nonatomic,copy) NSString* name ;
@@ -34,3 +45,22 @@
 @property (nonatomic,copy) NSString* mobileNo ;
 
 @end
+
+
+@protocol editUserInforVCDelegate <NSObject>
+
+-(void) doneBtnClicked : (editUserInfoVC*)viewController
+didChooseValue : (BOOL) flag;
+
+-(void)buttonClicked:(NSString *)text;
+
+@end
+
+
+//@protocol editUserInforVCDelegate <NSObject>
+//
+//@required
+//-(void) doneBtnClicked : (BOOL) flag;
+//
+//
+//@end

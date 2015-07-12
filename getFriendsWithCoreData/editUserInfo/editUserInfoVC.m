@@ -22,9 +22,8 @@
 {
     UIBarButtonItem * done, * cancel;
     
-    //UIScrollView * objScrollView;
-    
     AppDelegate * appDel;
+    BOOL * flag;
 }
 
 @end
@@ -36,21 +35,17 @@
     [super viewDidLoad];
     // Do any additional setup after loading the view.
     self.view.backgroundColor = [UIColor whiteColor];
-    
-    // ## Scroll View
-    
-//    objScrollView = [[UIScrollView alloc] initWithFrame:self.view.frame];
-//    objScrollView.contentSize = CGSizeMake(self.view.frame.size.width, 600);
-//    [self.view addSubview:objScrollView];
-    
-//    UILabel * editProfleLabel = [[UILabel alloc] initWithFrame:CGRectMake(0, 30, 150, 35)];
-//    editProfleLabel.text = @"Edit Profile";
-//    editProfleLabel.textAlignment = NSTextAlignmentCenter;
-//    editProfleLabel.font = [UIFont preferredFontForTextStyle: UIFontTextStyleHeadline];
-//    editProfleLabel.textColor = [UIColor colorWithRed:4/256.0 green:134/256.0 blue:247/256.0 alpha:1.0];
-//    [self.view addSubview:editProfleLabel];
-    
     appDel = [[UIApplication sharedApplication] delegate];
+    
+    // ## delegate
+    id<editUserInforVCDelegate> strongDelegate = self.delegate;
+    flag = (BOOL *)NO;
+    
+    // Our delegate method is optional, so we should
+    // check that the delegate implements it
+    if ([strongDelegate respondsToSelector:@selector(doneBtnClicked:didChooseValue:)]) {
+        [strongDelegate doneBtnClicked:self didChooseValue:flag];
+    }
     
     // ## Table View
     tableView = [[UITableView alloc]initWithFrame:CGRectMake(5, 80, self.view.frame.size.width-10, self.view.frame.size.height-80) style:UITableViewStyleGrouped];
@@ -59,15 +54,16 @@
     [self.view addSubview:tableView];
     
     // ## alert View
-    
     objAlert = [[UIAlertView alloc] initWithTitle:@"ALERT" message:@" Default " delegate:self cancelButtonTitle:@" OK " otherButtonTitles:nil];
+    
+    
 }
 
 
 //## deleting previous data
 -(void)deleteMethod : (NSString *) tableName;
 {
-    NSLog(@"deleteMethod for %@",tableName);
+    //NSLog(@"deleteMethod for %@",tableName);
     NSFetchRequest * allCars = [[NSFetchRequest alloc] init];
     [allCars setEntity:[NSEntityDescription entityForName:tableName inManagedObjectContext:appDel.managedObjectContext]];
     [allCars setIncludesPropertyValues:NO]; //only fetch the managedObjectID
@@ -97,7 +93,7 @@
 -(void)addUserInfoToCoreData
 {
     
-    NSLog(@" in addUserInfoToCoreData ");
+    //NSLog(@" in addUserInfoToCoreData ");
     [self deleteMethod:@"UserDataTable"];
     UserDataTable * objUser = [NSEntityDescription insertNewObjectForEntityForName:@"UserDataTable" inManagedObjectContext:appDel.managedObjectContext];
     
@@ -119,19 +115,19 @@
     [appDel.managedObjectContext save:&error];
     
     if (error == nil) {
-        NSLog(@"Success in storing the data");
+        //NSLog(@"Success in storing the data");
         NSFetchRequest * fetch = [NSFetchRequest fetchRequestWithEntityName:@"UserDataTable"];
         NSError * error;
         NSArray * results = [appDel.managedObjectContext executeFetchRequest:fetch error:&error];
         NSMutableArray *usrDataSource = [[NSMutableArray alloc] init];
         [usrDataSource addObjectsFromArray:results];
         
-        NSLog(@" results count is %li",[results count]);
+        //NSLog(@" results count is %li",[results count]);
         
         if (error == nil && [results count] == 1) {
-            NSLog(@" [results count] == 1 ");
-            UserDataTable * objUser = [usrDataSource objectAtIndex:0];
-            NSLog(@"Retrieved user name is : %@",objUser.userName);
+//            NSLog(@" [results count] == 1 ");
+//            UserDataTable * objUser = [usrDataSource objectAtIndex:0];
+//            //NSLog(@"Retrieved user name is : %@",objUser.userName);
         }
     }
     
@@ -161,8 +157,11 @@
     if(nameTextField.text.length>0 && emailTextField.text.length>0 && mobileNoTextField.text.length>0)
     {
         if ([self validateEmail:emailTextField.text]) {
-            NSLog(@"Success");
-            //[self addUserInfoToCoreData];
+            //NSLog(@"Success");
+            [self addUserInfoToCoreData];
+            [self.delegate buttonClicked:@"test string"];
+            flag = (BOOL *)YES;
+            [self.delegate doneBtnClicked:self didChooseValue:YES];
             [self.navigationController popToRootViewControllerAnimated:YES];
         }
         else
