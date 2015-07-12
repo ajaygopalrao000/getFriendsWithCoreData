@@ -7,6 +7,7 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "UserDataTable.h"
 
 // ## creating Delegate
 @protocol editUserInforVCDelegate;
@@ -51,8 +52,9 @@
 
 -(void) doneBtnClicked : (editUserInfoVC*)viewController
 didChooseValue : (BOOL) flag;
+- (UserDataTable*)getCurrentUser;
 
--(void)buttonClicked:(NSString *)text;
+//-(void)buttonClicked:(NSString *)text;
 
 @end
 

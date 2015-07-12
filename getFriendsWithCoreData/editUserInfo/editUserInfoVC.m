@@ -38,13 +38,17 @@
     appDel = [[UIApplication sharedApplication] delegate];
     
     // ## delegate
-    id<editUserInforVCDelegate> strongDelegate = self.delegate;
-    flag = (BOOL *)NO;
+//    id<editUserInforVCDelegate> strongDelegate = self.delegate;
+//    flag = (BOOL *)NO;
+//    
+//    // Our delegate method is optional, so we should
+//    // check that the delegate implements it
+//    if ([strongDelegate respondsToSelector:@selector(doneBtnClicked:didChooseValue:)]) {
+//        [strongDelegate doneBtnClicked:self didChooseValue:flag];
+//    }
     
-    // Our delegate method is optional, so we should
-    // check that the delegate implements it
-    if ([strongDelegate respondsToSelector:@selector(doneBtnClicked:didChooseValue:)]) {
-        [strongDelegate doneBtnClicked:self didChooseValue:flag];
+    if ([self.delegate respondsToSelector:@selector(getCurrentUser)]) {
+        UserDataTable *user = [self.delegate getCurrentUser];
     }
     
     // ## Table View
@@ -159,8 +163,9 @@
         if ([self validateEmail:emailTextField.text]) {
             //NSLog(@"Success");
             [self addUserInfoToCoreData];
-            [self.delegate buttonClicked:@"test string"];
+            //[self.delegate buttonClicked:@"test string"];
             flag = (BOOL *)YES;
+            //Add check if responds to selctor
             [self.delegate doneBtnClicked:self didChooseValue:YES];
             [self.navigationController popToRootViewControllerAnimated:YES];
         }
