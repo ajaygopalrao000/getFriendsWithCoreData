@@ -171,6 +171,9 @@
                      NSMutableString * usrEmail = [NSMutableString stringWithString:@"email"];
                      if ([result objectForKey:@"email"]) {
                          usrEmail = [result objectForKey:@"email"];
+                     } else {
+                         usrEmail = [NSMutableString stringWithString: @"No - Email"];
+                     }
                      NSLog(@" [results count] != 1 ");
                      self.usrNameLabel.text = [NSString stringWithFormat:@" Hello : %@",userNme];
                      self.usrImgView.image = [UIImage imageWithData:[NSData dataWithContentsOfURL:picUrl]];
@@ -181,7 +184,6 @@
                      userDataArray = [[NSMutableArray alloc] init];
                      [userDataArray addObject:userDataCollection];
                      [self addUserInfoToCoreData : userDataArray];
-                 }
              }
              self.getMyFriendButton.enabled = YES;
              self.deleteDataButton.enabled = YES;
