@@ -76,13 +76,14 @@
         didChooseValue : (BOOL) flag updatedDataRef : (UserDataTable *) updatedDataRef;
 {
     NSLog(@"In ViewController, doneBtnClicked method, flag : %s",flag ? "True" : "False");
-    if (flag) {
+    if (flag) {/*
         if (updatedDataRef != nil) {
             NSLog(@" In doneBtnClicked with updatedDataRef reference and name is : %@",updatedDataRef.userName);
             objUser = updatedDataRef;
             NSLog(@" In doneBtnClicked with objUser reference and name is : %@",objUser.userName);
-        }
-        [self getUserData];
+        }*/
+        [self updateUserDataWithObject:objUser];
+        //[self getUserData];
     }
 }
 - (UserDataTable*)getCurrentUser
@@ -93,7 +94,7 @@
 
 // ## storing user data in the database
 
--(void)addUserInfoToCoreData : (NSMutableArray *) usrDataArray
+-(UserDataTable*)addUserInfoToCoreData : (NSMutableArray *) usrDataArray
 {
     
     NSLog(@" in addUserInfoToCoreData ");
@@ -116,7 +117,10 @@
         
     if (error == nil) {
         NSLog(@"Success in storing the data");
+        return objUser;
     }
+    
+    return nil;
     
 }
 
@@ -124,6 +128,13 @@
 -(IBAction)retturnFromeditUserInfoVC:(UIStoryboardSegue*)cancelButton
 {
     
+}
+
+- (void)updateUserDataWithObject:(UserDataTable*)object {
+    self.usrNameLabel.text = [NSString stringWithFormat:@" Hello : %@",object.userName];
+    self.usrImgView.image = [UIImage imageWithData:object.userImageData];
+    self.usrEmailLabel.text = [NSString stringWithFormat:@" Email : %@",object.userEmail];
+    self.userMobileNoLabel.text = [NSString stringWithFormat:@" Mobile No : %@",object.userMobileNo];
 }
 
 // get's the details of the user who is currently logged in
@@ -155,10 +166,8 @@
                  if (!error && errorDatabase == nil && [results count] == 1) {
                      NSLog(@" [results count] == 1 ");
                      objUser = [usrDataSource objectAtIndex:0];
-                     self.usrNameLabel.text = [NSString stringWithFormat:@" Hello : %@",objUser.userName];
-                     self.usrImgView.image = [UIImage imageWithData:objUser.userImageData];
-                     self.usrEmailLabel.text = [NSString stringWithFormat:@" Email : %@",objUser.userEmail];
-                     self.userMobileNoLabel.text = [NSString stringWithFormat:@" Mobile No : %@",objUser.userMobileNo];
+                     [self updateUserDataWithObject:objUser];
+
                      //[self deleteMethod:@"UserDataTable"];
                  }
                  else if(!error)
@@ -175,15 +184,12 @@
                          usrEmail = [NSMutableString stringWithString: @"No - Email"];
                      }
                      NSLog(@" [results count] != 1 ");
-                     self.usrNameLabel.text = [NSString stringWithFormat:@" Hello : %@",userNme];
-                     self.usrImgView.image = [UIImage imageWithData:[NSData dataWithContentsOfURL:picUrl]];
-                     self.usrEmailLabel.text = [NSString stringWithFormat:@" Email : %@",usrEmail];
-                     self.userMobileNoLabel.text = [NSString stringWithFormat:@" Mobile No : %@",usrMobileNo];
                      userDataCollection = [[NSDictionary alloc]initWithObjects:@[userNme, usrImgData, usrEmail, usrId, usrMobileNo] forKeys:@[@"userNme", @"usrImgData", @"usrEmail", @"usrId", @"usrMobileNo"]];
                      //Store each dictionary inside the array that we created
                      userDataArray = [[NSMutableArray alloc] init];
                      [userDataArray addObject:userDataCollection];
-                     [self addUserInfoToCoreData : userDataArray];
+                     UserDataTable *user = [self addUserInfoToCoreData : userDataArray];
+                     [self updateUserDataWithObject:user];
              }
              self.getMyFriendButton.enabled = YES;
              self.deleteDataButton.enabled = YES;

@@ -50,7 +50,7 @@ typedef void (^FriendsCallbackError)(NSString *errorString);
 //Create an array that will be used for storing the dictionary of friends from facebook
 @property (strong, nonatomic)NSArray *theFriendsArray;
 
--(void)addUserInfoToCoreData : (NSMutableArray *) usrDataArray;
+-(UserDataTable*)addUserInfoToCoreData : (NSMutableArray *) usrDataArray;
 
 
 @end
