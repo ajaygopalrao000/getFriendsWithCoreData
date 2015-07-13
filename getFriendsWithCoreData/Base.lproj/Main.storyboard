@@ -124,7 +124,7 @@
                     <navigationItem key="navigationItem" id="9Z6-55-7Xs">
                         <barButtonItem key="rightBarButtonItem" systemItem="edit" id="Pq1-Zo-vkY">
                             <connections>
-                                <segue destination="Zir-yo-HoN" kind="show" id="ibh-mU-eRI"/>
+                                <segue destination="Zir-yo-HoN" kind="show" identifier="segueToEditUserInfoVC" id="ibh-mU-eRI"/>
                             </connections>
                         </barButtonItem>
                     </navigationItem>

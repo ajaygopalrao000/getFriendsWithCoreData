@@ -28,6 +28,8 @@
     UIAlertView * objAlert;
     NSMutableArray * usrDataSource;
     //editUserInfoVC *objeditUserInfoVC;
+    
+    UserDataTable * objUser;
 }
 @end
 
@@ -40,10 +42,7 @@
     self.title = @" List of Friends ";
     self.view.backgroundColor = [UIColor whiteColor];
     
-    // ## Camera
-//    edit = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemEdit target:self action:@selector(editButtonClicked:)];
-//    self.navigationItem.rightBarButtonItem = edit;
-    
+    // ## fbloginButton
     self.FacebookButton = [[FBSDKLoginButton alloc] init];
     [self.FacebookButton setReadPermissions:@[@"public_profile", @"email", @"user_friends"]];
     
@@ -62,19 +61,35 @@
     
 }
 
+// ## performing Segue
+- (void) prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender
+{
+    if([[segue identifier] isEqualToString:@"segueToEditUserInfoVC"])
+    {
+        editUserInfoVC * destVC = (editUserInfoVC *) segue.destinationViewController;
+        destVC.delegate = self;
+    }
+}
+
 // ## editUSerInfoVCDelegate Moethods
-//-(void) doneBtnClicked : (BOOL) flag;
--(void) doneBtnClicked:(editUserInfoVC *)viewController didChooseValue:(BOOL)flag
+-(void) doneBtnClicked : (editUserInfoVC*)viewController
+        didChooseValue : (BOOL) flag updatedDataRef : (UserDataTable *) updatedDataRef;
 {
     NSLog(@"In ViewController, doneBtnClicked method, flag : %s",flag ? "True" : "False");
     if (flag) {
+        if (updatedDataRef != nil) {
+            NSLog(@" In doneBtnClicked with updatedDataRef reference and name is : %@",updatedDataRef.userName);
+            objUser = updatedDataRef;
+            NSLog(@" In doneBtnClicked with objUser reference and name is : %@",objUser.userName);
+        }
         [self getUserData];
     }
 }
--(void)buttonClicked:(NSString *)text;
+- (UserDataTable*)getCurrentUser
 {
-    NSLog(@"From View Controller btn clicked in SVC, but response in VC is %@",text);
-}   
+    NSLog(@" Name in getCurrentUser is %@", objUser.userName);
+    return objUser;
+}
 
 // ## storing user data in the database
 
@@ -84,7 +99,7 @@
     NSLog(@" in addUserInfoToCoreData ");
     NSLog(@" userDataArray size is %li",[userDataArray count]);
     NSDictionary * dict;
-    UserDataTable * objUser = [NSEntityDescription insertNewObjectForEntityForName:@"UserDataTable" inManagedObjectContext:appDel.managedObjectContext];
+    objUser = [NSEntityDescription insertNewObjectForEntityForName:@"UserDataTable" inManagedObjectContext:appDel.managedObjectContext];
     
     
     dict = [usrDataArray objectAtIndex:0];
@@ -115,20 +130,17 @@
 - (void) getUserData
 {
     if ([FBSDKAccessToken currentAccessToken]) {
+        if (objUser.userName != nil) {
+            NSLog(@" In getUserData with objUser reference and name is : %@",objUser.userName);
+            self.usrNameLabel.text = [NSString stringWithFormat:@" Hello : %@",objUser.userName];
+            self.usrImgView.image = [UIImage imageWithData:objUser.userImageData];
+            self.usrEmailLabel.text = [NSString stringWithFormat:@" Email : %@",objUser.userEmail];
+            self.userMobileNoLabel.text = [NSString stringWithFormat:@" Mobile No : %@",objUser.userMobileNo];
+        }
+        else
         [[[FBSDKGraphRequest alloc] initWithGraphPath:@"me" parameters:nil]
          startWithCompletionHandler:^(FBSDKGraphRequestConnection *connection, id result, NSError *error) {
              //NSLog(@"fetched user:");
-             if (!error) {
-//                 NSLog(@"fetched user:%@", result);
-//                 NSString *userNme = [result objectForKey:@"name"];
-//                 NSString *userImageURL = [NSString stringWithFormat:@"https://graph.facebook.com/%@/picture?type=large", [result objectForKey:@"id"]];
-//                 NSURL *picUrl = [NSURL URLWithString:userImageURL];
-//                 NSData * usrImgData = [NSData dataWithContentsOfURL:picUrl];
-//                 NSMutableString * usrEmail = [NSMutableString stringWithString:@"email"];
-//                 if ([result objectForKey:@"email"]) {
-//                     usrEmail = [result objectForKey:@"email"];
-                 
-                 }
                  NSString * usrId = [result objectForKey:@"id"];
                  NSString * usrMobileNo = [NSString stringWithFormat:@"9999999999"];
                  
@@ -138,14 +150,11 @@
                  NSArray * results = [appDel.managedObjectContext executeFetchRequest:fetch error:&errorDatabase];
                  usrDataSource = [[NSMutableArray alloc] init];
                  [usrDataSource addObjectsFromArray:results];
-                 
-                 
-                 
-                 //NSLog(@" results count is %li",[results count]);
+             
                  
                  if (!error && errorDatabase == nil && [results count] == 1) {
                      NSLog(@" [results count] == 1 ");
-                     UserDataTable * objUser = [usrDataSource objectAtIndex:0];
+                     objUser = [usrDataSource objectAtIndex:0];
                      self.usrNameLabel.text = [NSString stringWithFormat:@" Hello : %@",objUser.userName];
                      self.usrImgView.image = [UIImage imageWithData:objUser.userImageData];
                      self.usrEmailLabel.text = [NSString stringWithFormat:@" Email : %@",objUser.userEmail];

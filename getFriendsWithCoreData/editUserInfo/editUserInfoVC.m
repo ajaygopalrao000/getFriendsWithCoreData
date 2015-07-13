@@ -23,7 +23,7 @@
     UIBarButtonItem * done, * cancel;
     
     AppDelegate * appDel;
-    BOOL * flag;
+    UserDataTable *objUserDataRef, * objUser;
 }
 
 @end
@@ -37,18 +37,12 @@
     self.view.backgroundColor = [UIColor whiteColor];
     appDel = [[UIApplication sharedApplication] delegate];
     
-    // ## delegate
-//    id<editUserInforVCDelegate> strongDelegate = self.delegate;
-//    flag = (BOOL *)NO;
-//    
-//    // Our delegate method is optional, so we should
-//    // check that the delegate implements it
-//    if ([strongDelegate respondsToSelector:@selector(doneBtnClicked:didChooseValue:)]) {
-//        [strongDelegate doneBtnClicked:self didChooseValue:flag];
-//    }
     
+    // ## creating reference for UserDataTable table
+    
+    objUserDataRef = [NSEntityDescription insertNewObjectForEntityForName:@"UserDataTable" inManagedObjectContext:appDel.managedObjectContext];
     if ([self.delegate respondsToSelector:@selector(getCurrentUser)]) {
-        UserDataTable *user = [self.delegate getCurrentUser];
+        objUserDataRef = [self.delegate getCurrentUser];
     }
     
     // ## Table View
@@ -99,7 +93,7 @@
     
     //NSLog(@" in addUserInfoToCoreData ");
     [self deleteMethod:@"UserDataTable"];
-    UserDataTable * objUser = [NSEntityDescription insertNewObjectForEntityForName:@"UserDataTable" inManagedObjectContext:appDel.managedObjectContext];
+    objUser = [NSEntityDescription insertNewObjectForEntityForName:@"UserDataTable" inManagedObjectContext:appDel.managedObjectContext];
     
     
     objUser.userName = nameTextField.text;
@@ -108,7 +102,7 @@
     if (usrImgData != nil) {
         objUser.userImageData = usrImgData;
     }
-    else
+    else if (objUserDataRef.userImageData == nil)
     {
         UIImage * img = [UIImage imageNamed:@"profile_Pic_Default 128*128"];
         usrImgData = [NSData dataWithData:UIImagePNGRepresentation(img)];
@@ -138,23 +132,6 @@
 }
 
 
-//// ## add user data to arrays
-//- (NSMutableArray *) updateUserDatatoArray
-//{
-//    NSString *userNme = nameTextField.text;
-//    NSString * usrEmail = emailTextField.text;
-//    NSString * usrId = @"no Uid in Edit Profile";
-//    NSString * usrMobileNo = mobileNoTextField.text;
-////    if (usrImgData.data == nil) {
-////        
-////    }
-//    userDataCollection = [[NSDictionary alloc]initWithObjects:@[userNme, usrImgData, usrEmail, usrId, usrMobileNo] forKeys:@[@"userNme", @"usrImgData", @"usrEmail", @"usrId", @"usrMobileNo"]];
-//    //Store each dictionary inside the array that we created
-//    userDataArray = [[NSMutableArray alloc] init];
-//    [userDataArray addObject:userDataCollection];
-//    return userDataArray;
-//}
-
 // ## Done Button Clicked
 - (IBAction)doneButtonClicked:(id)sender {
     NSLog(@"doneButtonClicked");
@@ -163,10 +140,9 @@
         if ([self validateEmail:emailTextField.text]) {
             //NSLog(@"Success");
             [self addUserInfoToCoreData];
-            //[self.delegate buttonClicked:@"test string"];
-            flag = (BOOL *)YES;
             //Add check if responds to selctor
-            [self.delegate doneBtnClicked:self didChooseValue:YES];
+            [self.delegate doneBtnClicked:self didChooseValue:YES updatedDataRef:objUser];
+            //[self.delegate getCurrentUser:objUser];
             [self.navigationController popToRootViewControllerAnimated:YES];
         }
         else
@@ -232,7 +208,7 @@
         switch ( indexPath.row ) {
             case 0: {
                 cell.textLabel.text = @"Name" ;
-                tf = nameTextField = [self makeTextField:self.name placeholder:@"John Appleseed"];
+                tf = nameTextField = [self makeTextField:self.name placeholder:objUserDataRef.userName];
                 tf.returnKeyType = UIReturnKeyNext;
                 [cell addSubview:nameTextField];
                 break ;
@@ -240,7 +216,7 @@
             case 1: {
                 cell.textLabel.text = @"Email" ;
                 
-                tf = emailTextField = [self makeTextField:self.email placeholder:@"example@gmail.com"];
+                tf = emailTextField = [self makeTextField:self.email placeholder:objUserDataRef.userEmail];
                 tf.keyboardType = UIKeyboardTypeEmailAddress;
                 tf.returnKeyType = UIReturnKeyNext;
                 [cell addSubview:emailTextField];
@@ -248,7 +224,7 @@
             }
             case 2: {
                 cell.textLabel.text = @"MobileNo" ;
-                tf = mobileNoTextField = [self makeTextField:self.mobileNo placeholder:@"9999999999"];
+                tf = mobileNoTextField = [self makeTextField:self.mobileNo placeholder:objUserDataRef.userMobileNo];
                 tf.keyboardType = UIKeyboardTypeNumberPad;
                 [cell addSubview:mobileNoTextField];
                 break ;
@@ -268,7 +244,8 @@
             }
             case 1: {
                 //NSLog(@"indexPath.section == 1 && Case 1");
-                imgVw = selectedImgView = [self makeImgViewwithImg:[UIImage imageNamed:@"profile_Pic_Default 128*128.png"]];
+//                imgVw = selectedImgView = [self makeImgViewwithImg:[UIImage imageNamed:@"profile_Pic_Default 128*128.png"]];
+                imgVw = selectedImgView = [self makeImgViewwithImg:[UIImage imageWithData:objUserDataRef.userImageData]];
                 [cell addSubview:selectedImgView];
                 break;
             }
@@ -315,7 +292,7 @@
 -(UIImageView*) makeImgViewwithImg: (UIImage *)img
 {
     //NSLog(@"makeImgViewwithImg");
-    UIImageView * imgVw = [[UIImageView alloc] initWithFrame:CGRectMake(128, 36, img.size.width, img.size.height)];
+    UIImageView * imgVw = [[UIImageView alloc] initWithFrame:CGRectMake(80, 20, 200, 160)];
     [imgVw setImage:img];
     return imgVw;
 }
@@ -370,6 +347,7 @@
 }
 -(UIImage *)adjustImageSizeWhenCropping:(UIImage *)image
 {
+    NSLog(@"adjustImageSizeWhenCropping");
     float actualHeight = image.size.height;
     float actualWidth = image.size.width;
     float ratio=300/actualWidth;

@@ -51,7 +51,7 @@
 @protocol editUserInforVCDelegate <NSObject>
 
 -(void) doneBtnClicked : (editUserInfoVC*)viewController
-didChooseValue : (BOOL) flag;
+        didChooseValue : (BOOL) flag updatedDataRef : (UserDataTable *) updatedDataRef;
 - (UserDataTable*)getCurrentUser;
 
 //-(void)buttonClicked:(NSString *)text;
