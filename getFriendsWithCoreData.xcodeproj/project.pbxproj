@@ -8,7 +8,6 @@
 
 /* Begin PBXBuildFile section */
 		505486EA1B44A0600067453E /* FriendsTable.m in Sources */ = {isa = PBXBuildFile; fileRef = 505486E91B44A0600067453E /* FriendsTable.m */; };
-		505486ED1B44F3730067453E /* ExampleStoryBoardVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 505486EC1B44F3730067453E /* ExampleStoryBoardVC.m */; };
 		505486F51B479B010067453E /* profile_Pic_Default 128*128.png in Resources */ = {isa = PBXBuildFile; fileRef = 505486F41B479B010067453E /* profile_Pic_Default 128*128.png */; };
 		5073A7901B5071D700862505 /* UserDataTable.m in Sources */ = {isa = PBXBuildFile; fileRef = 5073A78F1B5071D700862505 /* UserDataTable.m */; };
 		50ABA18F1B4122490084CF2F /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 50ABA18E1B4122490084CF2F /* main.m */; };
@@ -44,8 +43,6 @@
 /* Begin PBXFileReference section */
 		505486E81B44A0600067453E /* FriendsTable.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = FriendsTable.h; path = getFriendsWithCoreData/FriendsTable.h; sourceTree = "<group>"; };
 		505486E91B44A0600067453E /* FriendsTable.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = FriendsTable.m; path = getFriendsWithCoreData/FriendsTable.m; sourceTree = "<group>"; };
-		505486EB1B44F3730067453E /* ExampleStoryBoardVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ExampleStoryBoardVC.h; path = getFriendsWithCoreData/ExampleStoryBoardVC.h; sourceTree = "<group>"; };
-		505486EC1B44F3730067453E /* ExampleStoryBoardVC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = ExampleStoryBoardVC.m; path = getFriendsWithCoreData/ExampleStoryBoardVC.m; sourceTree = "<group>"; };
 		505486F41B479B010067453E /* profile_Pic_Default 128*128.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "profile_Pic_Default 128*128.png"; sourceTree = "<group>"; };
 		5073A78E1B5071D700862505 /* UserDataTable.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UserDataTable.h; sourceTree = "<group>"; };
 		5073A78F1B5071D700862505 /* UserDataTable.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UserDataTable.m; sourceTree = "<group>"; };
@@ -116,7 +113,6 @@
 			isa = PBXGroup;
 			children = (
 				50BCDA9C1B4DE0CD00FB25D5 /* editUserInfo */,
-				50BCDA941B4B7AA700FB25D5 /* ExampleStoryBoardVC */,
 				50BCDA931B4B7A4100FB25D5 /* CustomFriendTVCell */,
 				505486F31B479AEC0067453E /* Profile Pictures */,
 				50ABA1C41B423D210084CF2F /* CoreData */,
@@ -203,15 +199,6 @@
 				50BCDA901B4B7A3000FB25D5 /* CustomFriendTVCell.xib */,
 			);
 			name = CustomFriendTVCell;
-			sourceTree = "<group>";
-		};
-		50BCDA941B4B7AA700FB25D5 /* ExampleStoryBoardVC */ = {
-			isa = PBXGroup;
-			children = (
-				505486EB1B44F3730067453E /* ExampleStoryBoardVC.h */,
-				505486EC1B44F3730067453E /* ExampleStoryBoardVC.m */,
-			);
-			name = ExampleStoryBoardVC;
 			sourceTree = "<group>";
 		};
 		50BCDA9C1B4DE0CD00FB25D5 /* editUserInfo */ = {
@@ -333,7 +320,6 @@
 				50BCDA9B1B4DE0C200FB25D5 /* editUserInfoVC.m in Sources */,
 				50ABA1981B4122490084CF2F /* ViewController.m in Sources */,
 				50BCDA911B4B7A3000FB25D5 /* CustomFriendTVCell.m in Sources */,
-				505486ED1B44F3730067453E /* ExampleStoryBoardVC.m in Sources */,
 				50ABA1CD1B42471D0084CF2F /* showingFriendsViewController.m in Sources */,
 				505486EA1B44A0600067453E /* FriendsTable.m in Sources */,
 				50ABA18F1B4122490084CF2F /* main.m in Sources */,

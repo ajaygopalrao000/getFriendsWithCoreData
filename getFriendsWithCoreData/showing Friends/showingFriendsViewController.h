@@ -17,7 +17,7 @@ typedef void (^FriendsCallbackError)(NSString *errorString);
 
 @interface showingFriendsViewController : UIViewController<UITableViewDataSource,UITableViewDelegate>
 {
-    UITableView * table;
+    //UITableView * table;
     NSMutableArray * dataSource;
 }
 @property (strong, nonatomic) NSString * colorString;
@@ -28,5 +28,9 @@ typedef void (^FriendsCallbackError)(NSString *errorString);
 //Create an array that will be used for storing the dictionary of friends from facebook
 @property (strong, nonatomic)NSArray *theFriendsArray;
 
+
+// TableView Delegate
+
+@property (weak, nonatomic) IBOutlet UITableView *table;
 
 @end

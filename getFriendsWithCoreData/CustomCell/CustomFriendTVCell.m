@@ -22,10 +22,10 @@
     //NSLog( @" name is %@",_currentFriend.name);
     
     if (self.currentFriend.data != nil) {
-        NSLog(@" image data is already available in Core Data ");
+        //NSLog(@" image data is already available in Core Data ");
         self.userFriendImgView.image = [UIImage imageWithData:_currentFriend.data];
     } else {
-        NSLog(@" image data is Fetching for %@",_currentFriend.name);
+        //NSLog(@" image data is Fetching for %@",_currentFriend.name);
         [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(updateImageMethod:) name:self.currentFriend.uId object:nil];
         //self.userFriendImgView.image = [UIImage imageNamed:@"profile_Pic"];
         [self.currentFriend getImageForThisFriend];

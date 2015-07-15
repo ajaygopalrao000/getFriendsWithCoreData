@@ -23,7 +23,9 @@
     UIBarButtonItem * done, * cancel;
     
     AppDelegate * appDel;
-    UserDataTable *objUserDataRef, * objUser;
+    UserDataTable *objUserDataRef;
+    
+    BOOL didEdit;
 }
 
 @end
@@ -46,14 +48,16 @@
     }
     
     // ## Table View
-    tableView = [[UITableView alloc]initWithFrame:CGRectMake(5, 80, self.view.frame.size.width-10, self.view.frame.size.height-80) style:UITableViewStyleGrouped];
-    tableView.delegate = self;
-    tableView.dataSource = self;
-    [self.view addSubview:tableView];
+//    tableView = [[UITableView alloc]initWithFrame:CGRectMake(5, 0, self.view.frame.size.width-10, self.view.frame.size.height) style:UITableViewStyleGrouped];
+//    tableView.delegate = self;
+//    tableView.dataSource = self;
+//    [self.view addSubview:tableView];
     
     // ## alert View
     objAlert = [[UIAlertView alloc] initWithTitle:@"ALERT" message:@" Default " delegate:self cancelButtonTitle:@" OK " otherButtonTitles:nil];
     
+    // ## didEdit => flag to check whether the data has been updated or not
+    didEdit = NO;
     
 }
 
@@ -91,43 +95,40 @@
 -(void)addUserInfoToCoreData
 {
     
-    //NSLog(@" in addUserInfoToCoreData ");
-    [self deleteMethod:@"UserDataTable"];
-    objUser = [NSEntityDescription insertNewObjectForEntityForName:@"UserDataTable" inManagedObjectContext:appDel.managedObjectContext];
-    
-    
-    objUser.userName = nameTextField.text;
-    objUser.userEmail = emailTextField.text;
-    objUser.userMobileNo = mobileNoTextField.text;
-    if (usrImgData != nil) {
-        objUser.userImageData = usrImgData;
-    }
-    else if (objUserDataRef.userImageData == nil)
-    {
-        UIImage * img = [UIImage imageNamed:@"profile_Pic_Default 128*128"];
-        usrImgData = [NSData dataWithData:UIImagePNGRepresentation(img)];
-        objUser.userImageData = usrImgData;
-    }
-    
-    NSError * error;
-    [appDel.managedObjectContext save:&error];
-    
-    if (error == nil) {
-        //NSLog(@"Success in storing the data");
-        NSFetchRequest * fetch = [NSFetchRequest fetchRequestWithEntityName:@"UserDataTable"];
-        NSError * error;
-        NSArray * results = [appDel.managedObjectContext executeFetchRequest:fetch error:&error];
-        NSMutableArray *usrDataSource = [[NSMutableArray alloc] init];
-        [usrDataSource addObjectsFromArray:results];
-        
-        //NSLog(@" results count is %li",[results count]);
-        
-        if (error == nil && [results count] == 1) {
-//            NSLog(@" [results count] == 1 ");
-//            UserDataTable * objUser = [usrDataSource objectAtIndex:0];
-//            //NSLog(@"Retrieved user name is : %@",objUser.userName);
+        //NSLog(@" in addUserInfoToCoreData ");
+        [self deleteMethod:@"UserDataTable"];
+        objUserDataRef = [NSEntityDescription insertNewObjectForEntityForName:@"UserDataTable" inManagedObjectContext:appDel.managedObjectContext];
+        objUserDataRef.userName = nameTextField.text;
+        objUserDataRef.userEmail = emailTextField.text;
+        objUserDataRef.userMobileNo = mobileNoTextField.text;
+        if (usrImgData != nil) {
+            objUserDataRef.userImageData = usrImgData;
         }
-    }
+        else if (objUserDataRef.userImageData == nil)
+        {
+            UIImage * img = [UIImage imageNamed:@"profile_Pic_Default 128*128"];
+            usrImgData = [NSData dataWithData:UIImagePNGRepresentation(img)];
+            objUserDataRef.userImageData = usrImgData;
+        }
+        
+        NSError * error;
+        [appDel.managedObjectContext save:&error];
+        
+        if (error == nil) {
+            //NSLog(@"Success in storing the data");
+            NSFetchRequest * fetch = [NSFetchRequest fetchRequestWithEntityName:@"UserDataTable"];
+            NSError * error;
+            NSArray * results = [appDel.managedObjectContext executeFetchRequest:fetch error:&error];
+            NSMutableArray *usrDataSource = [[NSMutableArray alloc] init];
+            [usrDataSource addObjectsFromArray:results];
+            
+            //NSLog(@" results count is %li",[results count]);
+            
+            if (error == nil && [results count] == 1) {
+                //            NSLog(@" [results count] == 1 ");
+            }
+        }
+    
     
 }
 
@@ -135,14 +136,15 @@
 // ## Done Button Clicked
 - (IBAction)doneButtonClicked:(id)sender {
     NSLog(@"doneButtonClicked");
-    if(nameTextField.text.length>0 && emailTextField.text.length>0 && mobileNoTextField.text.length>0)
+    if(nameTextField.text.length>0 && emailTextField.text.length>0 && mobileNoTextField.text.length == 10)
     {
         if ([self validateEmail:emailTextField.text]) {
-            //NSLog(@"Success");
-            [self addUserInfoToCoreData];
+            NSLog(@"Success");
+            NSLog(@"doneButtonClicked didEdit : %d",didEdit);
+            if (didEdit)
+                [self addUserInfoToCoreData];
             //Add check if responds to selctor
-            [self.delegate doneBtnClicked:self didChooseValue:YES updatedDataRef:objUser];
-            //[self.delegate getCurrentUser:objUser];
+            [self.delegate doneBtnClicked:self didChooseValue:didEdit withUpdateddataRef:objUserDataRef];
             [self.navigationController popToRootViewControllerAnimated:YES];
         }
         else
@@ -164,6 +166,8 @@
             objAlert.message = @ " Fill some thing in Email TextField ";
         else if (mobileNoTextField.text.length == 0)
             objAlert.message = @ " Fill some thing in mobileNo TextField";
+        else if (mobileNoTextField.text.length <= 10 || mobileNoTextField.text.length >= 10)
+            objAlert.message = @" Mobile No should be of size exactly 10 numbers";
         [objAlert show];
         
     }
@@ -208,15 +212,20 @@
         switch ( indexPath.row ) {
             case 0: {
                 cell.textLabel.text = @"Name" ;
-                tf = nameTextField = [self makeTextField:self.name placeholder:objUserDataRef.userName];
+                if ([objUserDataRef.userName length] == 0)
+                    tf = nameTextField = [self makeTextField:self.name placeholder:@"User"];
+                else
+                    tf = nameTextField = [self makeTextField:self.name placeholder:objUserDataRef.userName];
                 tf.returnKeyType = UIReturnKeyNext;
                 [cell addSubview:nameTextField];
                 break ;
             }
             case 1: {
                 cell.textLabel.text = @"Email" ;
-                
-                tf = emailTextField = [self makeTextField:self.email placeholder:objUserDataRef.userEmail];
+                if ([objUserDataRef.userName length] == 0)
+                    tf = emailTextField = [self makeTextField:self.email placeholder:@"xyz@domain.com"];
+                else
+                    tf = emailTextField = [self makeTextField:self.email placeholder:objUserDataRef.userEmail];
                 tf.keyboardType = UIKeyboardTypeEmailAddress;
                 tf.returnKeyType = UIReturnKeyNext;
                 [cell addSubview:emailTextField];
@@ -224,7 +233,10 @@
             }
             case 2: {
                 cell.textLabel.text = @"MobileNo" ;
-                tf = mobileNoTextField = [self makeTextField:self.mobileNo placeholder:objUserDataRef.userMobileNo];
+                if ([objUserDataRef.userName length] == 0)
+                    tf = mobileNoTextField = [self makeTextField:self.mobileNo placeholder:@"9999999999"];
+                else
+                    tf = mobileNoTextField = [self makeTextField:self.mobileNo placeholder:objUserDataRef.userMobileNo];
                 tf.keyboardType = UIKeyboardTypeNumberPad;
                 [cell addSubview:mobileNoTextField];
                 break ;
@@ -244,8 +256,14 @@
             }
             case 1: {
                 //NSLog(@"indexPath.section == 1 && Case 1");
-//                imgVw = selectedImgView = [self makeImgViewwithImg:[UIImage imageNamed:@"profile_Pic_Default 128*128.png"]];
-                imgVw = selectedImgView = [self makeImgViewwithImg:[UIImage imageWithData:objUserDataRef.userImageData]];
+                if (objUserDataRef.userImageData == nil) {
+                    imgVw = selectedImgView = [self makeImgViewwithImg:[UIImage imageNamed:@"profile_Pic_Default 128*128"]];
+                }
+                else
+                {
+                    imgVw = selectedImgView = [self makeImgViewwithImg:[UIImage imageWithData:objUserDataRef.userImageData]];
+                    usrImgData = objUserDataRef.userImageData;
+                }
                 [cell addSubview:selectedImgView];
                 break;
             }
@@ -266,7 +284,7 @@
     UITextField *tf = [[UITextField alloc] init];
     // ## NEW
     tf.backgroundColor = [UIColor whiteColor];
-    tf.placeholder = placeholder;
+    tf.text = placeholder;
     tf.textAlignment = NSTextAlignmentLeft;
     tf.adjustsFontSizeToFitWidth = YES;
     tf.clearButtonMode = UITextFieldViewModeWhileEditing;
@@ -340,6 +358,8 @@
     UIImage * selImg = [info objectForKey:UIImagePickerControllerEditedImage];
     selectedImgView.image = [self adjustImageSizeWhenCropping:selImg];
     [picker dismissViewControllerAnimated:YES completion:NULL];
+    didEdit = YES;
+    NSLog(@"imagePickerController didEdit : %d",didEdit);
 }
 - (void)imagePickerControllerDidCancel:(UIImagePickerController *)picker;
 {
@@ -358,7 +378,6 @@
     UIImage *img = UIGraphicsGetImageFromCurrentImageContext();
     
     UIGraphicsEndImageContext();
-    
     usrImgData = [NSData dataWithData:UIImagePNGRepresentation(img)];
     
     return img;
@@ -377,6 +396,7 @@
 - (BOOL)textField:(UITextField *)textField shouldChangeCharactersInRange:(NSRange)range replacementString:(NSString *)string;   // return NO to not change text
 {
     //NSLog(@" textFieldShouldChangeCharactersInRange " );
+    didEdit = YES;
     NSUInteger newLength = [textField.text length] + [string length] - range.length;
     if (textField == mobileNoTextField)
     {
@@ -410,7 +430,7 @@
 
 // ## Validate Email ##
 - (BOOL) validateEmail: (NSString *) email {
-    NSLog(@"Recvd email : %@",email);
+    //NSLog(@"Recvd email : %@",email);
     NSString *emailRegex = @"[A-Z0-9a-z._%+-]+@[A-Za-z0-9.-]+\\.[A-Za-z]{2,4}";
     NSPredicate *emailTest = [NSPredicate predicateWithFormat:@"SELF MATCHES %@", emailRegex];
     return [emailTest evaluateWithObject:email];

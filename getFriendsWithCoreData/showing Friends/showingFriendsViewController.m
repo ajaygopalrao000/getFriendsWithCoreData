@@ -9,7 +9,6 @@
 #import "showingFriendsViewController.h"
 #import "FriendsTable.h"
 #import "AppDelegate.h"
-#import "ExampleStoryBoardVC.h"
 #import "CustomFriendTVCell.h"
 #import <Social/Social.h>
 #import <FBSDKCoreKit/FBSDKCoreKit.h>
@@ -44,14 +43,15 @@
     
     [self showFriends];
     
-    table = [[UITableView alloc]initWithFrame:self.view.frame style:UITableViewStylePlain];
-    table.delegate = self;
-    table.dataSource = self;
-    
-    //values passed are - top, left, bottom, right
-    table.contentInset = UIEdgeInsetsMake(0, 0, 120, 0);
-    
-    [self.view addSubview:table];
+//    table = [[UITableView alloc]initWithFrame:self.view.frame style:UITableViewStylePlain];
+//    //table = [[UITableView alloc]initWithFrame:CGRectMake(0, 0, self.view.frame.size.width, self.view.frame.size.height) style:UITableViewStylePlain];
+//    table.delegate = self;
+//    table.dataSource = self;
+//    
+//    //values passed are - top, left, bottom, right
+//    table.contentInset = UIEdgeInsetsMake(0, 0, 40, 0);
+//    
+//    [self.view addSubview:table];
     
 }
 
@@ -84,7 +84,7 @@
     
     FriendsTable * objEmployee = [dataSource objectAtIndex:indexPath.row];
     
-    NSLog(@"Iteration : %i",++iterationCount);
+    //NSLog(@"Iteration : %i",++iterationCount);
     [cell updateCurrentFriend:objEmployee];
     
     return cell;
@@ -114,7 +114,7 @@
         //NSLog(@"error == nil");
         [dataSource removeAllObjects];
         [dataSource addObjectsFromArray:results];
-        [table reloadData];
+        [_table reloadData];
         
     }
 }
@@ -135,7 +135,7 @@
         
         [dataSource removeAllObjects];
         [dataSource addObjectsFromArray:results];
-        [table reloadData];
+        [_table reloadData];
         return;
         
     }

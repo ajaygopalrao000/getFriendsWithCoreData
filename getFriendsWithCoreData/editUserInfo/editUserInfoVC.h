@@ -18,7 +18,7 @@
 
 @interface editUserInfoVC : UIViewController<UITableViewDataSource, UITableViewDelegate, UITextFieldDelegate,UINavigationControllerDelegate,UIActionSheetDelegate,UIImagePickerControllerDelegate>
 {
-    UITableView * tableView;
+    //UITableView * tableView;
     
     UITextField* nameTextField, * emailTextField, * mobileNoTextField ;
     UIButton * choosePictureButton;
@@ -39,6 +39,9 @@
 @property (nonatomic, weak) id<editUserInforVCDelegate> delegate;
 
 
+// ## new tableView outlet from storyboard
+@property (weak, nonatomic) IBOutlet UITableView *tableView;
+
 @property (weak, nonatomic) IBOutlet UINavigationItem *doneBarButton;
 
 @property (nonatomic,copy) NSString* name ;
@@ -51,18 +54,7 @@
 @protocol editUserInforVCDelegate <NSObject>
 
 -(void) doneBtnClicked : (editUserInfoVC*)viewController
-        didChooseValue : (BOOL) flag updatedDataRef : (UserDataTable *) updatedDataRef;
+        didChooseValue : (BOOL) flag withUpdateddataRef : (UserDataTable *) objUserData;
 - (UserDataTable*)getCurrentUser;
 
-//-(void)buttonClicked:(NSString *)text;
-
 @end
-
-
-//@protocol editUserInforVCDelegate <NSObject>
-//
-//@required
-//-(void) doneBtnClicked : (BOOL) flag;
-//
-//
-//@end
