@@ -14,7 +14,7 @@
 #import <FBSDKCoreKit/FBSDKCoreKit.h>
 #import <FBSDKLoginKit/FBSDKLoginKit.h>
 #import "showingFriendsViewController.h"
-#import "MySingleton.h"
+//#import "MySingleton.h"
 
 @interface ViewController ()
 {
@@ -35,7 +35,7 @@
     NSArray * results;
     
     // ## MySingleton object Ref
-    MySingleton * ref1;
+    //MySingleton * ref1;
 }
 @end
 

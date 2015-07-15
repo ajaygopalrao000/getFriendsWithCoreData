@@ -27,7 +27,7 @@
 		50BCDA921B4B7A3000FB25D5 /* CustomFriendTVCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 50BCDA901B4B7A3000FB25D5 /* CustomFriendTVCell.xib */; };
 		50BCDA961B4B7ED200FB25D5 /* profile_Pic.png in Resources */ = {isa = PBXBuildFile; fileRef = 50BCDA951B4B7ED200FB25D5 /* profile_Pic.png */; };
 		50BCDA981B4B802D00FB25D5 /* profilePicFacebook .png in Resources */ = {isa = PBXBuildFile; fileRef = 50BCDA971B4B802D00FB25D5 /* profilePicFacebook .png */; };
-		50BCDA9B1B4DE0C200FB25D5 /* editUserInfoVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 50BCDA9A1B4DE0C200FB25D5 /* editUserInfoVC.m */; };
+		50BCDA9B1B4DE0C200FB25D5 /* editUserInfoVC.h in Sources */ = {isa = PBXBuildFile; fileRef = 50BCDA9A1B4DE0C200FB25D5 /* editUserInfoVC.h */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -72,8 +72,8 @@
 		50BCDA901B4B7A3000FB25D5 /* CustomFriendTVCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = CustomFriendTVCell.xib; path = getFriendsWithCoreData/CustomCell/CustomFriendTVCell.xib; sourceTree = "<group>"; };
 		50BCDA951B4B7ED200FB25D5 /* profile_Pic.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = profile_Pic.png; sourceTree = "<group>"; };
 		50BCDA971B4B802D00FB25D5 /* profilePicFacebook .png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "profilePicFacebook .png"; sourceTree = "<group>"; };
-		50BCDA991B4DE0C200FB25D5 /* editUserInfoVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = editUserInfoVC.h; path = getFriendsWithCoreData/editUserInfo/editUserInfoVC.h; sourceTree = "<group>"; };
-		50BCDA9A1B4DE0C200FB25D5 /* editUserInfoVC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = editUserInfoVC.m; path = getFriendsWithCoreData/editUserInfo/editUserInfoVC.m; sourceTree = "<group>"; };
+		50BCDA991B4DE0C200FB25D5 /* editUserInfoVC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = editUserInfoVC.m; sourceTree = "<group>"; };
+		50BCDA9A1B4DE0C200FB25D5 /* editUserInfoVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = editUserInfoVC.h; sourceTree = "<group>"; };
 		E2B8729C1B447D140041763A /* getFriendsWithCoreData-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "getFriendsWithCoreData-Bridging-Header.h"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -204,8 +204,8 @@
 		50BCDA9C1B4DE0CD00FB25D5 /* editUserInfo */ = {
 			isa = PBXGroup;
 			children = (
-				50BCDA991B4DE0C200FB25D5 /* editUserInfoVC.h */,
-				50BCDA9A1B4DE0C200FB25D5 /* editUserInfoVC.m */,
+				50BCDA991B4DE0C200FB25D5 /* editUserInfoVC.m */,
+				50BCDA9A1B4DE0C200FB25D5 /* editUserInfoVC.h */,
 			);
 			name = editUserInfo;
 			sourceTree = "<group>";
@@ -317,7 +317,7 @@
 				50ABA1921B4122490084CF2F /* AppDelegate.m in Sources */,
 				5073A7901B5071D700862505 /* UserDataTable.m in Sources */,
 				50ABA1951B4122490084CF2F /* getFriendsWithCoreData.xcdatamodeld in Sources */,
-				50BCDA9B1B4DE0C200FB25D5 /* editUserInfoVC.m in Sources */,
+				50BCDA9B1B4DE0C200FB25D5 /* editUserInfoVC.h in Sources */,
 				50ABA1981B4122490084CF2F /* ViewController.m in Sources */,
 				50BCDA911B4B7A3000FB25D5 /* CustomFriendTVCell.m in Sources */,
 				50ABA1CD1B42471D0084CF2F /* showingFriendsViewController.m in Sources */,
