@@ -10,6 +10,7 @@
 #import "UserDataTable.h"
 #import "ViewController.h"
 #import "AppDelegate.h"
+#import "MySingleton.h"
 
 #define NUMBERS_ONLY @"1234567890"
 #define NUMBER_LIMIT 10
@@ -26,6 +27,9 @@
     UserDataTable *objUserDataRef;
     
     BOOL didEdit;
+    
+    // ## Creating MySingleton Object
+    MySingleton * ref1;
 }
 
 @end
@@ -208,12 +212,17 @@
     UITextField* tf = nil;
     UIImageView * imgVw = nil;
     UIButton * selImgButton = nil;
+    if ([objUserDataRef.userName length] == 0 || [objUserDataRef.userName length] == 0 || [objUserDataRef.userName length] == 0 || objUserDataRef.userImageData == nil) {
+        if (!ref1) {
+            ref1 = [MySingleton globalInstance];
+        }
+    }
     if (indexPath.section == 0) {
         switch ( indexPath.row ) {
             case 0: {
                 cell.textLabel.text = @"Name" ;
                 if ([objUserDataRef.userName length] == 0)
-                    tf = nameTextField = [self makeTextField:self.name placeholder:@"User"];
+                    tf = nameTextField = [self makeTextField:self.name placeholder:[ref1 userName]];
                 else
                     tf = nameTextField = [self makeTextField:self.name placeholder:objUserDataRef.userName];
                 tf.returnKeyType = UIReturnKeyNext;
@@ -223,7 +232,7 @@
             case 1: {
                 cell.textLabel.text = @"Email" ;
                 if ([objUserDataRef.userName length] == 0)
-                    tf = emailTextField = [self makeTextField:self.email placeholder:@"xyz@domain.com"];
+                    tf = emailTextField = [self makeTextField:self.email placeholder:[ref1 userEmail]];
                 else
                     tf = emailTextField = [self makeTextField:self.email placeholder:objUserDataRef.userEmail];
                 tf.keyboardType = UIKeyboardTypeEmailAddress;
@@ -234,7 +243,7 @@
             case 2: {
                 cell.textLabel.text = @"MobileNo" ;
                 if ([objUserDataRef.userName length] == 0)
-                    tf = mobileNoTextField = [self makeTextField:self.mobileNo placeholder:@"9999999999"];
+                    tf = mobileNoTextField = [self makeTextField:self.mobileNo placeholder:[ref1 userMobileNo]];
                 else
                     tf = mobileNoTextField = [self makeTextField:self.mobileNo placeholder:objUserDataRef.userMobileNo];
                 tf.keyboardType = UIKeyboardTypeNumberPad;
@@ -257,7 +266,7 @@
             case 1: {
                 //NSLog(@"indexPath.section == 1 && Case 1");
                 if (objUserDataRef.userImageData == nil) {
-                    imgVw = selectedImgView = [self makeImgViewwithImg:[UIImage imageNamed:@"profile_Pic_Default 128*128"]];
+                    imgVw = selectedImgView = [self makeImgViewwithImg:[UIImage imageNamed:[ref1 userImgName]]];
                 }
                 else
                 {

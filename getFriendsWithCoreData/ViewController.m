@@ -14,6 +14,7 @@
 #import <FBSDKCoreKit/FBSDKCoreKit.h>
 #import <FBSDKLoginKit/FBSDKLoginKit.h>
 #import "showingFriendsViewController.h"
+#import "MySingleton.h"
 
 @interface ViewController ()
 {
@@ -32,6 +33,9 @@
     
     // ## for results count
     NSArray * results;
+    
+    // ## MySingleton object Ref
+    MySingleton * ref1;
 }
 @end
 
@@ -51,14 +55,12 @@
     // disabling the buttons
     [self.getMyFriendButton setEnabled:NO];
     [self.deleteDataButton setEnabled:NO];
-  
+    
     [FBSDKProfile enableUpdatesOnAccessTokenChange:YES];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(onProfileUpdated:) name:FBSDKProfileDidChangeNotification object:nil];
     
     // calling getUserData method to set the logged in user detail's like name, image.
     [self getUserData];
-    
-    // ## initializing alert View
     
 }
 
@@ -77,7 +79,7 @@
 -(void) doneBtnClicked : (editUserInfoVC*)viewController
         didChooseValue : (BOOL) flag withUpdateddataRef:(UserDataTable *)objUserData;
 {
-    NSLog(@"In ViewController, doneBtnClicked method, flag : %s",flag ? "True" : "False");
+    //NSLog(@"In ViewController, doneBtnClicked method, flag : %s",flag ? "True" : "False");
     if (flag) {
         objUser = objUserData;
         [self updateUserDataWithObject:objUser];
@@ -85,7 +87,7 @@
 }
 - (UserDataTable*)getCurrentUser
 {
-    NSLog(@" Name in getCurrentUser is %@", objUser.userName);
+    //NSLog(@" Name in getCurrentUser is %@", objUser.userName);
     //NSLog(@"Results Count is %li", [results count]);
     return objUser;
 }
@@ -110,10 +112,10 @@
     objUser.userEmail = [dict objectForKey:@"usrEmail"];
     objUser.userId = [dict objectForKey:@"usrId"];
     objUser.userMobileNo = [dict objectForKey:@"usrMobileNo"];
-//    NSLog(@" Name is %@", [dict objectForKey:@"userNme"]);
+    //    NSLog(@" Name is %@", [dict objectForKey:@"userNme"]);
     NSError * error;
     [appDel.managedObjectContext save:&error];
-        
+    
     if (error == nil) {
         //NSLog(@"Success in storing the data");
         return objUser;
@@ -140,13 +142,13 @@
 - (void) getUserData
 {
     if ([FBSDKAccessToken currentAccessToken]) {
-//        if (objUser.userName != nil) {
-//            NSLog(@" In getUserData with objUser reference and name is : %@",objUser.userName);
-//            [self updateUserDataWithObject:objUser];
-//            self.getMyFriendButton.enabled = YES;
-//            self.deleteDataButton.enabled = YES;
-//        }
-//        else
+        //        if (objUser.userName != nil) {
+        //            NSLog(@" In getUserData with objUser reference and name is : %@",objUser.userName);
+        //            [self updateUserDataWithObject:objUser];
+        //            self.getMyFriendButton.enabled = YES;
+        //            self.deleteDataButton.enabled = YES;
+        //        }
+        //        else
         [[[FBSDKGraphRequest alloc] initWithGraphPath:@"me" parameters:nil]
          startWithCompletionHandler:^(FBSDKGraphRequestConnection *connection, id result, NSError *error) {
              //NSLog(@"fetched user:");
@@ -156,52 +158,52 @@
              else
                  usrId = [NSMutableString stringWithString: @"No-Id"];
              
-                 NSString * usrMobileNo = [NSString stringWithFormat:@"9999999999"];
-                 
-                 // ## Fetching User data from core data
-                 NSFetchRequest * fetch = [NSFetchRequest fetchRequestWithEntityName:@"UserDataTable"];
-                 NSError * errorDatabase;
-                 results = [appDel.managedObjectContext executeFetchRequest:fetch error:&errorDatabase];
-                 usrDataSource = [[NSMutableArray alloc] init];
-                 [usrDataSource addObjectsFromArray:results];
-                 NSLog(@"Results Count is %li",[results count]);
+             NSString * usrMobileNo = [NSString stringWithFormat:@"9999999999"];
              
-                 if (!error && errorDatabase == nil && [results count] == 1) {
-                     NSLog(@" [results count] == 1 ");
-                     objUser = [usrDataSource objectAtIndex:0];
-                     [self updateUserDataWithObject:objUser];
-
-                     //[self deleteMethod:@"UserDataTable"];
+             // ## Fetching User data from core data
+             NSFetchRequest * fetch = [NSFetchRequest fetchRequestWithEntityName:@"UserDataTable"];
+             NSError * errorDatabase;
+             results = [appDel.managedObjectContext executeFetchRequest:fetch error:&errorDatabase];
+             usrDataSource = [[NSMutableArray alloc] init];
+             [usrDataSource addObjectsFromArray:results];
+             //NSLog(@"Results Count is %li",[results count]);
+             
+             if (!error && errorDatabase == nil && [results count] == 1) {
+                 NSLog(@" [results count] == 1 ");
+                 objUser = [usrDataSource objectAtIndex:0];
+                 [self updateUserDataWithObject:objUser];
+                 
+                 //[self deleteMethod:@"UserDataTable"];
+             }
+             else if(!error)
+             {
+                 //NSLog(@"fetched user:%@", result);
+                 NSMutableString *userNme = [NSMutableString stringWithString:@"name"];
+                 if ([result objectForKey:@"name"])
+                     userNme = [result objectForKey:@"name"];
+                 else
+                     userNme = [NSMutableString stringWithString: @"User"];
+                 NSString *userImageURL = [NSString stringWithFormat:@"https://graph.facebook.com/%@/picture?type=large", [result objectForKey:@"id"]];
+                 NSURL *picUrl = [NSURL URLWithString:userImageURL];
+                 NSData * usrImgData = [NSData dataWithContentsOfURL:picUrl];
+                 if (usrImgData == nil) {
+                     UIImage * img = [UIImage imageNamed:@"profile_Pic_Default 128*128"];
+                     usrImgData = [NSData dataWithData:UIImagePNGRepresentation(img)];
                  }
-                 else if(!error)
-                 {
-                     //NSLog(@"fetched user:%@", result);
-                     NSMutableString *userNme = [NSMutableString stringWithString:@"name"];
-                     if ([result objectForKey:@"name"])
-                         userNme = [result objectForKey:@"name"];
-                     else
-                         userNme = [NSMutableString stringWithString: @"User"];
-                     NSString *userImageURL = [NSString stringWithFormat:@"https://graph.facebook.com/%@/picture?type=large", [result objectForKey:@"id"]];
-                     NSURL *picUrl = [NSURL URLWithString:userImageURL];
-                     NSData * usrImgData = [NSData dataWithContentsOfURL:picUrl];
-                     if (usrImgData == nil) {
-                         UIImage * img = [UIImage imageNamed:@"profile_Pic_Default 128*128"];
-                         usrImgData = [NSData dataWithData:UIImagePNGRepresentation(img)];
-                     }
-                     
-                     NSMutableString * usrEmail = [NSMutableString stringWithString:@"email"];
-                     if ([result objectForKey:@"email"]) {
-                         usrEmail = [result objectForKey:@"email"];
-                     } else {
-                         usrEmail = [NSMutableString stringWithString: @"No - Email"];
-                     }
-                     NSLog(@" [results count] != 1 ");
-                     userDataCollection = [[NSDictionary alloc]initWithObjects:@[userNme, usrImgData, usrEmail, usrId, usrMobileNo] forKeys:@[@"userNme", @"usrImgData", @"usrEmail", @"usrId", @"usrMobileNo"]];
-                     //Store each dictionary inside the array that we created
-                     userDataArray = [[NSMutableArray alloc] init];
-                     [userDataArray addObject:userDataCollection];
-                     UserDataTable *user = [self addUserInfoToCoreData : userDataArray];
-                     [self updateUserDataWithObject:user];
+                 
+                 NSMutableString * usrEmail = [NSMutableString stringWithString:@"email"];
+                 if ([result objectForKey:@"email"]) {
+                     usrEmail = [result objectForKey:@"email"];
+                 } else {
+                     usrEmail = [NSMutableString stringWithString: @"No - Email"];
+                 }
+                 NSLog(@" [results count] != 1 ");
+                 userDataCollection = [[NSDictionary alloc]initWithObjects:@[userNme, usrImgData, usrEmail, usrId, usrMobileNo] forKeys:@[@"userNme", @"usrImgData", @"usrEmail", @"usrId", @"usrMobileNo"]];
+                 //Store each dictionary inside the array that we created
+                 userDataArray = [[NSMutableArray alloc] init];
+                 [userDataArray addObject:userDataCollection];
+                 UserDataTable *user = [self addUserInfoToCoreData : userDataArray];
+                 [self updateUserDataWithObject:user];
              }
              self.getMyFriendButton.enabled = YES;
              self.deleteDataButton.enabled = YES;
@@ -211,10 +213,13 @@
     }
     else
     {
-        self.usrNameLabel.text = [NSString stringWithFormat:@" Hello : %@",@"User"];
-        self.usrImgView.image = [UIImage imageNamed:@"profile_Pic_Default 128*128"];
-        self.usrEmailLabel.text = [NSString stringWithFormat:@" Email : xyz@domain.com"];
-        self.userMobileNoLabel.text = [NSString stringWithFormat:@" Mobile No : 9999999999"];
+        if (!ref1) {
+            ref1 = [MySingleton globalInstance];
+        }
+        self.usrNameLabel.text = [ref1 userName];
+        self.usrImgView.image = [UIImage imageNamed:[ref1 userImgName]];
+        self.usrEmailLabel.text = [ref1 userEmail];
+        self.userMobileNoLabel.text = [ref1 userMobileNo];
         conn = NO;
     }
     
@@ -258,7 +263,7 @@
         {
             objAlert = [[UIAlertView alloc] initWithTitle:@"Sorry, the database is already empty !!" message:@" Please click Edit button to add user data to the database " delegate:self cancelButtonTitle:@"OK" otherButtonTitles: nil];
         }
-            
+        
         [objAlert show];
         return;
     }
@@ -304,25 +309,21 @@
 -(void) addingdefaultUserData
 {
     NSLog(@"addingdefaultUserData");
-//    NSString *userNme = @"User";
-//    NSString * usrEmail = @"xyz@domain.com";
-//    NSString * usrId = @"No - id";
-//    NSString * usrMobileNo = @"9999999999";
-//    UIImage * img = [UIImage imageNamed:@"profile_Pic_Default 128*128"];
-//    NSData *usrImgData = [NSData dataWithData:UIImagePNGRepresentation(img)];
-//    userDataCollection = [[NSDictionary alloc]initWithObjects:@[userNme, usrImgData, usrEmail, usrId, usrMobileNo] forKeys:@[@"userNme", @"usrImgData", @"usrEmail", @"usrId", @"usrMobileNo"]];
-//    //Store each dictionary inside the array that we created
-//    userDataArray = [[NSMutableArray alloc] init];
-//    [userDataArray addObject:userDataCollection];
-//    UserDataTable *user = [self addUserInfoToCoreData : userDataArray];
-//    [self updateUserDataWithObject:user];
-    
     // Default data
     //[self deleteMethod:@"UserDataTable"];
-    self.usrNameLabel.text = [NSString stringWithFormat:@" Hello : User"];
-    self.usrImgView.image = [UIImage imageNamed:@"profile_Pic_Default 128*128"];
-    self.usrEmailLabel.text = [NSString stringWithFormat:@" Email : xyz@domain.com"];
-    self.userMobileNoLabel.text = [NSString stringWithFormat:@" Mobile No : 9999999999"];
+    if (!ref1) {
+        ref1 = [MySingleton globalInstance];
+    }
+    
+    //    self.usrNameLabel.text = [NSString stringWithFormat:@" Hello : User"];
+    //    self.usrImgView.image = [UIImage imageNamed:@"profile_Pic_Default 128*128"];
+    //    self.usrEmailLabel.text = [NSString stringWithFormat:@" Email : xyz@domain.com"];
+    //    self.userMobileNoLabel.text = [NSString stringWithFormat:@" Mobile No : 9999999999"];
+    
+    self.usrNameLabel.text = [ref1 userName];
+    self.usrImgView.image = [UIImage imageNamed:[ref1 userImgName]];
+    self.usrEmailLabel.text = [ref1 userEmail];
+    self.userMobileNoLabel.text = [ref1 userMobileNo];
 }
 
 -(void) viewDidAppear:(BOOL)animated
