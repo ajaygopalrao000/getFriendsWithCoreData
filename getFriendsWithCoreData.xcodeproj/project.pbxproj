@@ -28,6 +28,7 @@
 		50BCDA921B4B7A3000FB25D5 /* CustomFriendTVCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 50BCDA901B4B7A3000FB25D5 /* CustomFriendTVCell.xib */; };
 		50BCDA961B4B7ED200FB25D5 /* profile_Pic.png in Resources */ = {isa = PBXBuildFile; fileRef = 50BCDA951B4B7ED200FB25D5 /* profile_Pic.png */; };
 		50BCDA981B4B802D00FB25D5 /* profilePicFacebook .png in Resources */ = {isa = PBXBuildFile; fileRef = 50BCDA971B4B802D00FB25D5 /* profilePicFacebook .png */; };
+		E2814BCB1B581F3900B36B73 /* editUserInfoVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 50BCDA991B4DE0C200FB25D5 /* editUserInfoVC.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -342,6 +343,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				E2814BCB1B581F3900B36B73 /* editUserInfoVC.m in Sources */,
 				50ABA1921B4122490084CF2F /* AppDelegate.m in Sources */,
 				5073A7901B5071D700862505 /* UserDataTable.m in Sources */,
 				50ABA1951B4122490084CF2F /* getFriendsWithCoreData.xcdatamodeld in Sources */,

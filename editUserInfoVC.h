@@ -42,7 +42,7 @@
 // ## new tableView outlet from storyboard
 @property (weak, nonatomic) IBOutlet UITableView *tableView;
 
-@property (weak, nonatomic) IBOutlet UINavigationItem *doneBarButton;
+@property (weak, nonatomic) IBOutlet UIBarButtonItem *doneBarButton;
 
 @property (nonatomic,copy) NSString* name ;
 @property (nonatomic,copy) NSString* email ;
