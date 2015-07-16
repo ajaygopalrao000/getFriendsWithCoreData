@@ -23,11 +23,11 @@
 		50ABA1BD1B422D800084CF2F /* FBSDKShareKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 50ABA1BA1B422D800084CF2F /* FBSDKShareKit.framework */; };
 		50ABA1BF1B422E090084CF2F /* Social.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 50ABA1BE1B422E090084CF2F /* Social.framework */; };
 		50ABA1CD1B42471D0084CF2F /* showingFriendsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 50ABA1CC1B42471D0084CF2F /* showingFriendsViewController.m */; };
+		50AC8D371B577906007F7C2E /* MySingleton.m in Sources */ = {isa = PBXBuildFile; fileRef = 50AC8D361B577906007F7C2E /* MySingleton.m */; };
 		50BCDA911B4B7A3000FB25D5 /* CustomFriendTVCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 50BCDA8F1B4B7A3000FB25D5 /* CustomFriendTVCell.m */; };
 		50BCDA921B4B7A3000FB25D5 /* CustomFriendTVCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 50BCDA901B4B7A3000FB25D5 /* CustomFriendTVCell.xib */; };
 		50BCDA961B4B7ED200FB25D5 /* profile_Pic.png in Resources */ = {isa = PBXBuildFile; fileRef = 50BCDA951B4B7ED200FB25D5 /* profile_Pic.png */; };
 		50BCDA981B4B802D00FB25D5 /* profilePicFacebook .png in Resources */ = {isa = PBXBuildFile; fileRef = 50BCDA971B4B802D00FB25D5 /* profilePicFacebook .png */; };
-		50BCDA9B1B4DE0C200FB25D5 /* editUserInfoVC.h in Sources */ = {isa = PBXBuildFile; fileRef = 50BCDA9A1B4DE0C200FB25D5 /* editUserInfoVC.h */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -49,8 +49,8 @@
 		50ABA1891B4122490084CF2F /* getFriendsWithCoreData.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = getFriendsWithCoreData.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		50ABA18D1B4122490084CF2F /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		50ABA18E1B4122490084CF2F /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
-		50ABA1901B4122490084CF2F /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
-		50ABA1911B4122490084CF2F /* AppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
+		50ABA1901B4122490084CF2F /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = AppDelegate.h; path = getFriendsWithCoreData/AppDelegate.h; sourceTree = "<group>"; };
+		50ABA1911B4122490084CF2F /* AppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; name = AppDelegate.m; path = getFriendsWithCoreData/AppDelegate.m; sourceTree = "<group>"; };
 		50ABA1941B4122490084CF2F /* getFriendsWithCoreData.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = getFriendsWithCoreData.xcdatamodel; sourceTree = "<group>"; };
 		50ABA1961B4122490084CF2F /* ViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ViewController.h; sourceTree = "<group>"; };
 		50ABA1971B4122490084CF2F /* ViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ViewController.m; sourceTree = "<group>"; };
@@ -65,8 +65,10 @@
 		50ABA1BA1B422D800084CF2F /* FBSDKShareKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = FBSDKShareKit.framework; sourceTree = "<group>"; };
 		50ABA1BE1B422E090084CF2F /* Social.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Social.framework; path = System/Library/Frameworks/Social.framework; sourceTree = SDKROOT; };
 		50ABA1C01B423AE60084CF2F /* getFriendsWithCoreData 2.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = "getFriendsWithCoreData 2.xcdatamodel"; sourceTree = "<group>"; };
-		50ABA1CB1B42471D0084CF2F /* showingFriendsViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = showingFriendsViewController.h; path = "showing Friends/showingFriendsViewController.h"; sourceTree = "<group>"; };
-		50ABA1CC1B42471D0084CF2F /* showingFriendsViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = showingFriendsViewController.m; path = "showing Friends/showingFriendsViewController.m"; sourceTree = "<group>"; };
+		50ABA1CB1B42471D0084CF2F /* showingFriendsViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = showingFriendsViewController.h; path = "getFriendsWithCoreData/showing Friends/showingFriendsViewController.h"; sourceTree = "<group>"; };
+		50ABA1CC1B42471D0084CF2F /* showingFriendsViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = showingFriendsViewController.m; path = "getFriendsWithCoreData/showing Friends/showingFriendsViewController.m"; sourceTree = "<group>"; };
+		50AC8D351B577906007F7C2E /* MySingleton.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = MySingleton.h; path = getFriendsWithCoreData/MySingleton.h; sourceTree = "<group>"; };
+		50AC8D361B577906007F7C2E /* MySingleton.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = MySingleton.m; path = getFriendsWithCoreData/MySingleton.m; sourceTree = "<group>"; };
 		50BCDA8E1B4B7A3000FB25D5 /* CustomFriendTVCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = CustomFriendTVCell.h; path = getFriendsWithCoreData/CustomCell/CustomFriendTVCell.h; sourceTree = "<group>"; };
 		50BCDA8F1B4B7A3000FB25D5 /* CustomFriendTVCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = CustomFriendTVCell.m; path = getFriendsWithCoreData/CustomCell/CustomFriendTVCell.m; sourceTree = "<group>"; };
 		50BCDA901B4B7A3000FB25D5 /* CustomFriendTVCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = CustomFriendTVCell.xib; path = getFriendsWithCoreData/CustomCell/CustomFriendTVCell.xib; sourceTree = "<group>"; };
@@ -112,6 +114,9 @@
 		50ABA1801B4122490084CF2F = {
 			isa = PBXGroup;
 			children = (
+				50AC8D3A1B577AB1007F7C2E /* AppDelegate */,
+				50AC8D391B577A50007F7C2E /* ShowingFriendsVC */,
+				50AC8D381B577A38007F7C2E /* MySingleton */,
 				50BCDA9C1B4DE0CD00FB25D5 /* editUserInfo */,
 				50BCDA931B4B7A4100FB25D5 /* CustomFriendTVCell */,
 				505486F31B479AEC0067453E /* Profile Pictures */,
@@ -139,12 +144,8 @@
 		50ABA18B1B4122490084CF2F /* getFriendsWithCoreData */ = {
 			isa = PBXGroup;
 			children = (
-				50ABA1901B4122490084CF2F /* AppDelegate.h */,
-				50ABA1911B4122490084CF2F /* AppDelegate.m */,
 				50ABA1961B4122490084CF2F /* ViewController.h */,
 				50ABA1971B4122490084CF2F /* ViewController.m */,
-				50ABA1CB1B42471D0084CF2F /* showingFriendsViewController.h */,
-				50ABA1CC1B42471D0084CF2F /* showingFriendsViewController.m */,
 				50ABA1991B4122490084CF2F /* Main.storyboard */,
 				50ABA19C1B4122490084CF2F /* Images.xcassets */,
 				50ABA19E1B4122490084CF2F /* LaunchScreen.xib */,
@@ -191,6 +192,33 @@
 			name = CoreData;
 			sourceTree = "<group>";
 		};
+		50AC8D381B577A38007F7C2E /* MySingleton */ = {
+			isa = PBXGroup;
+			children = (
+				50AC8D351B577906007F7C2E /* MySingleton.h */,
+				50AC8D361B577906007F7C2E /* MySingleton.m */,
+			);
+			name = MySingleton;
+			sourceTree = "<group>";
+		};
+		50AC8D391B577A50007F7C2E /* ShowingFriendsVC */ = {
+			isa = PBXGroup;
+			children = (
+				50ABA1CB1B42471D0084CF2F /* showingFriendsViewController.h */,
+				50ABA1CC1B42471D0084CF2F /* showingFriendsViewController.m */,
+			);
+			name = ShowingFriendsVC;
+			sourceTree = "<group>";
+		};
+		50AC8D3A1B577AB1007F7C2E /* AppDelegate */ = {
+			isa = PBXGroup;
+			children = (
+				50ABA1901B4122490084CF2F /* AppDelegate.h */,
+				50ABA1911B4122490084CF2F /* AppDelegate.m */,
+			);
+			name = AppDelegate;
+			sourceTree = "<group>";
+		};
 		50BCDA931B4B7A4100FB25D5 /* CustomFriendTVCell */ = {
 			isa = PBXGroup;
 			children = (
@@ -204,8 +232,8 @@
 		50BCDA9C1B4DE0CD00FB25D5 /* editUserInfo */ = {
 			isa = PBXGroup;
 			children = (
-				50BCDA991B4DE0C200FB25D5 /* editUserInfoVC.m */,
 				50BCDA9A1B4DE0C200FB25D5 /* editUserInfoVC.h */,
+				50BCDA991B4DE0C200FB25D5 /* editUserInfoVC.m */,
 			);
 			name = editUserInfo;
 			sourceTree = "<group>";
@@ -317,10 +345,10 @@
 				50ABA1921B4122490084CF2F /* AppDelegate.m in Sources */,
 				5073A7901B5071D700862505 /* UserDataTable.m in Sources */,
 				50ABA1951B4122490084CF2F /* getFriendsWithCoreData.xcdatamodeld in Sources */,
-				50BCDA9B1B4DE0C200FB25D5 /* editUserInfoVC.h in Sources */,
 				50ABA1981B4122490084CF2F /* ViewController.m in Sources */,
 				50BCDA911B4B7A3000FB25D5 /* CustomFriendTVCell.m in Sources */,
 				50ABA1CD1B42471D0084CF2F /* showingFriendsViewController.m in Sources */,
+				50AC8D371B577906007F7C2E /* MySingleton.m in Sources */,
 				505486EA1B44A0600067453E /* FriendsTable.m in Sources */,
 				50ABA18F1B4122490084CF2F /* main.m in Sources */,
 			);
