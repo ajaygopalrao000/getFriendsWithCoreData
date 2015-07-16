@@ -52,10 +52,10 @@
     }
     
     // ## Table View
-//    tableView = [[UITableView alloc]initWithFrame:CGRectMake(5, 0, self.view.frame.size.width-10, self.view.frame.size.height) style:UITableViewStyleGrouped];
-//    tableView.delegate = self;
-//    tableView.dataSource = self;
-//    [self.view addSubview:tableView];
+    //    tableView = [[UITableView alloc]initWithFrame:CGRectMake(5, 0, self.view.frame.size.width-10, self.view.frame.size.height) style:UITableViewStyleGrouped];
+    //    tableView.delegate = self;
+    //    tableView.dataSource = self;
+    //    [self.view addSubview:tableView];
     
     // ## alert View
     objAlert = [[UIAlertView alloc] initWithTitle:@"ALERT" message:@" Default " delegate:self cancelButtonTitle:@" OK " otherButtonTitles:nil];
@@ -99,39 +99,39 @@
 -(void)addUserInfoToCoreData
 {
     
-        //NSLog(@" in addUserInfoToCoreData ");
-        [self deleteMethod:@"UserDataTable"];
-        objUserDataRef = [NSEntityDescription insertNewObjectForEntityForName:@"UserDataTable" inManagedObjectContext:appDel.managedObjectContext];
-        objUserDataRef.userName = nameTextField.text;
-        objUserDataRef.userEmail = emailTextField.text;
-        objUserDataRef.userMobileNo = mobileNoTextField.text;
-        if (usrImgData != nil) {
-            objUserDataRef.userImageData = usrImgData;
-        }
-        else if (objUserDataRef.userImageData == nil)
-        {
-            UIImage * img = [UIImage imageNamed:@"profile_Pic_Default 128*128"];
-            usrImgData = [NSData dataWithData:UIImagePNGRepresentation(img)];
-            objUserDataRef.userImageData = usrImgData;
-        }
-        
+    //NSLog(@" in addUserInfoToCoreData ");
+    [self deleteMethod:@"UserDataTable"];
+    objUserDataRef = [NSEntityDescription insertNewObjectForEntityForName:@"UserDataTable" inManagedObjectContext:appDel.managedObjectContext];
+    objUserDataRef.userName = nameTextField.text;
+    objUserDataRef.userEmail = emailTextField.text;
+    objUserDataRef.userMobileNo = mobileNoTextField.text;
+    if (usrImgData != nil) {
+        objUserDataRef.userImageData = usrImgData;
+    }
+    else if (objUserDataRef.userImageData == nil)
+    {
+        UIImage * img = [UIImage imageNamed:@"profile_Pic_Default 128*128"];
+        usrImgData = [NSData dataWithData:UIImagePNGRepresentation(img)];
+        objUserDataRef.userImageData = usrImgData;
+    }
+    
+    NSError * error;
+    [appDel.managedObjectContext save:&error];
+    
+    if (error == nil) {
+        //NSLog(@"Success in storing the data");
+        NSFetchRequest * fetch = [NSFetchRequest fetchRequestWithEntityName:@"UserDataTable"];
         NSError * error;
-        [appDel.managedObjectContext save:&error];
+        NSArray * results = [appDel.managedObjectContext executeFetchRequest:fetch error:&error];
+        NSMutableArray *usrDataSource = [[NSMutableArray alloc] init];
+        [usrDataSource addObjectsFromArray:results];
         
-        if (error == nil) {
-            //NSLog(@"Success in storing the data");
-            NSFetchRequest * fetch = [NSFetchRequest fetchRequestWithEntityName:@"UserDataTable"];
-            NSError * error;
-            NSArray * results = [appDel.managedObjectContext executeFetchRequest:fetch error:&error];
-            NSMutableArray *usrDataSource = [[NSMutableArray alloc] init];
-            [usrDataSource addObjectsFromArray:results];
-            
-            //NSLog(@" results count is %li",[results count]);
-            
-            if (error == nil && [results count] == 1) {
-                //            NSLog(@" [results count] == 1 ");
-            }
+        //NSLog(@" results count is %li",[results count]);
+        
+        if (error == nil && [results count] == 1) {
+            //            NSLog(@" [results count] == 1 ");
         }
+    }
     
     
 }
@@ -182,7 +182,7 @@
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath;
 {
     if (indexPath.section == 1 && indexPath.row == 1) {
-            return 200;
+        return 200;
     }
     return 40.0;
 }
@@ -251,7 +251,7 @@
                 break ;
             }
         }
-
+        
     }
     else if(indexPath.section == 1)
     {
@@ -451,13 +451,13 @@
 }
 
 /*
-#pragma mark - Navigation
-
-// In a storyboard-based application, you will often want to do a little preparation before navigation
-- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
-    // Get the new view controller using [segue destinationViewController].
-    // Pass the selected object to the new view controller.
-}
-*/
+ #pragma mark - Navigation
+ 
+ // In a storyboard-based application, you will often want to do a little preparation before navigation
+ - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
+ // Get the new view controller using [segue destinationViewController].
+ // Pass the selected object to the new view controller.
+ }
+ */
 
 @end
