@@ -123,6 +123,11 @@
                     </view>
                     <extendedEdge key="edgesForExtendedLayout" bottom="YES"/>
                     <navigationItem key="navigationItem" id="9Z6-55-7Xs">
+                        <barButtonItem key="leftBarButtonItem" title="Design Patterns" id="4kF-VE-Eli">
+                            <connections>
+                                <segue destination="Sc7-Qq-PzZ" kind="show" id="RK2-Nm-3XY"/>
+                            </connections>
+                        </barButtonItem>
                         <barButtonItem key="rightBarButtonItem" systemItem="edit" id="Pq1-Zo-vkY">
                             <connections>
                                 <segue destination="Zir-yo-HoN" kind="show" identifier="segueToEditUserInfoVC" id="ibh-mU-eRI"/>
@@ -245,6 +250,41 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="RVh-oR-Hkg" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="2611.5" y="154.5"/>
+        </scene>
+        <!--Design PatternsVC-->
+        <scene sceneID="erO-Me-4De">
+            <objects>
+                <viewController id="Sc7-Qq-PzZ" customClass="DesignPatternsVC" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="BOi-z9-ZLr"/>
+                        <viewControllerLayoutGuide type="bottom" id="Vhk-Lp-2Hu"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="Qom-nX-nTC">
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="672"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="22" sectionFooterHeight="22" translatesAutoresizingMaskIntoConstraints="NO" id="4tE-is-6pg">
+                                <rect key="frame" x="0.0" y="0.0" width="414" height="672"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                <connections>
+                                    <outlet property="dataSource" destination="Sc7-Qq-PzZ" id="g8p-qb-XUV"/>
+                                    <outlet property="delegate" destination="Sc7-Qq-PzZ" id="4Et-1Q-9G2"/>
+                                </connections>
+                            </tableView>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <constraints>
+                            <constraint firstAttribute="bottom" secondItem="4tE-is-6pg" secondAttribute="bottom" id="3iZ-lT-qAL"/>
+                            <constraint firstAttribute="trailing" secondItem="4tE-is-6pg" secondAttribute="trailing" id="FWS-NC-c4Y"/>
+                            <constraint firstItem="4tE-is-6pg" firstAttribute="leading" secondItem="Qom-nX-nTC" secondAttribute="leading" id="dCv-Ju-RgZ"/>
+                            <constraint firstItem="4tE-is-6pg" firstAttribute="top" secondItem="Qom-nX-nTC" secondAttribute="top" id="eGS-yH-pGg"/>
+                        </constraints>
+                    </view>
+                    <extendedEdge key="edgesForExtendedLayout" bottom="YES"/>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="e53-HH-kcc" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="3173" y="141"/>
         </scene>
         <!--Navigation Controller-->
         <scene sceneID="AYn-Sa-RGF">

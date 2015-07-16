@@ -29,6 +29,7 @@
 		50BCDA961B4B7ED200FB25D5 /* profile_Pic.png in Resources */ = {isa = PBXBuildFile; fileRef = 50BCDA951B4B7ED200FB25D5 /* profile_Pic.png */; };
 		50BCDA981B4B802D00FB25D5 /* profilePicFacebook .png in Resources */ = {isa = PBXBuildFile; fileRef = 50BCDA971B4B802D00FB25D5 /* profilePicFacebook .png */; };
 		E2814BCB1B581F3900B36B73 /* editUserInfoVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 50BCDA991B4DE0C200FB25D5 /* editUserInfoVC.m */; };
+		E2814BCE1B582C7F00B36B73 /* DesignPatternsVC.m in Sources */ = {isa = PBXBuildFile; fileRef = E2814BCD1B582C7F00B36B73 /* DesignPatternsVC.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -77,6 +78,8 @@
 		50BCDA971B4B802D00FB25D5 /* profilePicFacebook .png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "profilePicFacebook .png"; sourceTree = "<group>"; };
 		50BCDA991B4DE0C200FB25D5 /* editUserInfoVC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = editUserInfoVC.m; sourceTree = "<group>"; };
 		50BCDA9A1B4DE0C200FB25D5 /* editUserInfoVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = editUserInfoVC.h; sourceTree = "<group>"; };
+		E2814BCC1B582C7F00B36B73 /* DesignPatternsVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DesignPatternsVC.h; sourceTree = "<group>"; };
+		E2814BCD1B582C7F00B36B73 /* DesignPatternsVC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DesignPatternsVC.m; sourceTree = "<group>"; };
 		E2B8729C1B447D140041763A /* getFriendsWithCoreData-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "getFriendsWithCoreData-Bridging-Header.h"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -233,6 +236,8 @@
 		50BCDA9C1B4DE0CD00FB25D5 /* editUserInfo */ = {
 			isa = PBXGroup;
 			children = (
+				E2814BCC1B582C7F00B36B73 /* DesignPatternsVC.h */,
+				E2814BCD1B582C7F00B36B73 /* DesignPatternsVC.m */,
 				50BCDA9A1B4DE0C200FB25D5 /* editUserInfoVC.h */,
 				50BCDA991B4DE0C200FB25D5 /* editUserInfoVC.m */,
 			);
@@ -351,6 +356,7 @@
 				50BCDA911B4B7A3000FB25D5 /* CustomFriendTVCell.m in Sources */,
 				50ABA1CD1B42471D0084CF2F /* showingFriendsViewController.m in Sources */,
 				50AC8D371B577906007F7C2E /* MySingleton.m in Sources */,
+				E2814BCE1B582C7F00B36B73 /* DesignPatternsVC.m in Sources */,
 				505486EA1B44A0600067453E /* FriendsTable.m in Sources */,
 				50ABA18F1B4122490084CF2F /* main.m in Sources */,
 			);
