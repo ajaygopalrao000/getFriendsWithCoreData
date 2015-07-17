@@ -23,4 +23,16 @@
 // myAppSelectedStateColor "#37214c"
 // myAppNavigationBarBackgroundColor "#0f031b"
 
++ (UIColor *) myAppPurple;
++ (UIColor *) myAppDarkPurple;
++ (UIColor *) myAppPrimaryTextColor;
++ (UIColor *) myAppSecondaryTextColorDarkBackground;
++ (UIColor *) myAppSecondaryTextColorWhiteBackground;
++ (UIColor *) myAppDefaultTextColor;
++ (UIColor *) myAppSelectedStateColor;
++ (UIColor *) myAppNavigationBarBackgroundColor;
+
++(UIColor*)colorWithHexString:(NSString*)hex;
+
+
 @end

@@ -10,4 +10,18 @@
 
 @implementation UIViewController (VCCategory)
 
++ (void) addListenerMethod;
+{
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(somethingHappens:) name:@"notificationName" object:nil];
+}
++ (void) removeListenerMethod;
+{
+    [[NSNotificationCenter defaultCenter] removeObserver:self name:@"notificationName" object:nil];
+}
+
+-(void)somethingHappens:(NSNotification*)notification
+{
+    // do something
+}
+
 @end
