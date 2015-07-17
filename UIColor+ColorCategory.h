@@ -10,4 +10,17 @@
 
 @interface UIColor (ColorCategory)
 
+//method for uicolor with hex and alpha
+
+// method to return myAppPurple "#ec008c"
+//for example [UIColor myAppPurple] should return a color with that speciic hexcolor and alpha 1.0
+
+// myAppDarkPurple "#060001b"
+// myAppPrimaryTextColor "#ffffff"
+// myAppSecondaryTextColorDarkBackground "#9a9fac3"
+// myAppSecondaryTextColorWhiteBackground "#707070"
+// myAppDefaultTextColor "#231f20"
+// myAppSelectedStateColor "#37214c"
+// myAppNavigationBarBackgroundColor "#0f031b"
+
 @end
