@@ -33,9 +33,6 @@
     
     // ## for results count
     NSArray * results;
-    
-    // ## MySingleton object Ref
-    MySingleton * ref1;
 }
 @end
 
@@ -152,7 +149,7 @@
         [[[FBSDKGraphRequest alloc] initWithGraphPath:@"me" parameters:nil]
          startWithCompletionHandler:^(FBSDKGraphRequestConnection *connection, id result, NSError *error) {
              //NSLog(@"fetched user:");
-             NSMutableString * usrId = [NSMutableString stringWithString:@"id"];
+             NSMutableString * usrId = nil;
              if ([result objectForKey:@"id"])
                  usrId = [result objectForKey:@"id"];
              else
@@ -178,7 +175,7 @@
              else if(!error)
              {
                  //NSLog(@"fetched user:%@", result);
-                 NSMutableString *userNme = [NSMutableString stringWithString:@"name"];
+                 NSMutableString *userNme = nil;
                  if ([result objectForKey:@"name"])
                      userNme = [result objectForKey:@"name"];
                  else
@@ -191,7 +188,7 @@
                      usrImgData = [NSData dataWithData:UIImagePNGRepresentation(img)];
                  }
                  
-                 NSMutableString * usrEmail = [NSMutableString stringWithString:@"email"];
+                 NSMutableString * usrEmail = nil;
                  if ([result objectForKey:@"email"]) {
                      usrEmail = [result objectForKey:@"email"];
                  } else {
@@ -213,13 +210,10 @@
     }
     else
     {
-        if (!ref1) {
-            ref1 = [MySingleton globalInstance];
-        }
-        self.usrNameLabel.text = [ref1 userName];
-        self.usrImgView.image = [UIImage imageNamed:[ref1 userImgName]];
-        self.usrEmailLabel.text = [ref1 userEmail];
-        self.userMobileNoLabel.text = [ref1 userMobileNo];
+        self.usrNameLabel.text = [NSString stringWithFormat:@"Hello : %@",[[MySingleton globalInstance] userName]];
+        self.usrImgView.image = [UIImage imageNamed:[[MySingleton globalInstance] userImgName]];
+        self.usrEmailLabel.text = [NSString stringWithFormat:@"Email : %@",[[MySingleton globalInstance] userEmail]];
+        self.userMobileNoLabel.text = [NSString stringWithFormat:@"MobileNo : %@",[[MySingleton globalInstance] userMobileNo]];
         conn = NO;
     }
     
@@ -311,25 +305,18 @@
     NSLog(@"addingdefaultUserData");
     // Default data
     //[self deleteMethod:@"UserDataTable"];
-    if (!ref1) {
-        ref1 = [MySingleton globalInstance];
-    }
     
     //    self.usrNameLabel.text = [NSString stringWithFormat:@" Hello : User"];
     //    self.usrImgView.image = [UIImage imageNamed:@"profile_Pic_Default 128*128"];
     //    self.usrEmailLabel.text = [NSString stringWithFormat:@" Email : xyz@domain.com"];
     //    self.userMobileNoLabel.text = [NSString stringWithFormat:@" Mobile No : 9999999999"];
     
-    self.usrNameLabel.text = [ref1 userName];
-    self.usrImgView.image = [UIImage imageNamed:[ref1 userImgName]];
-    self.usrEmailLabel.text = [ref1 userEmail];
-    self.userMobileNoLabel.text = [ref1 userMobileNo];
+    self.usrNameLabel.text = [NSString stringWithFormat:@"Hello : %@",[[MySingleton globalInstance] userName]];
+    self.usrImgView.image = [UIImage imageNamed:[[MySingleton globalInstance] userImgName]];
+    self.usrEmailLabel.text = [NSString stringWithFormat:@"Email : %@",[[MySingleton globalInstance] userEmail]];
+    self.userMobileNoLabel.text = [NSString stringWithFormat:@"MobileNo : %@",[[MySingleton globalInstance] userMobileNo]];
 }
 
--(void) viewDidAppear:(BOOL)animated
-{
-    //NSLog(@"viewDidAppear");
-}
 
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];

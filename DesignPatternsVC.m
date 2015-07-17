@@ -9,7 +9,7 @@
 #import "CustomFriendTVCell.h"
 #import "DesignPatternsVC.h"
 
-@interface DesignPatternsVC ()
+@interface DesignPatternsVC () < UITableViewDelegate>
 {
     NSArray *tableArray;
 }
@@ -72,6 +72,11 @@
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath;
 {
     return 60;
+}
+
+- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
+    [tableView deselectRowAtIndexPath:indexPath animated:YES];
+    [self performSegueWithIdentifier:@"DesignPatterntoScreenOne" sender:nil];
 }
 
 @end

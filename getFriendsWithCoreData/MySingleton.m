@@ -37,9 +37,9 @@
 {
     self = [super init];
     if (self) {
-        _userName = @"Hello : User";
-        _userMobileNo = @"MobileNo : 9999999999";
-        _userEmail = @"Email : xyz@domain.com";
+        _userName = @"User";
+        _userMobileNo = @"9999999999";
+        _userEmail = @"xyz@domain.com";
         _userImgName = @"profile_Pic_Default 128*128";
     }
     return self;

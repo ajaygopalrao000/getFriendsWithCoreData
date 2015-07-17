@@ -24,6 +24,11 @@
 		50ABA1BF1B422E090084CF2F /* Social.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 50ABA1BE1B422E090084CF2F /* Social.framework */; };
 		50ABA1CD1B42471D0084CF2F /* showingFriendsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 50ABA1CC1B42471D0084CF2F /* showingFriendsViewController.m */; };
 		50AC8D371B577906007F7C2E /* MySingleton.m in Sources */ = {isa = PBXBuildFile; fileRef = 50AC8D361B577906007F7C2E /* MySingleton.m */; };
+		50AC8D3D1B58522D007F7C2E /* ParentVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 50AC8D3C1B58522D007F7C2E /* ParentVC.m */; };
+		50AC8D421B5978CF007F7C2E /* ScreenOneVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 50AC8D411B5978CF007F7C2E /* ScreenOneVC.m */; };
+		50AC8D451B5978EB007F7C2E /* ScreenTwoVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 50AC8D441B5978EB007F7C2E /* ScreenTwoVC.m */; };
+		50AC8D491B5980C2007F7C2E /* UIViewController+VCCategory.m in Sources */ = {isa = PBXBuildFile; fileRef = 50AC8D481B5980C2007F7C2E /* UIViewController+VCCategory.m */; };
+		50AC8D4C1B5980E6007F7C2E /* UIColor+ColorCategory.m in Sources */ = {isa = PBXBuildFile; fileRef = 50AC8D4B1B5980E6007F7C2E /* UIColor+ColorCategory.m */; };
 		50BCDA911B4B7A3000FB25D5 /* CustomFriendTVCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 50BCDA8F1B4B7A3000FB25D5 /* CustomFriendTVCell.m */; };
 		50BCDA921B4B7A3000FB25D5 /* CustomFriendTVCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 50BCDA901B4B7A3000FB25D5 /* CustomFriendTVCell.xib */; };
 		50BCDA961B4B7ED200FB25D5 /* profile_Pic.png in Resources */ = {isa = PBXBuildFile; fileRef = 50BCDA951B4B7ED200FB25D5 /* profile_Pic.png */; };
@@ -71,6 +76,16 @@
 		50ABA1CC1B42471D0084CF2F /* showingFriendsViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = showingFriendsViewController.m; path = "getFriendsWithCoreData/showing Friends/showingFriendsViewController.m"; sourceTree = "<group>"; };
 		50AC8D351B577906007F7C2E /* MySingleton.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = MySingleton.h; path = getFriendsWithCoreData/MySingleton.h; sourceTree = "<group>"; };
 		50AC8D361B577906007F7C2E /* MySingleton.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = MySingleton.m; path = getFriendsWithCoreData/MySingleton.m; sourceTree = "<group>"; };
+		50AC8D3B1B58522D007F7C2E /* ParentVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ParentVC.h; sourceTree = "<group>"; };
+		50AC8D3C1B58522D007F7C2E /* ParentVC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ParentVC.m; sourceTree = "<group>"; };
+		50AC8D401B5978CF007F7C2E /* ScreenOneVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ScreenOneVC.h; sourceTree = "<group>"; };
+		50AC8D411B5978CF007F7C2E /* ScreenOneVC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ScreenOneVC.m; sourceTree = "<group>"; };
+		50AC8D431B5978EB007F7C2E /* ScreenTwoVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ScreenTwoVC.h; sourceTree = "<group>"; };
+		50AC8D441B5978EB007F7C2E /* ScreenTwoVC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ScreenTwoVC.m; sourceTree = "<group>"; };
+		50AC8D471B5980C2007F7C2E /* UIViewController+VCCategory.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIViewController+VCCategory.h"; sourceTree = "<group>"; };
+		50AC8D481B5980C2007F7C2E /* UIViewController+VCCategory.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIViewController+VCCategory.m"; sourceTree = "<group>"; };
+		50AC8D4A1B5980E6007F7C2E /* UIColor+ColorCategory.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIColor+ColorCategory.h"; sourceTree = "<group>"; };
+		50AC8D4B1B5980E6007F7C2E /* UIColor+ColorCategory.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIColor+ColorCategory.m"; sourceTree = "<group>"; };
 		50BCDA8E1B4B7A3000FB25D5 /* CustomFriendTVCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = CustomFriendTVCell.h; path = getFriendsWithCoreData/CustomCell/CustomFriendTVCell.h; sourceTree = "<group>"; };
 		50BCDA8F1B4B7A3000FB25D5 /* CustomFriendTVCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = CustomFriendTVCell.m; path = getFriendsWithCoreData/CustomCell/CustomFriendTVCell.m; sourceTree = "<group>"; };
 		50BCDA901B4B7A3000FB25D5 /* CustomFriendTVCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = CustomFriendTVCell.xib; path = getFriendsWithCoreData/CustomCell/CustomFriendTVCell.xib; sourceTree = "<group>"; };
@@ -118,6 +133,8 @@
 		50ABA1801B4122490084CF2F = {
 			isa = PBXGroup;
 			children = (
+				50AC8D461B597DE3007F7C2E /* Categories */,
+				50AC8D3E1B585237007F7C2E /* ParentVC */,
 				50AC8D3A1B577AB1007F7C2E /* AppDelegate */,
 				50AC8D391B577A50007F7C2E /* ShowingFriendsVC */,
 				50AC8D381B577A38007F7C2E /* MySingleton */,
@@ -221,6 +238,38 @@
 				50ABA1911B4122490084CF2F /* AppDelegate.m */,
 			);
 			name = AppDelegate;
+			sourceTree = "<group>";
+		};
+		50AC8D3E1B585237007F7C2E /* ParentVC */ = {
+			isa = PBXGroup;
+			children = (
+				50AC8D3F1B597897007F7C2E /* SubClass */,
+				50AC8D3B1B58522D007F7C2E /* ParentVC.h */,
+				50AC8D3C1B58522D007F7C2E /* ParentVC.m */,
+			);
+			name = ParentVC;
+			sourceTree = "<group>";
+		};
+		50AC8D3F1B597897007F7C2E /* SubClass */ = {
+			isa = PBXGroup;
+			children = (
+				50AC8D401B5978CF007F7C2E /* ScreenOneVC.h */,
+				50AC8D411B5978CF007F7C2E /* ScreenOneVC.m */,
+				50AC8D431B5978EB007F7C2E /* ScreenTwoVC.h */,
+				50AC8D441B5978EB007F7C2E /* ScreenTwoVC.m */,
+			);
+			name = SubClass;
+			sourceTree = "<group>";
+		};
+		50AC8D461B597DE3007F7C2E /* Categories */ = {
+			isa = PBXGroup;
+			children = (
+				50AC8D471B5980C2007F7C2E /* UIViewController+VCCategory.h */,
+				50AC8D481B5980C2007F7C2E /* UIViewController+VCCategory.m */,
+				50AC8D4A1B5980E6007F7C2E /* UIColor+ColorCategory.h */,
+				50AC8D4B1B5980E6007F7C2E /* UIColor+ColorCategory.m */,
+			);
+			name = Categories;
 			sourceTree = "<group>";
 		};
 		50BCDA931B4B7A4100FB25D5 /* CustomFriendTVCell */ = {
@@ -353,9 +402,14 @@
 				5073A7901B5071D700862505 /* UserDataTable.m in Sources */,
 				50ABA1951B4122490084CF2F /* getFriendsWithCoreData.xcdatamodeld in Sources */,
 				50ABA1981B4122490084CF2F /* ViewController.m in Sources */,
+				50AC8D421B5978CF007F7C2E /* ScreenOneVC.m in Sources */,
 				50BCDA911B4B7A3000FB25D5 /* CustomFriendTVCell.m in Sources */,
+				50AC8D4C1B5980E6007F7C2E /* UIColor+ColorCategory.m in Sources */,
 				50ABA1CD1B42471D0084CF2F /* showingFriendsViewController.m in Sources */,
+				50AC8D451B5978EB007F7C2E /* ScreenTwoVC.m in Sources */,
 				50AC8D371B577906007F7C2E /* MySingleton.m in Sources */,
+				50AC8D3D1B58522D007F7C2E /* ParentVC.m in Sources */,
+				50AC8D491B5980C2007F7C2E /* UIViewController+VCCategory.m in Sources */,
 				E2814BCE1B582C7F00B36B73 /* DesignPatternsVC.m in Sources */,
 				505486EA1B44A0600067453E /* FriendsTable.m in Sources */,
 				50ABA18F1B4122490084CF2F /* main.m in Sources */,
