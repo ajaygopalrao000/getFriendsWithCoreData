@@ -10,10 +10,14 @@
 
 @interface MySingleton : NSObject
 
-@property (strong, nonatomic) NSString * userName;
-@property (strong, nonatomic) NSString * userEmail;
-@property (strong, nonatomic) NSString * userMobileNo;
-@property (strong, nonatomic) NSString * userImgName;
+@property (weak, nonatomic) NSString * userName;
+@property (weak, nonatomic) NSString * userEmail;
+@property (weak, nonatomic) NSString * userMobileNo;
+@property (weak, nonatomic) NSString * userImgName;
+
+// ## new properties for Subclassing
+@property (strong, nonatomic) NSString * nameField;
+@property (strong, nonatomic) NSString * emailField;
 
 + (id) globalInstance;
 //+ (MySingleton *) globalInstance1;

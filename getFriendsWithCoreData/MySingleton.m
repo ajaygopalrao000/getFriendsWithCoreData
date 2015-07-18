@@ -41,6 +41,8 @@
         _userMobileNo = @"9999999999";
         _userEmail = @"xyz@domain.com";
         _userImgName = @"profile_Pic_Default 128*128";
+        _nameField = @"User";
+        _emailField = @"xyz@domain.com";
     }
     return self;
 }

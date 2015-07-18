@@ -7,7 +7,8 @@
 //
 
 #import "ParentVC.h"
+#import "ScreenTwoVC.h"
 
-@interface ScreenOneVC : ParentVC
+@interface ScreenOneVC : ParentVC<ScreenTwoDelegate>
 
 @end

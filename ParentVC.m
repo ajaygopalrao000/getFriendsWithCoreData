@@ -9,6 +9,7 @@
 
 // like it should have an array, title, iboutlets like label and buttons,
 #import "ParentVC.h"
+#import "MySingleton.h"
 
 @interface ParentVC ()
 
@@ -22,6 +23,73 @@
     
     
 }
+
+// ## TableView Delegates
+- (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath;
+{
+    return 50.0;
+}
+
+
+- (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
+    // Return the number of sections.
+    return 1;
+}
+
+- (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section;
+{
+    return 2;
+}
+
+- (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath;
+{
+    UITableViewCell *cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:nil];
+    
+    // Make cell unselectable
+    cell.selectionStyle = UITableViewCellSelectionStyleNone;
+    
+    UITextField* tf = nil;
+    switch ( indexPath.row ) {
+        case 0: {
+            
+            tf = self.nameTextField = [self makeTextField:[[MySingleton globalInstance] userName]];
+            tf.keyboardType = UIKeyboardTypeAlphabet;
+            tf.returnKeyType = UIReturnKeyNext;
+            [cell addSubview:self.nameTextField];
+            break ;
+        }
+        case 1: {
+            tf = self.emailTextField = [self makeTextField:[[MySingleton globalInstance] userEmail]];
+            tf.keyboardType = UIKeyboardTypeEmailAddress;
+            tf.returnKeyType = UIReturnKeyNext;
+            [cell addSubview:self.emailTextField];
+            break ;
+        }
+    }
+    
+    // Textfield dimensions
+    tf.frame = CGRectMake(5, 5, self.view.frame.size.width-10, 40);
+    
+    // We want to handle textFieldDidEndEditing
+    //tf.delegate = self ;
+    
+    return cell;
+}
+
+
+// ## creating textfield
+-(UITextField*) makeTextField: (NSString*)text{
+    UITextField *tf = [[UITextField alloc] init];
+    // ## NEW
+    tf.backgroundColor = [UIColor whiteColor];
+    tf.text = text;
+    tf.textAlignment = NSTextAlignmentCenter;
+    tf.adjustsFontSizeToFitWidth = YES;
+    tf.clearButtonMode = UITextFieldViewModeWhileEditing;
+    
+    return tf ;
+}
+
 
 
 - (void)didReceiveMemoryWarning {

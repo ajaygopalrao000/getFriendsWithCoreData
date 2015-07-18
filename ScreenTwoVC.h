@@ -8,6 +8,17 @@
 
 #import "ParentVC.h"
 
+// ## Creating Delegate
+@protocol ScreenTwoDelegate <NSObject>
+
+-(void) doneBtnClicked : (NSDictionary *) flag;
+
+@end
+
 @interface ScreenTwoVC : ParentVC
+
+// ## property for delegate
+@property (nonatomic, weak) id<ScreenTwoDelegate> delegate;
+
 
 @end

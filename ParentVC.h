@@ -10,14 +10,22 @@
 
 #import <UIKit/UIKit.h>
 
-@interface ParentVC : UIViewController
+@interface ParentVC : UIViewController<UITableViewDelegate, UITableViewDataSource>
 
 @property (nonatomic, weak) NSArray * mutArray;
 @property (nonatomic, weak) IBOutlet UILabel * welcomeLabel;
 @property (nonatomic, weak) IBOutlet UIButton * getMyFriendsBtn;
 @property (nonatomic, weak) IBOutlet UIButton * deleteDataBtn;
 
+// ##
+
+@property (nonatomic, weak) IBOutlet UILabel * nameLabel;
+@property (nonatomic, weak) IBOutlet UILabel * emailLabel;
+
+@property (nonatomic, weak) IBOutlet UITextField * nameTextField;
+@property (nonatomic, weak) IBOutlet UITextField * emailTextField;
+
+
 - (IBAction)navigationAction:(id)sender;
-+(id) setTitle:(NSString *)title;
 
 @end

@@ -7,6 +7,7 @@
 //
 
 #import "ScreenTwoVC.h"
+#import "MySingleton.h"
 
 @interface ScreenTwoVC ()
 
@@ -22,6 +23,14 @@
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
+}
+
+// ## done Button Action
+- (IBAction)boneBtnClicked:(id)sender {
+    NSLog(@"doneButtonClicked");
+    NSDictionary * dict = [[NSDictionary alloc]initWithObjects:@[self.nameTextField.text, self.emailTextField.text] forKeys:@[@"username", @"email"]];
+    [self.delegate doneBtnClicked:dict];
+    [self.navigationController popToRootViewControllerAnimated:YES];
 }
 
 /*
