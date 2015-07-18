@@ -9,19 +9,21 @@
 #import "UIViewController+VCCategory.h"
 
 @implementation UIViewController (VCCategory)
-
 + (void) addListenerMethod;
 {
-    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(somethingHappens:) name:@"notificationName" object:nil];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(textFieldDidChange:) name:@"textFieldChanged" object:nil];
+    //[[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(textFieldDidChange:) name:UITextFieldTextDidChangeNotification object:nil];
+
 }
 + (void) removeListenerMethod;
 {
-    [[NSNotificationCenter defaultCenter] removeObserver:self name:@"notificationName" object:nil];
+    [[NSNotificationCenter defaultCenter] removeObserver:self name:@"textFieldChanged" object:nil];
 }
 
--(void)somethingHappens:(NSNotification*)notification
+-(void)textFieldDidChange:(NSNotification*)notification
 {
     // do something
+    NSLog(@"Recvd notification for name : %@",notification.name);
 }
 
 @end

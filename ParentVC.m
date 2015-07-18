@@ -48,48 +48,8 @@
     // Make cell unselectable
     cell.selectionStyle = UITableViewCellSelectionStyleNone;
     
-    UITextField* tf = nil;
-    switch ( indexPath.row ) {
-        case 0: {
-            
-            tf = self.nameTextField = [self makeTextField:[[MySingleton globalInstance] userName]];
-            tf.keyboardType = UIKeyboardTypeAlphabet;
-            tf.returnKeyType = UIReturnKeyNext;
-            [cell addSubview:self.nameTextField];
-            break ;
-        }
-        case 1: {
-            tf = self.emailTextField = [self makeTextField:[[MySingleton globalInstance] userEmail]];
-            tf.keyboardType = UIKeyboardTypeEmailAddress;
-            tf.returnKeyType = UIReturnKeyNext;
-            [cell addSubview:self.emailTextField];
-            break ;
-        }
-    }
-    
-    // Textfield dimensions
-    tf.frame = CGRectMake(5, 5, self.view.frame.size.width-10, 40);
-    
-    // We want to handle textFieldDidEndEditing
-    //tf.delegate = self ;
-    
     return cell;
 }
-
-
-// ## creating textfield
--(UITextField*) makeTextField: (NSString*)text{
-    UITextField *tf = [[UITextField alloc] init];
-    // ## NEW
-    tf.backgroundColor = [UIColor whiteColor];
-    tf.text = text;
-    tf.textAlignment = NSTextAlignmentCenter;
-    tf.adjustsFontSizeToFitWidth = YES;
-    tf.clearButtonMode = UITextFieldViewModeWhileEditing;
-    
-    return tf ;
-}
-
 
 
 - (void)didReceiveMemoryWarning {
