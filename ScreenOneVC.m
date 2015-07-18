@@ -9,6 +9,7 @@
 #import "ScreenOneVC.h"
 #import "MySingleton.h"
 #import "UIColor+ColorCategory.h"
+#import "UIViewController+VCCategory.h"
 
 @interface ScreenOneVC ()
 
@@ -19,6 +20,8 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view.
+    
+    [self addListenerMethod:@"secondScreenData"];
 }
 
 //------------------------------------------------------------------------------------------------------//
@@ -90,6 +93,10 @@
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
+}
+
+- (void)notificationTriggerMethod:(NSNotification*)notification {
+    
 }
 
 /*

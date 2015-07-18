@@ -14,7 +14,8 @@
 
 
 
-+ (void) addListenerMethod;
-+ (void) removeListenerMethod;
+- (void)addListenerMethod:(NSString*)name;
+- (void)postNotification:(NSString*)name;
+- (void)removeListenerMethod:(NSString*)name;
 
 @end

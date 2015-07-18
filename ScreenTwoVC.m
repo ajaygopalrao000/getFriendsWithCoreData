@@ -8,6 +8,8 @@
 
 #import "ScreenTwoVC.h"
 #import "MySingleton.h"
+#import "UIViewController+VCCategory.h"
+
 
 @interface ScreenTwoVC ()
 
@@ -89,7 +91,8 @@
 // ## done Button Action
 - (IBAction)boneBtnClicked:(id)sender {
     NSLog(@"doneButtonClicked");
-    [[NSNotificationCenter defaultCenter] postNotificationName:@"textFieldChanged" object:nil]; 
+    //[[NSNotificationCenter defaultCenter] postNotificationName:@"textFieldChanged" object:nil];
+    [self postNotification:@"secondScreenData"];
     NSDictionary * dict = [[NSDictionary alloc]initWithObjects:@[self.nameTextField.text, self.emailTextField.text] forKeys:@[@"username", @"email"]];
     [self.delegate doneBtnClicked:dict];
     [self.navigationController popToRootViewControllerAnimated:YES];
