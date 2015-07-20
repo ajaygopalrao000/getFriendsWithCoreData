@@ -15,7 +15,8 @@
 
 
 - (void)addListenerMethod:(NSString*)name;
-- (void)postNotification:(NSString*)name;
+- (void)postNotification:(NSString*)name withData : (NSDictionary *)dict;
 - (void)removeListenerMethod:(NSString*)name;
+
 
 @end

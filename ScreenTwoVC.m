@@ -35,14 +35,14 @@
     switch ( indexPath.row ) {
         case 0: {
             
-            tf = self.nameTextField = [self makeTextField:[[MySingleton globalInstance] userName]];
+            tf = self.nameTextField = [self makeTextField:@""];
             tf.keyboardType = UIKeyboardTypeAlphabet;
             tf.returnKeyType = UIReturnKeyNext;
             [cell addSubview:self.nameTextField];
             break ;
         }
         case 1: {
-            tf = self.emailTextField = [self makeTextField:[[MySingleton globalInstance] userEmail]];
+            tf = self.emailTextField = [self makeTextField:@""];
             tf.keyboardType = UIKeyboardTypeEmailAddress;
             tf.returnKeyType = UIReturnKeyNext;
             [cell addSubview:self.emailTextField];
@@ -51,10 +51,7 @@
     }
     
     // Textfield dimensions
-    tf.frame = CGRectMake(5, 5, self.view.frame.size.width-10, 40);
-    
-    // We want to handle textFieldDidEndEditing
-    tf.delegate = self ;
+    tf.frame = CGRectMake(5, 5, self.view.frame.size.width-10, 50);
     
     return cell;
 }
@@ -73,16 +70,6 @@
 }
 
 
-// ## Text Field Delegate methods
-
-- (BOOL)textField:(UITextField *)textField shouldChangeCharactersInRange:(NSRange)range replacementString:(NSString *)string;   // return NO to not change text
-{
-    NSLog(@" textFieldShouldChangeCharactersInRange, text field is %@, string is %@ ",textField.text,string );
-    [[NSNotificationCenter defaultCenter] postNotificationName:@"textFieldChanged" object:nil];
-    return YES;
-}
-
-
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
@@ -91,10 +78,18 @@
 // ## done Button Action
 - (IBAction)boneBtnClicked:(id)sender {
     NSLog(@"doneButtonClicked");
-    //[[NSNotificationCenter defaultCenter] postNotificationName:@"textFieldChanged" object:nil];
-    [self postNotification:@"secondScreenData"];
-    NSDictionary * dict = [[NSDictionary alloc]initWithObjects:@[self.nameTextField.text, self.emailTextField.text] forKeys:@[@"username", @"email"]];
-    [self.delegate doneBtnClicked:dict];
+//    NSDictionary * dict = [[NSDictionary alloc]initWithObjects:@[self.nameTextField.text, self.emailTextField.text] forKeys:@[@"username", @"email"]];
+    
+// ## Notification
+//    [self postNotification:@"secondScreenData" withData:dict];
+
+// ## Delegates
+//    [self.delegate doneBtnClicked:dict];
+
+// ## KVC
+    [self setValue:self.nameTextField.text forKey:@"username"];
+    [self setValue:self.emailTextField.text forKey:@"email"];
+    
     [self.navigationController popToRootViewControllerAnimated:YES];
 }
 

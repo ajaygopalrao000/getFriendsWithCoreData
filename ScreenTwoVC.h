@@ -15,7 +15,7 @@
 
 @end
 
-@interface ScreenTwoVC : ParentVC<UITextFieldDelegate>
+@interface ScreenTwoVC : ParentVC
 
 // ## property for delegate
 @property (nonatomic, weak) id<ScreenTwoDelegate> delegate;

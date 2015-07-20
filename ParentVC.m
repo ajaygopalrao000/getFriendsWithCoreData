@@ -10,6 +10,7 @@
 // like it should have an array, title, iboutlets like label and buttons,
 #import "ParentVC.h"
 #import "MySingleton.h"
+#import "ScreenOneVC.h"
 
 @interface ParentVC ()
 
@@ -20,7 +21,6 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view.
-    
     
 }
 
@@ -64,6 +64,42 @@
         [self performSegueWithIdentifier:@"GoBack" sender:nil];
     }
 }
+
+// ## KVC, KVO
+
+//-(void) observeValues;
+//{
+//    NSLog(@"observeValues");
+//    [self addObserver:self forKeyPath:@"username" options:NSKeyValueObservingOptionNew | NSKeyValueObservingOptionOld context:nil];
+//    [self addObserver:self forKeyPath:@"email" options:NSKeyValueObservingOptionNew | NSKeyValueObservingOptionOld context:nil];
+//}
+
+//- (void) viewWillAppear:(BOOL)animated
+//{
+//    // ## KVO
+//    NSLog(@"viewWillAppear");
+//    [self addObserver:self forKeyPath:@"username" options:NSKeyValueObservingOptionNew | NSKeyValueObservingOptionOld context:nil];
+//    [self addObserver:self forKeyPath:@"email" options:NSKeyValueObservingOptionNew | NSKeyValueObservingOptionOld context:nil];
+//}
+
+
+//------------------------------------------------------------------------------------------------------//
+//------------------------------------ ## Using KVO ----------------------------------------------------//
+-(void)observeValueForKeyPath:(NSString *)keyPath ofObject:(id)object change:(NSDictionary *)change context:(void *)context{
+    NSLog(@"observeValueForKeyPath");
+    if ([keyPath isEqualToString:@"username"]) {
+        NSLog(@"The name of the child was changed, username : %@",[change valueForKey:@"new"]);
+        //self.nameLabel.text = [change valueForKey:@"new"];
+    }
+    
+    if ([keyPath isEqualToString:@"email"]) {
+        NSLog(@"The email of the child was changed, email : %@",[change valueForKey:@"new"]);
+        //self.emailLabel.text = [change valueForKey:@"new"];
+    }
+    
+}
+
+
 
 /*
 #pragma mark - Navigation

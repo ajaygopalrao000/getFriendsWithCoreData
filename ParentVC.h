@@ -25,6 +25,12 @@
 @property (nonatomic, weak) IBOutlet UITextField * nameTextField;
 @property (nonatomic, weak) IBOutlet UITextField * emailTextField;
 
+// ## KVC, KVO
+
+@property (nonatomic, weak) NSString * username;
+@property (nonatomic, weak) NSString * email;
+
+//-(void) observeValues;
 
 - (IBAction)navigationAction:(id)sender;
 

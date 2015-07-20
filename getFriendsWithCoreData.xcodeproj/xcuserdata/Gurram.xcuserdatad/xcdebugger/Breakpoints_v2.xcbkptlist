@@ -84,11 +84,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "ScreenTwoVC.m"
-            timestampString = "458886120.164215"
+            timestampString = "459126006.58106"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "93"
-            endingLineNumber = "93"
+            startingLineNumber = "80"
+            endingLineNumber = "80"
             landmarkName = "-boneBtnClicked:"
             landmarkType = "5">
          </BreakpointContent>
@@ -100,29 +100,13 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "ScreenOneVC.m"
-            timestampString = "458878076.085769"
+            timestampString = "459127371.83864"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "40"
-            endingLineNumber = "40"
-            landmarkName = "-doneBtnClicked:"
-            landmarkType = "5">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            shouldBeEnabled = "No"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "ScreenTwoVC.m"
-            timestampString = "458886481.939224"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "79"
-            endingLineNumber = "79"
-            landmarkName = "-textField:shouldChangeCharactersInRange:replacementString:"
-            landmarkType = "5">
+            startingLineNumber = "43"
+            endingLineNumber = "43"
+            landmarkName = "@implementation ScreenOneVC"
+            landmarkType = "3">
          </BreakpointContent>
       </BreakpointProxy>
    </Breakpoints>

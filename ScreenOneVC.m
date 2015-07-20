@@ -21,7 +21,8 @@
     [super viewDidLoad];
     // Do any additional setup after loading the view.
     
-    [self addListenerMethod:@"secondScreenData"];
+//    [self addListenerMethod:@"secondScreenData"];
+    
 }
 
 //------------------------------------------------------------------------------------------------------//
@@ -32,19 +33,19 @@
 {
     if([[segue identifier] isEqualToString:@"GoNextScreen"])
     {
-        ScreenTwoVC * destVC = (ScreenTwoVC *) segue.destinationViewController;
-        destVC.delegate = self;
+        //ScreenTwoVC * destVC = (ScreenTwoVC *) segue.destinationViewController;
+        //destVC.delegate = self;
     }
 }
 
-// ## Implementing delegate methods of ScreenTwoVC
--(void) doneBtnClicked : (NSDictionary *) dict;
-{
-    NSLog(@" Recvd doneButtonClicked Delegate");
-    self.nameLabel.text = [dict objectForKey:@"username"];
-    self.emailLabel.text = [dict objectForKey:@"email"];
-}
-
+//// ## Implementing delegate methods of ScreenTwoVC
+//-(void) doneBtnClicked : (NSDictionary *) dict;
+//{
+//    NSLog(@" Recvd doneButtonClicked Delegate");
+//    self.nameLabel.text = [dict objectForKey:@"username"];
+//    self.emailLabel.text = [dict objectForKey:@"email"];
+//}
+//
 //-------------------------------------------------------------------------------------------------------//
 //-------------------------------------------------------------------------------------------------------//
 
@@ -95,9 +96,57 @@
     // Dispose of any resources that can be recreated.
 }
 
-- (void)notificationTriggerMethod:(NSNotification*)notification {
-    
+
+//------------------------------------------------------------------------------------------------------//
+//------------------------------ ## Using Notification -------------------------------------------------//
+// ## Notification
+//- (void)notificationTriggerMethod:(NSNotification*)notification {
+//    NSLog(@"Notification Recvd");
+//    NSDictionary *dict = [notification userInfo];
+//    if (dict != nil) {
+//            self.nameLabel.text = [dict objectForKey:@"username"];
+//            self.emailLabel.text = [dict objectForKey:@"email"];
+//              [self removeListenerMethod:@"secondScreenData"];
+//    }
+//
+//}
+
+
+//// ## KVC, KVO
+//
+//-(void) observeValues;
+//{
+//    NSLog(@"observeValues");
+//    [self addObserver:self forKeyPath:@"username" options:NSKeyValueObservingOptionNew | NSKeyValueObservingOptionOld context:nil];
+//    [self addObserver:self forKeyPath:@"email" options:NSKeyValueObservingOptionNew | NSKeyValueObservingOptionOld context:nil];
+//}
+//
+- (void) viewWillAppear:(BOOL)animated
+{
+    // ## KVO
+    NSLog(@"viewWillAppear - ScreenOne");
+//    [self addObserver:self forKeyPath:@"username" options:NSKeyValueObservingOptionNew | NSKeyValueObservingOptionOld context:nil];
+//    [self addObserver:self forKeyPath:@"email" options:NSKeyValueObservingOptionNew | NSKeyValueObservingOptionOld context:nil];
 }
+//
+//
+////------------------------------------------------------------------------------------------------------//
+////------------------------------------ ## Using KVO ----------------------------------------------------//
+//-(void)observeValueForKeyPath:(NSString *)keyPath ofObject:(id)object change:(NSDictionary *)change context:(void *)context{
+//    NSLog(@"observeValueForKeyPath");
+//    if ([keyPath isEqualToString:@"username"]) {
+//        NSLog(@"The name of the child was changed, username : %@",[change valueForKey:@"new"]);
+//        //self.nameLabel.text = [change valueForKey:@"new"];
+//    }
+//    
+//    if ([keyPath isEqualToString:@"email"]) {
+//        NSLog(@"The email of the child was changed, email : %@",[change valueForKey:@"new"]);
+//        //self.emailLabel.text = [change valueForKey:@"new"];
+//    }
+//    
+//}
+
+
 
 /*
 #pragma mark - Navigation
