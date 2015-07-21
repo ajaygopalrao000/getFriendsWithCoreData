@@ -15,7 +15,7 @@
 {
     static dispatch_once_t once;
     static id sharedInstance;
-    NSLog(@"+(id) globalInstance");
+    //NSLog(@"+(id) globalInstance");
     dispatch_once(&once, ^{
         sharedInstance = [[self alloc] init];
     });

@@ -27,8 +27,8 @@
 
 // ## KVC, KVO
 
-@property (nonatomic, weak) NSString * username;
-@property (nonatomic, weak) NSString * email;
+//@property (nonatomic, weak) NSString * username;
+//@property (nonatomic, weak) NSString * email;
 
 //-(void) observeValues;
 

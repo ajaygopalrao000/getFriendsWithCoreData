@@ -12,6 +12,9 @@
 #import "UIViewController+VCCategory.h"
 
 @interface ScreenOneVC ()
+{
+//    ScreenTwoVC * destVC;
+}
 
 @end
 
@@ -33,8 +36,13 @@
 {
     if([[segue identifier] isEqualToString:@"GoNextScreen"])
     {
-        //ScreenTwoVC * destVC = (ScreenTwoVC *) segue.destinationViewController;
+        ScreenTwoVC * destVC = (ScreenTwoVC *) segue.destinationViewController;
+        NSLog(@"ScreenOne, prepareForSegue");
         //destVC.delegate = self;
+        
+//        // ## KVO
+        [destVC addObserver:self forKeyPath:@"username" options:NSKeyValueObservingOptionNew | NSKeyValueObservingOptionOld context:nil];
+        [destVC addObserver:self forKeyPath:@"email" options:NSKeyValueObservingOptionNew | NSKeyValueObservingOptionOld context:nil];
     }
 }
 
@@ -56,23 +64,27 @@
     // Make cell unselectable
     cell.selectionStyle = UITableViewCellSelectionStyleNone;
     
-    UILabel* label = nil;
+    //UILabel* label = nil;
     switch ( indexPath.row ) {
         case 0: {
             
-            label = self.nameLabel = [self makeLabel:[[MySingleton globalInstance] userName]];
+            self.nameLabel = [self makeLabel:[[MySingleton globalInstance] userName]];
+            self.nameLabel.frame = CGRectMake(5, 5, self.view.frame.size.width-10, 40);
+
             [cell addSubview:self.nameLabel];
             break ;
         }
         case 1: {
-            label = self.emailLabel = [self makeLabel:[[MySingleton globalInstance] userEmail]];
+            self.emailLabel = [self makeLabel:[[MySingleton globalInstance] userEmail]];
+            self.emailLabel.frame = CGRectMake(5, 5, self.view.frame.size.width-10, 40);
+
             [cell addSubview:self.emailLabel];
             break ;
         }
     }
     
     // Textfield dimensions
-    label.frame = CGRectMake(5, 5, self.view.frame.size.width-10, 40);
+   // label.frame = CGRectMake(5, 5, self.view.frame.size.width-10, 40);
     
     // We want to handle textFieldDidEndEditing
     //tf.delegate = self ;
@@ -121,6 +133,11 @@
 //    [self addObserver:self forKeyPath:@"email" options:NSKeyValueObservingOptionNew | NSKeyValueObservingOptionOld context:nil];
 //}
 //
+
+- (void)navigationAction:(id)sender {
+    [self performSegueWithIdentifier:@"GoNextScreen" sender:nil];
+}
+
 - (void) viewWillAppear:(BOOL)animated
 {
     // ## KVO
@@ -132,19 +149,19 @@
 //
 ////------------------------------------------------------------------------------------------------------//
 ////------------------------------------ ## Using KVO ----------------------------------------------------//
-//-(void)observeValueForKeyPath:(NSString *)keyPath ofObject:(id)object change:(NSDictionary *)change context:(void *)context{
-//    NSLog(@"observeValueForKeyPath");
-//    if ([keyPath isEqualToString:@"username"]) {
-//        NSLog(@"The name of the child was changed, username : %@",[change valueForKey:@"new"]);
-//        //self.nameLabel.text = [change valueForKey:@"new"];
-//    }
-//    
-//    if ([keyPath isEqualToString:@"email"]) {
-//        NSLog(@"The email of the child was changed, email : %@",[change valueForKey:@"new"]);
-//        //self.emailLabel.text = [change valueForKey:@"new"];
-//    }
-//    
-//}
+-(void)observeValueForKeyPath:(NSString *)keyPath ofObject:(id)object change:(NSDictionary *)change context:(void *)context{
+    NSLog(@"observeValueForKeyPath");
+    if ([keyPath isEqualToString:@"username"]) {
+        NSLog(@"The name of the child was changed, username : %@",[change valueForKey:@"new"]);
+        self.nameLabel.text = [change valueForKey:@"new"];
+    }
+    
+    if ([keyPath isEqualToString:@"email"]) {
+        NSLog(@"The email of the child was changed, email : %@",[change valueForKey:@"new"]);
+        self.emailLabel.text = [change valueForKey:@"new"];
+    }
+    
+}
 
 
 

@@ -90,7 +90,8 @@
     [self setValue:self.nameTextField.text forKey:@"username"];
     [self setValue:self.emailTextField.text forKey:@"email"];
     
-    [self.navigationController popToRootViewControllerAnimated:YES];
+    //[self.navigationController popToRootViewControllerAnimated:YES];
+    [self navigationAction:sender];
 }
 
 /*

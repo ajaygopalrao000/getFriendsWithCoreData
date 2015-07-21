@@ -282,12 +282,12 @@
                     </view>
                     <extendedEdge key="edgesForExtendedLayout" bottom="YES"/>
                     <connections>
-                        <segue destination="rjZ-Va-dd4" kind="show" identifier="DesignPatterntoScreenOne" id="lyd-VV-831"/>
+                        <segue destination="Zq5-Sc-4jS" kind="show" identifier="DesignPatterntoScreenOne" id="zPV-2w-boR"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="e53-HH-kcc" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="3040" y="184"/>
+            <point key="canvasLocation" x="3142" y="144"/>
         </scene>
         <!--Screen One VC-->
         <scene sceneID="Dd1-f7-7v6">
@@ -298,27 +298,27 @@
                         <viewControllerLayoutGuide type="bottom" id="Qja-Hn-9QK"/>
                     </layoutGuides>
                     <view key="view" contentMode="scaleToFill" id="IjJ-uM-sDc">
-                        <rect key="frame" x="0.0" y="0.0" width="320" height="504"/>
+                        <rect key="frame" x="0.0" y="64" width="414" height="672"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="GbU-Ia-Bki">
-                                <rect key="frame" x="121" y="250" width="78" height="30"/>
+                                <rect key="frame" x="168" y="250" width="78" height="30"/>
                                 <state key="normal" title="Second VC">
                                     <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                 </state>
                                 <connections>
-                                    <action selector="navigationAction:" destination="Zq5-Sc-4jS" eventType="touchUpInside" id="pFV-1Z-vc0"/>
+                                    <action selector="navigationAction:" destination="Zq5-Sc-4jS" eventType="touchUpInside" id="1xN-yf-XlZ"/>
                                 </connections>
                             </button>
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="22" sectionFooterHeight="22" translatesAutoresizingMaskIntoConstraints="NO" id="snQ-Ba-nJd">
-                                <rect key="frame" x="0.0" y="100" width="304" height="100"/>
+                                <rect key="frame" x="0.0" y="100" width="398" height="100"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="100" id="Al6-MO-c3U"/>
                                 </constraints>
                                 <connections>
-                                    <outlet property="dataSource" destination="Zq5-Sc-4jS" id="jKd-TW-IKL"/>
-                                    <outlet property="delegate" destination="Zq5-Sc-4jS" id="vxR-UG-qEv"/>
+                                    <outlet property="dataSource" destination="Zq5-Sc-4jS" id="wLZ-iV-1XR"/>
+                                    <outlet property="delegate" destination="Zq5-Sc-4jS" id="h8U-3C-u8D"/>
                                 </connections>
                             </tableView>
                         </subviews>
@@ -333,14 +333,14 @@
                     </view>
                     <extendedEdge key="edgesForExtendedLayout" bottom="YES"/>
                     <navigationItem key="navigationItem" title="Sreen One VC" id="LEg-AS-xKI"/>
-                    <simulatedScreenMetrics key="simulatedDestinationMetrics" type="retina4"/>
+                    <simulatedScreenMetrics key="simulatedDestinationMetrics" type="retina55"/>
                     <connections>
                         <segue destination="SEt-6T-Eqy" kind="show" identifier="GoNextScreen" id="IRX-fz-I7s"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="mrR-LX-EXa" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="4175" y="49"/>
+            <point key="canvasLocation" x="3567" y="144"/>
         </scene>
         <!--Screen Two VC-->
         <scene sceneID="Ar2-Dr-oJb">
@@ -351,7 +351,7 @@
                         <viewControllerLayoutGuide type="bottom" id="XHo-yf-L09"/>
                     </layoutGuides>
                     <view key="view" contentMode="scaleToFill" id="bK2-U2-mT6">
-                        <rect key="frame" x="0.0" y="64" width="320" height="504"/>
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="504"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="22" sectionFooterHeight="22" translatesAutoresizingMaskIntoConstraints="NO" id="n8s-6W-FQJ">
@@ -361,8 +361,8 @@
                                     <constraint firstAttribute="height" constant="100" id="bHE-7r-7OM"/>
                                 </constraints>
                                 <connections>
-                                    <outlet property="dataSource" destination="SEt-6T-Eqy" id="0lX-SO-PUY"/>
-                                    <outlet property="delegate" destination="SEt-6T-Eqy" id="dtc-Cl-w7R"/>
+                                    <outlet property="dataSource" destination="SEt-6T-Eqy" id="RKk-0X-Prv"/>
+                                    <outlet property="delegate" destination="SEt-6T-Eqy" id="mTX-r1-28Z"/>
                                 </connections>
                             </tableView>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="tXz-y6-Xe4">
@@ -371,7 +371,7 @@
                                     <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                 </state>
                                 <connections>
-                                    <action selector="boneBtnClicked:" destination="SEt-6T-Eqy" eventType="touchUpInside" id="41o-i4-saH"/>
+                                    <action selector="boneBtnClicked:" destination="SEt-6T-Eqy" eventType="touchUpInside" id="Faz-OW-vh8"/>
                                 </connections>
                             </button>
                         </subviews>
@@ -390,13 +390,10 @@
                     <toolbarItems/>
                     <simulatedToolbarMetrics key="simulatedBottomBarMetrics"/>
                     <simulatedScreenMetrics key="simulatedDestinationMetrics" type="retina4"/>
-                    <connections>
-                        <segue destination="rjZ-Va-dd4" kind="show" identifier="GoBack" id="eZI-3a-T2X"/>
-                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="oWM-6b-XdB" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="4547" y="49"/>
+            <point key="canvasLocation" x="3961" y="144"/>
         </scene>
         <!--Navigation Controller-->
         <scene sceneID="AYn-Sa-RGF">
@@ -417,29 +414,8 @@
             </objects>
             <point key="canvasLocation" x="1577" y="236"/>
         </scene>
-        <!--Navigation Controller-->
-        <scene sceneID="Brt-IX-vp2">
-            <objects>
-                <navigationController automaticallyAdjustsScrollViewInsets="NO" id="rjZ-Va-dd4" sceneMemberID="viewController">
-                    <toolbarItems/>
-                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="RWi-0b-1WG">
-                        <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
-                        <autoresizingMask key="autoresizingMask"/>
-                    </navigationBar>
-                    <nil name="viewControllers"/>
-                    <connections>
-                        <segue destination="Zq5-Sc-4jS" kind="relationship" relationship="rootViewController" id="i75-Yq-2wr"/>
-                    </connections>
-                </navigationController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="MuI-lM-JFQ" userLabel="First Responder" sceneMemberID="firstResponder"/>
-            </objects>
-            <point key="canvasLocation" x="3549" y="49"/>
-        </scene>
     </scenes>
     <resources>
         <image name="profile_Pic_Default 128*128.png" width="128" height="128"/>
     </resources>
-    <inferredMetricsTieBreakers>
-        <segue reference="eZI-3a-T2X"/>
-    </inferredMetricsTieBreakers>
 </document>

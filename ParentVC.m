@@ -61,7 +61,8 @@
     if (self.navigationController.topViewController == self.navigationController.viewControllers.firstObject) {
         [self performSegueWithIdentifier:@"GoNextScreen" sender:nil];
     } else {
-        [self performSegueWithIdentifier:@"GoBack" sender:nil];
+        //[self performSegueWithIdentifier:@"GoBack" sender:nil];
+        [self.navigationController popViewControllerAnimated:true];
     }
 }
 
