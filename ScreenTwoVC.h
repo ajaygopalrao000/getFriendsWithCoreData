@@ -20,5 +20,8 @@
 // ## property for delegate
 @property (nonatomic, weak) id<ScreenTwoDelegate> delegate;
 
+@property (nonatomic, weak) NSString* username;
+@property (nonatomic, weak) NSString* email;
+
 
 @end

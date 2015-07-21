@@ -85,7 +85,7 @@
 
 //------------------------------------------------------------------------------------------------------//
 //------------------------------------ ## Using KVO ----------------------------------------------------//
--(void)observeValueForKeyPath:(NSString *)keyPath ofObject:(id)object change:(NSDictionary *)change context:(void *)context{
+/*-(void)observeValueForKeyPath:(NSString *)keyPath ofObject:(id)object change:(NSDictionary *)change context:(void *)context{
     NSLog(@"observeValueForKeyPath");
     if ([keyPath isEqualToString:@"username"]) {
         NSLog(@"The name of the child was changed, username : %@",[change valueForKey:@"new"]);
@@ -97,7 +97,7 @@
         //self.emailLabel.text = [change valueForKey:@"new"];
     }
     
-}
+}*/
 
 
 
