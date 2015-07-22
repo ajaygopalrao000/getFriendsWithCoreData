@@ -13,4 +13,8 @@
 
 //-(void) observeValues;
 
+@property (nonatomic, weak) NSString * usernameValue;
+@property (nonatomic, weak) NSString * emailValue;
+@property (nonatomic, weak) IBOutlet UITableView * myTable;
+
 @end

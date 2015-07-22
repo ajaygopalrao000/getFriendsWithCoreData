@@ -69,6 +69,10 @@
     return tf ;
 }
 
+- (void)viewWillDisappear:(BOOL)animated {
+    [self removeObserver:self.delegate forKeyPath:@"username"];
+    [self removeObserver:self.delegate forKeyPath:@"email"];
+}
 
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];

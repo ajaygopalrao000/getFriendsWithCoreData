@@ -23,6 +23,8 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view.
+    self.usernameValue = @"No-Name";
+    self.emailValue = @"No-Email";
     
 //    [self addListenerMethod:@"secondScreenData"];
     
@@ -38,7 +40,7 @@
     {
         ScreenTwoVC * destVC = (ScreenTwoVC *) segue.destinationViewController;
         NSLog(@"ScreenOne, prepareForSegue");
-        //destVC.delegate = self;
+        destVC.delegate = self;
         
 //        // ## KVO
         [destVC addObserver:self forKeyPath:@"username" options:NSKeyValueObservingOptionNew | NSKeyValueObservingOptionOld context:nil];
@@ -68,17 +70,19 @@
     switch ( indexPath.row ) {
         case 0: {
             
-            self.nameLabel = [self makeLabel:[[MySingleton globalInstance] userName]];
-            self.nameLabel.frame = CGRectMake(5, 5, self.view.frame.size.width-10, 40);
-
-            [cell addSubview:self.nameLabel];
+//            self.nameLabel = [self makeLabel:[[MySingleton globalInstance] userName]];
+//            self.nameLabel.frame = CGRectMake(5, 5, self.view.frame.size.width-10, 40);
+//            self.nameLabel.text = self.usernameValue;
+//            [cell addSubview:self.nameLabel];
+            cell.textLabel.text = self.usernameValue;
             break ;
         }
         case 1: {
-            self.emailLabel = [self makeLabel:[[MySingleton globalInstance] userEmail]];
-            self.emailLabel.frame = CGRectMake(5, 5, self.view.frame.size.width-10, 40);
-
-            [cell addSubview:self.emailLabel];
+//            self.emailLabel = [self makeLabel:[[MySingleton globalInstance] userEmail]];
+//            self.emailLabel.frame = CGRectMake(5, 5, self.view.frame.size.width-10, 40);
+//            self.emailLabel.text = self.emailValue;
+//            [cell addSubview:self.emailLabel];
+            cell.textLabel.text = self.emailValue;
             break ;
         }
     }
@@ -142,6 +146,7 @@
 {
     // ## KVO
     NSLog(@"viewWillAppear - ScreenOne");
+    [self.myTable reloadData];
 //    [self addObserver:self forKeyPath:@"username" options:NSKeyValueObservingOptionNew | NSKeyValueObservingOptionOld context:nil];
 //    [self addObserver:self forKeyPath:@"email" options:NSKeyValueObservingOptionNew | NSKeyValueObservingOptionOld context:nil];
 }
@@ -153,12 +158,14 @@
     NSLog(@"observeValueForKeyPath");
     if ([keyPath isEqualToString:@"username"]) {
         NSLog(@"The name of the child was changed, username : %@",[change valueForKey:@"new"]);
-        self.nameLabel.text = [change valueForKey:@"new"];
+        //self.nameLabel.text = [change valueForKey:@"new"];
+        self.usernameValue = [change valueForKey:@"new"];
     }
     
     if ([keyPath isEqualToString:@"email"]) {
         NSLog(@"The email of the child was changed, email : %@",[change valueForKey:@"new"]);
-        self.emailLabel.text = [change valueForKey:@"new"];
+        //self.emailLabel.text = [change valueForKey:@"new"];
+        self.emailValue = [change valueForKey:@"new"];
     }
     
 }
