@@ -9,8 +9,7 @@
 #import "ParentVC.h"
 #import "ScreenTwoVC.h"
 
-@interface ScreenOneVC : ParentVC//<ScreenTwoDelegate>
-
+@interface ScreenOneVC : ParentVC<ScreenTwoDelegate>
 //-(void) observeValues;
 
 @property (nonatomic, weak) NSString * usernameValue;

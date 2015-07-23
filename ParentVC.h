@@ -12,6 +12,20 @@
 
 @interface ParentVC : UIViewController<UITableViewDelegate, UITableViewDataSource>
 
+typedef enum
+{
+    KVC = 0,
+    KVO,
+    Categories,
+    Subclassing,
+    Delegation,
+    Notification,
+    Blocks
+}delegate_type;
+
+// ## index for Creating enum
+@property (nonatomic, assign) int index;
+
 @property (nonatomic, weak) NSArray * mutArray;
 @property (nonatomic, weak) IBOutlet UILabel * welcomeLabel;
 @property (nonatomic, weak) IBOutlet UIButton * getMyFriendsBtn;

@@ -26,7 +26,8 @@
     self.usernameValue = @"No-Name";
     self.emailValue = @"No-Email";
     
-//    [self addListenerMethod:@"secondScreenData"];
+    // ## Calling Enum
+    [self displayEnum:self.index];
     
 }
 
@@ -40,22 +41,33 @@
     {
         ScreenTwoVC * destVC = (ScreenTwoVC *) segue.destinationViewController;
         NSLog(@"ScreenOne, prepareForSegue");
-        destVC.delegate = self;
+        destVC.index = self.index;
+        
+        // ## Delegation
+        if (self.index == Delegation) {
+            NSLog(@"ScreenOne, Delegation");
+            destVC.delegate = self;
+        }
         
 //        // ## KVO
-        [destVC addObserver:self forKeyPath:@"username" options:NSKeyValueObservingOptionNew | NSKeyValueObservingOptionOld context:nil];
-        [destVC addObserver:self forKeyPath:@"email" options:NSKeyValueObservingOptionNew | NSKeyValueObservingOptionOld context:nil];
+        if (self.index == KVC || self.index == KVO) {
+            NSLog(@"ScreenOne, KVC, KVO");
+            destVC.delegate = self;
+            [destVC addObserver:self forKeyPath:@"username" options:NSKeyValueObservingOptionNew | NSKeyValueObservingOptionOld context:nil];
+            [destVC addObserver:self forKeyPath:@"email" options:NSKeyValueObservingOptionNew | NSKeyValueObservingOptionOld context:nil];
+        }
     }
 }
 
 //// ## Implementing delegate methods of ScreenTwoVC
-//-(void) doneBtnClicked : (NSDictionary *) dict;
-//{
-//    NSLog(@" Recvd doneButtonClicked Delegate");
-//    self.nameLabel.text = [dict objectForKey:@"username"];
-//    self.emailLabel.text = [dict objectForKey:@"email"];
-//}
-//
+-(void) doneBtnClicked : (NSDictionary *) dict;
+{
+    NSLog(@" Recvd doneButtonClicked Delegate");
+    NSLog(@"ScreenOneVC.m, Delegation, username : %@",[dict objectForKey:@"username"]);
+    self.nameLabel.text = [dict objectForKey:@"username"];
+    self.emailLabel.text= [dict objectForKey:@"email"];
+}
+
 //-------------------------------------------------------------------------------------------------------//
 //-------------------------------------------------------------------------------------------------------//
 
@@ -65,37 +77,29 @@
     
     // Make cell unselectable
     cell.selectionStyle = UITableViewCellSelectionStyleNone;
+    //NSLog(@"ScreenOneVC.m, username value %@",self.usernameValue);
     
-    //UILabel* label = nil;
+    UILabel * label;
     switch ( indexPath.row ) {
         case 0: {
-            
-//            self.nameLabel = [self makeLabel:[[MySingleton globalInstance] userName]];
-//            self.nameLabel.frame = CGRectMake(5, 5, self.view.frame.size.width-10, 40);
-//            self.nameLabel.text = self.usernameValue;
-//            [cell addSubview:self.nameLabel];
-            cell.textLabel.text = self.usernameValue;
+            //cell.textLabel.text = self.usernameValue;
+            label = self.nameLabel = [self makeLabel:self.usernameValue];
+            [cell addSubview:self.nameLabel];
             break ;
         }
         case 1: {
-//            self.emailLabel = [self makeLabel:[[MySingleton globalInstance] userEmail]];
-//            self.emailLabel.frame = CGRectMake(5, 5, self.view.frame.size.width-10, 40);
-//            self.emailLabel.text = self.emailValue;
-//            [cell addSubview:self.emailLabel];
-            cell.textLabel.text = self.emailValue;
+            //cell.textLabel.text = self.emailValue;
+            label = self.emailLabel = [self makeLabel:self.emailValue];
+            [cell addSubview:self.emailLabel];
             break ;
         }
     }
     
     // Textfield dimensions
-   // label.frame = CGRectMake(5, 5, self.view.frame.size.width-10, 40);
-    
-    // We want to handle textFieldDidEndEditing
-    //tf.delegate = self ;
+    label.frame = CGRectMake(5, 5, self.view.frame.size.width-10, 40);
     
     return cell;
 }
-
 
 // ## creating textfield
 -(UILabel*) makeLabel: (NSString*)text{
@@ -106,7 +110,6 @@
     return label ;
 }
 
-
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
@@ -116,41 +119,23 @@
 //------------------------------------------------------------------------------------------------------//
 //------------------------------ ## Using Notification -------------------------------------------------//
 // ## Notification
-//- (void)notificationTriggerMethod:(NSNotification*)notification {
-//    NSLog(@"Notification Recvd");
-//    NSDictionary *dict = [notification userInfo];
-//    if (dict != nil) {
-//            self.nameLabel.text = [dict objectForKey:@"username"];
-//            self.emailLabel.text = [dict objectForKey:@"email"];
-//              [self removeListenerMethod:@"secondScreenData"];
-//    }
-//
-//}
+- (void)notificationTriggerMethod:(NSNotification*)notification {
+    NSLog(@"Notification Recvd");
+    NSDictionary *dict = [notification userInfo];
+    if (dict != nil) {
+            self.nameLabel.text = [dict objectForKey:@"username"];
+            self.emailLabel.text = [dict objectForKey:@"email"];
+              [self removeListenerMethod:@"secondScreenData"];
+    }
 
+}
 
-//// ## KVC, KVO
-//
-//-(void) observeValues;
-//{
-//    NSLog(@"observeValues");
-//    [self addObserver:self forKeyPath:@"username" options:NSKeyValueObservingOptionNew | NSKeyValueObservingOptionOld context:nil];
-//    [self addObserver:self forKeyPath:@"email" options:NSKeyValueObservingOptionNew | NSKeyValueObservingOptionOld context:nil];
-//}
-//
 
 - (void)navigationAction:(id)sender {
     [self performSegueWithIdentifier:@"GoNextScreen" sender:nil];
 }
 
-- (void) viewWillAppear:(BOOL)animated
-{
-    // ## KVO
-    NSLog(@"viewWillAppear - ScreenOne");
-    [self.myTable reloadData];
-//    [self addObserver:self forKeyPath:@"username" options:NSKeyValueObservingOptionNew | NSKeyValueObservingOptionOld context:nil];
-//    [self addObserver:self forKeyPath:@"email" options:NSKeyValueObservingOptionNew | NSKeyValueObservingOptionOld context:nil];
-}
-//
+
 //
 ////------------------------------------------------------------------------------------------------------//
 ////------------------------------------ ## Using KVO ----------------------------------------------------//
@@ -158,18 +143,51 @@
     NSLog(@"observeValueForKeyPath");
     if ([keyPath isEqualToString:@"username"]) {
         NSLog(@"The name of the child was changed, username : %@",[change valueForKey:@"new"]);
-        //self.nameLabel.text = [change valueForKey:@"new"];
-        self.usernameValue = [change valueForKey:@"new"];
+        self.nameLabel.text = [change valueForKey:@"new"];
+        //self.usernameValue = [change valueForKey:@"new"];
     }
     
     if ([keyPath isEqualToString:@"email"]) {
         NSLog(@"The email of the child was changed, email : %@",[change valueForKey:@"new"]);
-        //self.emailLabel.text = [change valueForKey:@"new"];
-        self.emailValue = [change valueForKey:@"new"];
+        self.emailLabel.text = [change valueForKey:@"new"];
+        //self.emailValue = [change valueForKey:@"new"];
     }
     
 }
 
+// ## enumMethod
+
+- (void) displayEnum : (int) indexL;
+{
+    //NSLog(@"displayEnum, recvd index : %d",indexL);
+    switch (indexL) {
+        case KVC:
+            NSLog(@"KVC");
+            break;
+        case KVO:
+            NSLog(@"KVO");
+            break;
+        case Categories:
+            NSLog(@"Categories");
+            break;
+        case Subclassing:
+            NSLog(@"Subclassing");
+            break;
+        case Delegation:
+            NSLog(@"Delegation");
+            break;
+        case Notification:
+            [self addListenerMethod:@"secondScreenData"];
+            NSLog(@"Notification");
+            break;
+        case Blocks:
+            NSLog(@"Blocks");
+            break;
+        default:
+            NSLog(@"default");
+            break;
+    }
+}
 
 
 /*

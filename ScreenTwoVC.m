@@ -20,6 +20,8 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view.
+    
+    NSLog(@"ScreenTwoVC, index value : %d",self.index);
 }
 
 // ## tableView delegate
@@ -70,8 +72,10 @@
 }
 
 - (void)viewWillDisappear:(BOOL)animated {
-    [self removeObserver:self.delegate forKeyPath:@"username"];
-    [self removeObserver:self.delegate forKeyPath:@"email"];
+    if (self.index == KVO || self.index == KVC) {
+        [self removeObserver:self.delegate forKeyPath:@"username"];
+        [self removeObserver:self.delegate forKeyPath:@"email"];
+    }
 }
 
 - (void)didReceiveMemoryWarning {
@@ -82,19 +86,48 @@
 // ## done Button Action
 - (IBAction)boneBtnClicked:(id)sender {
     NSLog(@"doneButtonClicked");
-//    NSDictionary * dict = [[NSDictionary alloc]initWithObjects:@[self.nameTextField.text, self.emailTextField.text] forKeys:@[@"username", @"email"]];
     
-// ## Notification
-//    [self postNotification:@"secondScreenData" withData:dict];
-
-// ## Delegates
-//    [self.delegate doneBtnClicked:dict];
-
-// ## KVC
-    [self setValue:self.nameTextField.text forKey:@"username"];
-    [self setValue:self.emailTextField.text forKey:@"email"];
+    NSDictionary * dict = [[NSDictionary alloc]initWithObjects:@[self.nameTextField.text, self.emailTextField.text] forKeys:@[@"username", @"email"]];
     
-    //[self.navigationController popToRootViewControllerAnimated:YES];
+    // ## enum
+    
+    switch (self.index) {
+        case KVC:
+            // ## KVC
+            [self setValue:self.nameTextField.text forKey:@"username"];
+            [self setValue:self.emailTextField.text forKey:@"email"];
+            NSLog(@"KVC");
+            break;
+        case KVO:
+            [self setValue:self.nameTextField.text forKey:@"username"];
+            [self setValue:self.emailTextField.text forKey:@"email"];
+            NSLog(@"KVO");
+            break;
+        case Categories:
+            NSLog(@"Categories");
+            break;
+        case Subclassing:
+            NSLog(@"Subclassing");
+            break;
+        case Delegation:
+            //## Delegates
+            NSLog(@"ScreenTwoVC.m, Delegation, username : %@",[dict objectForKey:@"username"]);
+            [self.delegate doneBtnClicked:dict];
+            NSLog(@"Delegation");
+            break;
+        case Notification:
+            // ## Notification
+            [self postNotification:@"secondScreenData" withData:dict];
+            NSLog(@"Notification");
+            break;
+        case Blocks:
+            NSLog(@"Blocks");
+            break;
+        default:
+            NSLog(@"default");
+            break;
+    }
+    
     [self navigationAction:sender];
 }
 

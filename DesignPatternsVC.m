@@ -8,10 +8,14 @@
 
 #import "CustomFriendTVCell.h"
 #import "DesignPatternsVC.h"
+#import "ScreenOneVC.h"
+#import "ParentVC.h"
 
 @interface DesignPatternsVC () < UITableViewDelegate>
 {
     NSArray *tableArray;
+    
+    int index;
 }
 
 @end
@@ -76,7 +80,21 @@
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
     [tableView deselectRowAtIndexPath:indexPath animated:YES];
+    index = (int)indexPath.row;
     [self performSegueWithIdentifier:@"DesignPatterntoScreenOne" sender:nil];
 }
+
+- (void) prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender
+{
+    if([[segue identifier] isEqualToString:@"DesignPatterntoScreenOne"])
+    {
+        ScreenOneVC * destVC = (ScreenOneVC *) segue.destinationViewController;
+        //destVC.delegate = self;
+        destVC.index = index;
+        //NSLog(@"DesignPatternsVC.m, after setting index : %d",index);
+        
+    }
+}
+
 
 @end
