@@ -24,5 +24,9 @@
 @property (nonatomic, weak) NSString * username;
 @property (nonatomic, weak) NSString * email;
 
+// ## defining block
+
+@property (nonatomic,strong) void (^blockMethod) (NSString *, NSString *);
+
 
 @end

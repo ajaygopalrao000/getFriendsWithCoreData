@@ -15,14 +15,33 @@
 
 @end
 
+
 @implementation ScreenTwoVC
+
+@synthesize blockMethod = _blockMethod;
 
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view.
     
     NSLog(@"ScreenTwoVC, index value : %d",self.index);
+    
+    // ## Block method
+    
+    self.blockMethod =
+    
+    _blockMethod = ^(NSString * name, NSString * email)
+    {
+        
+    };
+
 }
+
+// Store block so you can call it later
+//- (void)doMathWithBlock:(void (^)(NSString *, NSString *))blockMethod {
+//    self.blockMethod = blockMethod;
+//}
+
 
 // ## tableView delegate
 
@@ -121,7 +140,8 @@
             NSLog(@"Notification");
             break;
         case Blocks:
-            NSLog(@"Blocks");
+            NSLog(@" ScreenTwo, Blocks");
+            _blockMethod(self.nameTextField.text, self.emailTextField.text);
             break;
         default:
             NSLog(@"default");
@@ -130,6 +150,8 @@
     
     [self navigationAction:sender];
 }
+
+
 
 /*
 #pragma mark - Navigation

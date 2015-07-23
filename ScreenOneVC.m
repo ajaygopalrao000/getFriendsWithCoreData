@@ -56,6 +56,18 @@
             [destVC addObserver:self forKeyPath:@"username" options:NSKeyValueObservingOptionNew | NSKeyValueObservingOptionOld context:nil];
             [destVC addObserver:self forKeyPath:@"email" options:NSKeyValueObservingOptionNew | NSKeyValueObservingOptionOld context:nil];
         }
+        
+        // ## Blocks
+        if (self.index == Blocks) {
+            destVC.delegate = self;
+            NSLog(@"ScreenOne, Blocks");
+            destVC.blockMethod= ^(NSString * name, NSString * email)
+            {
+                NSLog(@"ScreenOne, blockMethod, username : %@",name);
+                self.nameLabel.text = name;
+                self.emailLabel.text= email;
+            };
+        }
     }
 }
 
