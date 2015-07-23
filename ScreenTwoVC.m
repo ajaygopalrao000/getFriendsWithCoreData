@@ -18,7 +18,7 @@
 
 @implementation ScreenTwoVC
 
-@synthesize blockMethod = _blockMethod;
+//@synthesize blockMethod = _blockMethod;
 
 - (void)viewDidLoad {
     [super viewDidLoad];
@@ -28,12 +28,14 @@
     
     // ## Block method
     
+    //THIS IS THE MISTAKE
+    /*
     self.blockMethod =
     
     _blockMethod = ^(NSString * name, NSString * email)
     {
         
-    };
+    };*/
 
 }
 
