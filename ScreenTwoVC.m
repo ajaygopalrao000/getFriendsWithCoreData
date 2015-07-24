@@ -25,25 +25,8 @@
     // Do any additional setup after loading the view.
     
     NSLog(@"ScreenTwoVC, index value : %d",self.index);
-    
-    // ## Block method
-    
-    //THIS IS THE MISTAKE
-    /*
-    self.blockMethod =
-    
-    _blockMethod = ^(NSString * name, NSString * email)
-    {
-        
-    };*/
 
 }
-
-// Store block so you can call it later
-//- (void)doMathWithBlock:(void (^)(NSString *, NSString *))blockMethod {
-//    self.blockMethod = blockMethod;
-//}
-
 
 // ## tableView delegate
 

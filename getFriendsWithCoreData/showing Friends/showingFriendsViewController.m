@@ -20,9 +20,11 @@
     AppDelegate * appDel;
     
     
-    NSMutableArray *friendsArray;
+    NSMutableArray *friendsArray, * contactList;
     NSDictionary *friendCollection;
     int count, iterationCount;
+    
+    FriendsTable *objEmployee;
 }
 @end
 
@@ -36,23 +38,19 @@
     count = 0;
     iterationCount = 0;
     
-    self.title = @" Friends List ";
     self.view.backgroundColor = [UIColor whiteColor];
-    appDel = [[UIApplication sharedApplication] delegate];
     dataSource = [[NSMutableArray alloc] init];
     
-    [self showFriends];
-    
-//    table = [[UITableView alloc]initWithFrame:self.view.frame style:UITableViewStylePlain];
-//    //table = [[UITableView alloc]initWithFrame:CGRectMake(0, 0, self.view.frame.size.width, self.view.frame.size.height) style:UITableViewStylePlain];
-//    table.delegate = self;
-//    table.dataSource = self;
-//    
-//    //values passed are - top, left, bottom, right
-//    table.contentInset = UIEdgeInsetsMake(0, 0, 40, 0);
-//    
-//    [self.view addSubview:table];
-    
+    if (self.index == 0) {
+        self.title = @" Friends List ";
+        appDel = [[UIApplication sharedApplication] delegate];
+        [self showFriends];
+    }
+    else
+    {
+        [self getPersonOutOfAddressBook];
+        self.title = @"Contacts List";
+    }
 }
 
 
@@ -70,27 +68,61 @@
 {
     //NSLog(@" in cellForRowAtIndexPath start ");
     
-    // Custom Cell
-    static NSString *simpleTableIdentifier = @"CustomFriendTVCell";
     
-    CustomFriendTVCell *cell = (CustomFriendTVCell *)[tableView dequeueReusableCellWithIdentifier:simpleTableIdentifier];
-    
-    if (cell == nil)
+    // ## logic for fb friends
+    if (self.index == 0) {
+        // Custom Cell
+        static NSString *simpleTableIdentifier = @"CustomFriendTVCell";
         
-    {
-        NSArray *nibArray = [[NSBundle mainBundle] loadNibNamed:@"CustomFriendTVCell" owner:self options:nil];
-        cell = [nibArray objectAtIndex:0];
+        CustomFriendTVCell *cell = (CustomFriendTVCell *)[tableView dequeueReusableCellWithIdentifier:simpleTableIdentifier];
+        
+        if (cell == nil)
+            
+        {
+            NSArray *nibArray = [[NSBundle mainBundle] loadNibNamed:@"CustomFriendTVCell" owner:self options:nil];
+            cell = [nibArray objectAtIndex:0];
+        }
+        
+        objEmployee = [dataSource objectAtIndex:indexPath.row];
+        [cell updateCurrentFriend:objEmployee];
+        return cell;
     }
     
-    FriendsTable * objEmployee = [dataSource objectAtIndex:indexPath.row];
+    else if (self.index == 1)
+    {
+        UITableViewCell * cell = [_table dequeueReusableCellWithIdentifier:@"cell"];
+        if (cell == nil) {
+            cell = [[UITableViewCell alloc]initWithStyle:UITableViewCellStyleSubtitle reuseIdentifier:@"cell"];
+        }
+        NSDictionary * dict = [dataSource objectAtIndex:indexPath.row];
+        cell.textLabel.text = [dict objectForKey:@"name"];
+        if ([dict objectForKey:@"number"] != nil) {
+            cell.detailTextLabel.text = [dict objectForKey:@"number"];
+        }
+        else
+            cell.detailTextLabel.text = @"NO NUMBER";
+        return cell;
+    }
     
-    //NSLog(@"Iteration : %i",++iterationCount);
-    [cell updateCurrentFriend:objEmployee];
-    
-    return cell;
+    return nil;
     
 }
 
+- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath;
+{
+    
+    NSString * name;
+    if (self.index == 0) {
+        objEmployee = [dataSource objectAtIndex:indexPath.row];
+        name = objEmployee.name;
+    }
+    else
+    {
+        NSDictionary * dict = [dataSource objectAtIndex:indexPath.row];
+        name = [dict objectForKey:@"name"];
+    }
+    [self composeMailMethod : name];
+}
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath;
 {
@@ -131,7 +163,7 @@
     //NSLog(@" results count is %li",[results count]);
     
     if (error == nil && [results count] == 25) {
-        //NSLog(@" [results count] == 25 ");
+        NSLog(@" [results count] == 25 ");
         
         [dataSource removeAllObjects];
         [dataSource addObjectsFromArray:results];
@@ -141,7 +173,7 @@
     }
     else
     {
-        //NSLog(@" [results count] != 25 ");
+        NSLog(@" [results count] != 25 ");
         [self fetchFacebookFriends:^(NSArray *successArray) {
             self.theFriendsArray = successArray;
             //COREDATA
@@ -216,6 +248,96 @@
     
 }
 
+
+// ## Logic For Contact List
+
+// ## new method for getting contacts
+
+- (void)getPersonOutOfAddressBook
+{
+    //1
+    CFErrorRef error = NULL;
+    ABAddressBookRef addressBook = ABAddressBookCreateWithOptions(NULL, &error);
+    __block BOOL accessGranted = NO;
+    
+    if (&ABAddressBookRequestAccessWithCompletion != NULL) { // We are on iOS 6
+        dispatch_semaphore_t semaphore = dispatch_semaphore_create(0);
+        
+        ABAddressBookRequestAccessWithCompletion(addressBook, ^(bool granted, CFErrorRef error) {
+            accessGranted = granted;
+            dispatch_semaphore_signal(semaphore);
+        });
+    }
+    if (addressBook != nil) {
+        NSLog(@"Succesful.");
+        
+        //2
+        NSArray *allContacts = (__bridge_transfer NSArray *)ABAddressBookCopyArrayOfAllPeople(addressBook);
+        
+        //3
+        NSUInteger i = 0;
+        for (i = 0; i < [allContacts count]; i++)
+        {
+            ABRecordRef contactPerson = (__bridge ABRecordRef)allContacts[i];
+            
+            //4
+            NSString *firstName = (__bridge_transfer NSString *)ABRecordCopyValue(contactPerson,
+                                                                                  kABPersonFirstNameProperty);
+            NSString *lastName = (__bridge_transfer NSString *)ABRecordCopyValue(contactPerson, kABPersonLastNameProperty);
+            NSString *fullName = [NSString stringWithFormat:@"%@ %@", firstName, lastName];
+            
+            // ## phoneNumber
+            ABMultiValueRef phones = ABRecordCopyValue(contactPerson, kABPersonPhoneProperty);
+            NSMutableDictionary * objDict = [[NSMutableDictionary alloc]init];
+            for (CFIndex i = 0; i < ABMultiValueGetCount(phones); i++)
+            {
+                NSString *phone = (__bridge NSString *)(ABMultiValueCopyValueAtIndex(phones,i));
+                //NSLog(@"ShowingFriendsVC, phone is %@",phone);
+                [objDict setObject:phone forKey:@"number"];
+            }
+            
+            //NSLog(@"ShowingFriendsVC, person full name is %@",fullName);
+            
+            
+            [objDict setObject:fullName forKey:@"name"];
+            [dataSource addObject:objDict];
+            
+            //NSLog(@"ShowingFriendsVC, getPersonOutOfAddressBook, datasource count : %li",[dataSource count]);
+            
+            [_table reloadData];
+        }
+    } else {
+        //9
+        NSLog(@"Error reading Address Book");
+    } 
+}
+
+
+// ## Compose Mail
+
+-(void)composeMailMethod : (NSString * )name;
+{
+//    NSLog(@"trimmed : %@",trimmed);
+    mailComposer = [[MFMailComposeViewController alloc]init];
+    mailComposer.mailComposeDelegate = self;
+    [mailComposer setSubject:@"Composing Mail"];
+    [mailComposer setMessageBody:[NSString stringWithFormat:@" Hello %@, How r u ?",name] isHTML:NO];
+//    [mailComposer setToRecipients:[NSArray arrayWithObjects:[NSString stringWithFormat:@"%@@gmail.com",[name stringByReplacingOccurrencesOfString:@" " withString:@"."]], nil]];
+//    dispatch_queue_t mailQueue = dispatch_queue_create("Mail Queue",NULL);
+//    dispatch_async(mailQueue, ^{
+//        NSString *trimmed = [name stringByReplacingOccurrencesOfString:@" " withString:@"."];
+//        dispatch_async(dispatch_get_main_queue(), ^{
+//            [mailComposer setToRecipients:[NSArray arrayWithObjects:[NSString stringWithFormat:@"%@@gmail.com",trimmed], nil]];
+//        });
+//        
+//    });
+    [self presentViewController:mailComposer animated:YES completion:nil];
+}
+
+- (void)mailComposeController:(MFMailComposeViewController *)controller didFinishWithResult:(MFMailComposeResult)result error:(NSError *)error __OSX_AVAILABLE_STARTING(__MAC_NA,__IPHONE_3_0);
+{
+    [self dismissViewControllerAnimated:YES completion:nil];
+}
 
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];

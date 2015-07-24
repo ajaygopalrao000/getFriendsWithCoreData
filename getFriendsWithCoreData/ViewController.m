@@ -33,6 +33,9 @@
     
     // ## for results count
     NSArray * results;
+    
+    //## index for passing
+    int indexLocal;
 }
 @end
 
@@ -69,6 +72,12 @@
     {
         editUserInfoVC * destVC = (editUserInfoVC *) segue.destinationViewController;
         destVC.delegate = self;
+    }
+    else if([[segue identifier] isEqualToString:@"ShowFriendsListSegue"])
+    {
+        //NSLog(@"ViewController, PrepareForSegue, ShowFriendsListSegue, indexLocal is %d",indexLocal);
+        showingFriendsViewController * destVC = (showingFriendsViewController *) segue.destinationViewController;
+        destVC.index = indexLocal;
     }
 }
 
@@ -139,13 +148,6 @@
 - (void) getUserData
 {
     if ([FBSDKAccessToken currentAccessToken]) {
-        //        if (objUser.userName != nil) {
-        //            NSLog(@" In getUserData with objUser reference and name is : %@",objUser.userName);
-        //            [self updateUserDataWithObject:objUser];
-        //            self.getMyFriendButton.enabled = YES;
-        //            self.deleteDataButton.enabled = YES;
-        //        }
-        //        else
         [[[FBSDKGraphRequest alloc] initWithGraphPath:@"me" parameters:nil]
          startWithCompletionHandler:^(FBSDKGraphRequestConnection *connection, id result, NSError *error) {
              //NSLog(@"fetched user:");
@@ -277,11 +279,32 @@
 - (IBAction)deleteButtonClicked:(UIButton *)sender {
     NSLog(@"deleteButtonClicked");
     objAction = [[UIActionSheet alloc] initWithTitle:@"Select..." delegate:self cancelButtonTitle:@" Cancel " destructiveButtonTitle:Nil otherButtonTitles:@" Delete User Data ",@" Delete Friends List ", nil];
+    objAction.tag = 2;
     [objAction showInView:self.view];
 }
 
 - (void)actionSheet:(UIActionSheet *)actionSheet clickedButtonAtIndex:(NSInteger)buttonIndex;
 {
+    if (actionSheet.tag == 1) {
+        //NSLog(@"action sheet for getMyFriendsListBtnClicked");
+        if (buttonIndex == 0) {
+            //NSLog(@"Get Facebook Friends");
+            indexLocal = 0;
+            [self performSegueWithIdentifier:@"ShowFriendsListSegue" sender:self];
+        }
+        else if (buttonIndex == 1)
+        {
+            //NSLog(@"Get Contacts");
+            indexLocal = 1;
+            [self performSegueWithIdentifier:@"ShowFriendsListSegue" sender:self];
+        }
+        else
+        {
+            [actionSheet dismissWithClickedButtonIndex:1 animated:YES];
+            return;
+        }
+    }
+    else
     if (buttonIndex == 0) {
         NSLog(@"Delete User Data ButtonClicked");
         [self deleteMethod:@"UserDataTable"];
@@ -303,19 +326,21 @@
 -(void) addingdefaultUserData
 {
     NSLog(@"addingdefaultUserData");
-    // Default data
-    //[self deleteMethod:@"UserDataTable"];
-    
-    //    self.usrNameLabel.text = [NSString stringWithFormat:@" Hello : User"];
-    //    self.usrImgView.image = [UIImage imageNamed:@"profile_Pic_Default 128*128"];
-    //    self.usrEmailLabel.text = [NSString stringWithFormat:@" Email : xyz@domain.com"];
-    //    self.userMobileNoLabel.text = [NSString stringWithFormat:@" Mobile No : 9999999999"];
-    
     self.usrNameLabel.text = [NSString stringWithFormat:@"Hello : %@",[[MySingleton globalInstance] userName]];
     self.usrImgView.image = [UIImage imageNamed:[[MySingleton globalInstance] userImgName]];
     self.usrEmailLabel.text = [NSString stringWithFormat:@"Email : %@",[[MySingleton globalInstance] userEmail]];
     self.userMobileNoLabel.text = [NSString stringWithFormat:@"MobileNo : %@",[[MySingleton globalInstance] userMobileNo]];
 }
+
+
+// ## get My Friends List btn clicked
+- (IBAction)getMyFriendsListBtnClicked:(UIButton *)sender {
+    //NSLog(@"getMyFriendsListBtnClicked");
+    objAction = [[UIActionSheet alloc] initWithTitle:@"Select..." delegate:self cancelButtonTitle:@" Cancel " destructiveButtonTitle:Nil otherButtonTitles:@" Facebook Friends ",@" Contact List ", nil];
+    objAction.tag = 1;
+    [objAction showInView:self.view];
+}
+
 
 
 - (void)didReceiveMemoryWarning {

@@ -9,16 +9,23 @@
 #import <UIKit/UIKit.h>
 #import <FBSDKCoreKit/FBSDKCoreKit.h>
 #import <FBSDKLoginKit/FBSDKLoginKit.h>
+#import <AddressBook/AddressBook.h>
+#import <AddressBookUI/AddressBookUI.h>
+#import <MessageUI/MessageUI.h>
 
 //Declare the block that will execute after receiving success from the method
 typedef void (^FriendsCallbackSuccess)(NSArray *successArray);
 //Declre the block that will execute after receiving error from the method
 typedef void (^FriendsCallbackError)(NSString *errorString);
 
-@interface showingFriendsViewController : UIViewController<UITableViewDataSource,UITableViewDelegate>
+@interface showingFriendsViewController : UIViewController<MFMailComposeViewControllerDelegate,ABPeoplePickerNavigationControllerDelegate,UITableViewDataSource,UITableViewDelegate>
 {
-    //UITableView * table;
+    ABPeoplePickerNavigationController * peoplePicker;
+    
     NSMutableArray * dataSource;
+    
+    // ## Mail Composer
+    MFMailComposeViewController * mailComposer;
 }
 @property (strong, nonatomic) NSString * colorString;
 
@@ -27,6 +34,9 @@ typedef void (^FriendsCallbackError)(NSString *errorString);
 @property (strong,nonatomic)FriendsCallbackError error;
 //Create an array that will be used for storing the dictionary of friends from facebook
 @property (strong, nonatomic)NSArray *theFriendsArray;
+
+// ## index for get friends list
+@property (nonatomic, assign) int index;
 
 
 // TableView Delegate

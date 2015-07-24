@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="6751" systemVersion="14D136" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="hxb-kJ-t7x">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="7706" systemVersion="14D136" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="hxb-kJ-t7x">
     <dependencies>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="6736"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="7703"/>
         <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
     </dependencies>
     <scenes>
@@ -31,7 +31,7 @@
                                     <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                 </state>
                                 <connections>
-                                    <segue destination="F9O-rY-AjK" kind="show" identifier="ShowFriendsListSegue" id="K3i-2f-JYk"/>
+                                    <action selector="getMyFriendsListBtnClicked:" destination="vXZ-lx-hvc" eventType="touchUpInside" id="KqV-bS-Hhx"/>
                                 </connections>
                             </button>
                             <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="profile_Pic_Default 128*128.png" translatesAutoresizingMaskIntoConstraints="NO" id="52G-Kz-HXE">
@@ -143,6 +143,7 @@
                         <outlet property="usrEmailLabel" destination="crs-AP-Xmk" id="hm5-wJ-omY"/>
                         <outlet property="usrImgView" destination="52G-Kz-HXE" id="z2P-5y-lDE"/>
                         <outlet property="usrNameLabel" destination="0CQ-HD-sSW" id="2Bh-oG-X2C"/>
+                        <segue destination="F9O-rY-AjK" kind="show" identifier="ShowFriendsListSegue" id="0Uo-uM-93c"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="x5A-6p-PRh" sceneMemberID="firstResponder"/>
@@ -217,7 +218,7 @@
                         <viewControllerLayoutGuide type="bottom" id="XU6-u7-PGo"/>
                     </layoutGuides>
                     <view key="view" contentMode="scaleToFill" id="Q5t-b5-W2G">
-                        <rect key="frame" x="0.0" y="64" width="375" height="603"/>
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="603"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="22" sectionFooterHeight="22" translatesAutoresizingMaskIntoConstraints="NO" id="D8W-HE-8zk">
