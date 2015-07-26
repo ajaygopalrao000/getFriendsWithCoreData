@@ -43,4 +43,8 @@ typedef void (^FriendsCallbackError)(NSString *errorString);
 
 @property (weak, nonatomic) IBOutlet UITableView *table;
 
+// ## Compose Mail Method
+
+-(void)composeMailMethod : (NSString * )name;
+
 @end

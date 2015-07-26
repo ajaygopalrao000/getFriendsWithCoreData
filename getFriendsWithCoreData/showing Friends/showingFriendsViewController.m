@@ -45,6 +45,8 @@
         self.title = @" Friends List ";
         appDel = [[UIApplication sharedApplication] delegate];
         [self showFriends];
+        //## Sending Notification
+        [self sendNotifications];
     }
     else
     {
@@ -53,6 +55,20 @@
     }
 }
 
+- (void) sendNotifications
+{
+    UILocalNotification * notification = [[UILocalNotification alloc] init];
+    
+    for (int i = 0; i< [dataSource count]; i++) {
+        objEmployee = [dataSource objectAtIndex:i];
+        notification.fireDate = [[NSDate date] dateByAddingTimeInterval:10*(i+1)];
+        notification.alertBody =[NSString stringWithFormat: @"Notification from : %@",objEmployee.name];
+        NSDictionary *infoDict = [NSDictionary dictionaryWithObject:objEmployee.name forKey:@"friendName"];
+        notification.userInfo = infoDict;
+        [[UIApplication sharedApplication] scheduleLocalNotification:notification];
+        //NSLog(@"Notification with time interval : 10 Sec with name : %@",objEmployee.name);
+    }
+}
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView;
 {

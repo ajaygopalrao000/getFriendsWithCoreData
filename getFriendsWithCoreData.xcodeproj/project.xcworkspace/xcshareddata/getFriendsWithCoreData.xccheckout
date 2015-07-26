@@ -7,14 +7,14 @@
 	<key>IDESourceControlProjectIdentifier</key>
 	<string>AD6A2B01-7B9B-4FE2-B32B-043A8792B381</string>
 	<key>IDESourceControlProjectName</key>
-	<string>project</string>
+	<string>getFriendsWithCoreData</string>
 	<key>IDESourceControlProjectOriginsDictionary</key>
 	<dict>
 		<key>AAADDD71C6E56229726961294A6B0BD190999C6F</key>
 		<string>https://github.com/ajaygopalrao000/getFriendsWithCoreData</string>
 	</dict>
 	<key>IDESourceControlProjectPath</key>
-	<string>getFriendsWithCoreData.xcodeproj/project.xcworkspace</string>
+	<string>getFriendsWithCoreData.xcodeproj</string>
 	<key>IDESourceControlProjectRelativeInstallPathDictionary</key>
 	<dict>
 		<key>AAADDD71C6E56229726961294A6B0BD190999C6F</key>

@@ -278,7 +278,7 @@
 // ## Action sheet for deleting user data and friends data when delete button was clicked
 - (IBAction)deleteButtonClicked:(UIButton *)sender {
     NSLog(@"deleteButtonClicked");
-    objAction = [[UIActionSheet alloc] initWithTitle:@"Select..." delegate:self cancelButtonTitle:@" Cancel " destructiveButtonTitle:Nil otherButtonTitles:@" Delete User Data ",@" Delete Friends List ", nil];
+    objAction = [[UIActionSheet alloc] initWithTitle:@"Select..." delegate:self cancelButtonTitle:@" Cancel " destructiveButtonTitle:Nil otherButtonTitles:@" Delete User Data ",@" Delete Friends List ", @"Schedule Notification",nil];
     objAction.tag = 2;
     [objAction showInView:self.view];
 }
@@ -314,6 +314,17 @@
     {
         NSLog(@"Delete Friends List ButtonClicked");
         [self deleteMethod:@"FriendsTable"];
+    }
+    else if (buttonIndex == 2)
+    {
+        UILocalNotification *notification = [[UILocalNotification alloc] init];
+        for (int i=1; i<6; i++) {
+            notification.fireDate = [[NSDate date] dateByAddingTimeInterval:10*i];
+            notification.alertBody =[NSString stringWithFormat: @"Notification with time interval : 10 Sec with index : %d",i];
+            [[UIApplication sharedApplication] scheduleLocalNotification:notification];
+            NSLog(@"Notification with time interval : 10 Sec with index : %d",i);
+        }
+        
     }
     else
     {

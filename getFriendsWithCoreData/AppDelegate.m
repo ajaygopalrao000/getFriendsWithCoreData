@@ -9,6 +9,7 @@
 #import "AppDelegate.h"
 #import "ViewController.h"
 #import <FBSDKCoreKit/FBSDKCoreKit.h>
+#import "showingFriendsViewController.h"
 
 @interface AppDelegate ()
 
@@ -23,6 +24,9 @@
 //    UINavigationController * objNavCon = [[UINavigationController alloc] initWithRootViewController: objVC];
 //    self.window.rootViewController = objNavCon ;
     
+    if ([application respondsToSelector:@selector(registerUserNotificationSettings:)]) {
+        [application registerUserNotificationSettings:[UIUserNotificationSettings settingsForTypes:UIUserNotificationTypeAlert|UIUserNotificationTypeBadge|UIUserNotificationTypeSound categories:nil]];
+    }
     return [[FBSDKApplicationDelegate sharedInstance] application:application didFinishLaunchingWithOptions:launchOptions];
     
 //    return YES;
@@ -55,6 +59,8 @@
 - (void)applicationDidBecomeActive:(UIApplication *)application {
     // Restart any tasks that were paused (or not yet started) while the application was inactive. If the application was previously in the background, optionally refresh the user interface.
     [FBSDKAppEvents activateApp];
+    //NSLog(@"Cancelling Notification");
+    //[[UIApplication sharedApplication] cancelAllLocalNotifications];
 }
 
 - (void)applicationWillTerminate:(UIApplication *)application {
@@ -146,4 +152,17 @@
     }
 }
 
+// ## For Push Notifications
+
+- (void)application:(UIApplication *)app didReceiveLocalNotification:(UILocalNotification *)notif {
+    // Handle notification when app is running
+    NSDictionary * dict = notif.userInfo;
+    NSLog(@"AppDelegate.m, didReceiveLocalNotification method, Recvd Notification for name : %@",[dict objectForKey:@"friendName"]);
+//    showingFriendsViewController * objShowingFrndVC = [[showingFriendsViewController alloc] init];
+//    [objShowingFrndVC composeMailMethod:[dict objectForKey:@"friendName"]];
+}
+
+
+
+//
 @end
