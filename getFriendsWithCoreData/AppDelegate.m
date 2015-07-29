@@ -167,13 +167,14 @@
     if (!(app.applicationState == UIApplicationStateActive)) {
             NSLog(@"AppDelegate.m, didReceiveLocalNotification method, UIApplicationStateInActive");
             NSLog(@"AppDelegate.m, didReceiveLocalNotification method, Posted Notification for name : %@",[dict objectForKey:@"friendName"]);
+        [[NSNotificationCenter defaultCenter] postNotificationName:@"NotificationTapped" object:nil userInfo:dict];
     }
     
     //NSLog(@"AppDelegate.m, didReceiveLocalNotification method, Posted Notification for name : %@",[dict objectForKey:@"friendName"]);
     
     // ## NSNotification
     
-    //[[NSNotificationCenter defaultCenter] postNotificationName:[dict objectForKey:@"friendId"] object:nil userInfo:dict];
+    
     
 }
 

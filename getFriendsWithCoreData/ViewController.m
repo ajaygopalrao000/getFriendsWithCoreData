@@ -63,7 +63,7 @@
     [self getUserData];
     
     // ## Calling createNotification Method
-    //[self createNotification];
+    [self createNotification];
     
 }
 
@@ -86,7 +86,7 @@
 // ## Create Notification
 - (void) createNotification
 {
-    NSLog(@"VC.m, createNotification ");
+   /* NSLog(@"VC.m, createNotification ");
     NSFetchRequest * fetch = [NSFetchRequest fetchRequestWithEntityName:@"FriendsTable"];
     
     NSError * error;
@@ -100,10 +100,10 @@
         FriendsTable * objFriend = [NSEntityDescription insertNewObjectForEntityForName:@"FriendsTable" inManagedObjectContext:appDel.managedObjectContext];
         [self removeNotification:objFriend withDictionary:resultsFriends];
         for (int i = 0; i< [resultsFriends count]; i++) {
-            objFriend = [resultsFriends objectAtIndex:i];
-        [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(updateNotificationMethod:) name:objFriend.uId object:nil];
-        }
-    }
+            objFriend = [resultsFriends objectAtIndex:i];*/
+        [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(updateNotificationMethod:) name:@"NotificationTapped" object:nil];
+        //}
+    //}
 }
 
 -(void) removeNotification :(FriendsTable *) objFrnd withDictionary : (NSArray *) resultsFrnd;
