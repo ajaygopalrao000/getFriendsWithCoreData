@@ -49,12 +49,18 @@
         appDel = [[UIApplication sharedApplication] delegate];
         [self showFriends];
         //## Sending Notification
-        //[self sendNotifications];
+        [self sendNotifications];
     }
-    else
+    else if (self.index == 1)
     {
         [self getPersonOutOfAddressBook];
         self.title = @"Contacts List";
+    }
+    else
+    {
+        NSLog(@"ShowingFriendsVC.m, index == 2, calling compose mail method with Name : %@",_fName);
+        [self.table setHidden:YES];
+        [self composeMailMethod:_fName];
     }
 }
 
@@ -65,17 +71,31 @@
     
     for (int i = 0; i< [dataSource count]; i++) {
         objEmployee = [dataSource objectAtIndex:i];
-        notification.fireDate = [[NSDate date] dateByAddingTimeInterval:60*(i+1)];
+        notification.fireDate = [[NSDate date] dateByAddingTimeInterval:30*(i+1)];
         notification.alertBody =[NSString stringWithFormat: @"Notification from : %@",objEmployee.name];
         NSDictionary *infoDict = [[NSDictionary alloc]initWithObjects:@[objEmployee.name, objEmployee.uId] forKeys:@[@"friendName", @"friendId"]];
         notification.userInfo = infoDict;
         [[UIApplication sharedApplication] scheduleLocalNotification:notification];
-        
-        //NSLog(@"Notification with time interval : 60 Sec with name : %@",objEmployee.name);
+        if(i == 1)
+        NSLog(@"Notification with time interval : 60 Sec with name : %@",objEmployee.name);
     }
+    
+    // ## Removing existing notifications
+    [self removeNotification:objEmployee withDictionary:dataSource];
+    
+    // ## creating new observer
     for (int i = 0; i< [dataSource count]; i++) {
         objEmployee = [dataSource objectAtIndex:i];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(updateNotificationMethod:) name:objEmployee.uId object:nil];
+    }
+}
+
+-(void) removeNotification :(FriendsTable *) objFrnd withDictionary : (NSArray *) resultsFrnd;
+{
+    NSLog(@"ShowingFriendsVC.m, removeNotification ");
+    for (int i = 0; i< [resultsFrnd count]; i++) {
+        objFrnd = [resultsFrnd objectAtIndex:i];
+        [[NSNotificationCenter defaultCenter] removeObserver:self name:objFrnd.uId object:nil];
     }
 }
 
@@ -84,6 +104,7 @@
     //NSString * name = nsNote.name;
     NSDictionary *dict = nsNote.userInfo;
     NSLog(@"ShowingFriendsVC.m, updateNotificationMethod, Recvd Notification for name : %@",[dict objectForKey:@"friendName"]);
+    [self composeMailMethod:[dict objectForKey:@"friendName"]];
 }
 
 
@@ -93,10 +114,10 @@
     //NSLog(@"ShowingFriendsVC.m, viewDidDisappear");
     
     // ## removing observer for notification
-    for (int i = 0; i< [dataSource count]; i++) {
-        objEmployee = [dataSource objectAtIndex:i];
-        [[NSNotificationCenter defaultCenter] removeObserver:self name:objEmployee.uId object:nil];
-    }
+//    for (int i = 0; i< [dataSource count]; i++) {
+//        objEmployee = [dataSource objectAtIndex:i];
+//        [[NSNotificationCenter defaultCenter] removeObserver:self name:objEmployee.uId object:nil];
+//    }
     
     [self.delegate notificationObject:dataSource];
 }

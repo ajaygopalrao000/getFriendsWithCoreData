@@ -35,6 +35,7 @@
     
     //## index for passing
     int indexLocal;
+    NSString * frndName;
 }
 @end
 
@@ -62,7 +63,7 @@
     [self getUserData];
     
     // ## Calling createNotification Method
-    [self createNotification];
+    //[self createNotification];
     
 }
 
@@ -71,9 +72,9 @@
 
 -(void) notificationObject : (NSMutableArray *)  dataSource;
 {
-    NSLog(@"VC.m, notificationObject, dataSource count %li",[dataSource count]);
+    //NSLog(@"VC.m, notificationObject, dataSource count %li",[dataSource count]);
     //FriendsTable * objFriend = [NSEntityDescription insertNewObjectForEntityForName:@"FriendsTable" inManagedObjectContext:appDel.managedObjectContext];
-    NSLog(@"VC.m, notificationObject delegate, with");
+    //NSLog(@"VC.m, notificationObject delegate, with");
 //    for (int i = 0; i< [dataSource count]; i++) {
 //        objFriend = [dataSource objectAtIndex:i];
 //    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(updateNotificationMethod:) name:objFriend.uId object:nil];
@@ -95,13 +96,13 @@
     //NSLog(@" results count in showingFriendsViewController is %li",[resultsFriends count]);
     
     if (error == nil) {
-        NSLog(@"error == nil");
+        //NSLog(@"error == nil");
         FriendsTable * objFriend = [NSEntityDescription insertNewObjectForEntityForName:@"FriendsTable" inManagedObjectContext:appDel.managedObjectContext];
         [self removeNotification:objFriend withDictionary:resultsFriends];
-//        for (int i = 0; i< [resultsFriends count]; i++) {
-//            objFriend = [resultsFriends objectAtIndex:i];
-//        [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(updateNotificationMethod:) name:objFriend.uId object:nil];
-//        }
+        for (int i = 0; i< [resultsFriends count]; i++) {
+            objFriend = [resultsFriends objectAtIndex:i];
+        [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(updateNotificationMethod:) name:objFriend.uId object:nil];
+        }
     }
 }
 
@@ -120,6 +121,10 @@
     //NSString * name = nsNote.name;
     NSDictionary *dict = nsNote.userInfo;
     NSLog(@"VC.m, updateNotificationMethod, Recvd Notification for name : %@",[dict objectForKey:@"friendName"]);
+    //NSLog(@"VC.m, buttonIndex == 2, Before Compose Mail method");
+    indexLocal = 2;
+    frndName = [dict objectForKey:@"friendName"];
+    [self performSegueWithIdentifier:@"ShowFriendsListSegue" sender:self];
 }
 
 
@@ -137,6 +142,10 @@
         showingFriendsViewController * destVC = (showingFriendsViewController *) segue.destinationViewController;
         destVC.delegate = self;
         destVC.index = indexLocal;
+        if (indexLocal == 2) {
+            //NSLog(@"VC.m, prepareForSegue, before setting frnds name : %@",frndName);
+            destVC.fName = frndName;
+        }
         
     }
 }
@@ -358,6 +367,17 @@
             indexLocal = 1;
             [self performSegueWithIdentifier:@"ShowFriendsListSegue" sender:self];
         }
+        else if (buttonIndex == 2)
+        {
+            //NSLog(@"VC.m, buttonIndex == 2, Before Compose Mail method");
+            indexLocal = 2;
+            
+//            showingFriendsViewController * destVC = [[showingFriendsViewController alloc] init];
+//            
+//            [destVC composeMailMethod:@"Testing"];
+            
+            [self performSegueWithIdentifier:@"ShowFriendsListSegue" sender:self];
+        }
         else
         {
             [actionSheet dismissWithClickedButtonIndex:1 animated:YES];
@@ -407,7 +427,7 @@
 // ## get My Friends List btn clicked
 - (IBAction)getMyFriendsListBtnClicked:(UIButton *)sender {
     //NSLog(@"getMyFriendsListBtnClicked");
-    objAction = [[UIActionSheet alloc] initWithTitle:@"Select..." delegate:self cancelButtonTitle:@" Cancel " destructiveButtonTitle:Nil otherButtonTitles:@" Facebook Friends ",@" Contact List ", nil];
+    objAction = [[UIActionSheet alloc] initWithTitle:@"Select..." delegate:self cancelButtonTitle:@" Cancel " destructiveButtonTitle:Nil otherButtonTitles:@" Facebook Friends ",@" Contact List ", @"Compose Email", nil];
     objAction.tag = 1;
     [objAction showInView:self.view];
 }

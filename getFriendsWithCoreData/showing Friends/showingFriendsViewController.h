@@ -52,10 +52,15 @@ typedef void (^FriendsCallbackError)(NSString *errorString);
 // ## index for get friends list
 @property (nonatomic, assign) int index;
 
+// ## name for compose email
+@property (nonatomic, assign) NSString * fName;
+
 
 // TableView Delegate
 
 @property (weak, nonatomic) IBOutlet UITableView *table;
+
+
 
 // ## Compose Mail Method
 

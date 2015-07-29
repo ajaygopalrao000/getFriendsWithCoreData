@@ -24,11 +24,16 @@
 //    UINavigationController * objNavCon = [[UINavigationController alloc] initWithRootViewController: objVC];
 //    self.window.rootViewController = objNavCon ;
     
-    // ## Cancelling all previous notifications
+    
     
     if ([application respondsToSelector:@selector(registerUserNotificationSettings:)]) {
         [application registerUserNotificationSettings:[UIUserNotificationSettings settingsForTypes:UIUserNotificationTypeAlert|UIUserNotificationTypeBadge|UIUserNotificationTypeSound categories:nil]];
     }
+    
+    // ## Cancelling all previous notifications
+    NSLog(@"AppDelegate.m, didFinishLaunchingWithOptions, Cancelling Notification");
+    [[UIApplication sharedApplication] cancelAllLocalNotifications];
+    
     return [[FBSDKApplicationDelegate sharedInstance] application:application didFinishLaunchingWithOptions:launchOptions];
     
 //    return YES;
@@ -61,8 +66,6 @@
 - (void)applicationDidBecomeActive:(UIApplication *)application {
     // Restart any tasks that were paused (or not yet started) while the application was inactive. If the application was previously in the background, optionally refresh the user interface.
     [FBSDKAppEvents activateApp];
-    //NSLog(@"Cancelling Notification");
-    //[[UIApplication sharedApplication] cancelAllLocalNotifications];
 }
 
 - (void)applicationWillTerminate:(UIApplication *)application {
@@ -161,12 +164,22 @@
     NSDictionary * dict = notif.userInfo;
     //NSLog(@"AppDelegate.m, didReceiveLocalNotification method, Recvd Notification for name : %@ with id : %@",[dict objectForKey:@"friendName"], [dict objectForKey:@"friendId"]);
     
-    NSLog(@"AppDelegate.m, didReceiveLocalNotification method, Posted Notification for name : %@",[dict objectForKey:@"friendName"]);
+    if (!(app.applicationState == UIApplicationStateActive)) {
+            NSLog(@"AppDelegate.m, didReceiveLocalNotification method, UIApplicationStateInActive");
+            NSLog(@"AppDelegate.m, didReceiveLocalNotification method, Posted Notification for name : %@",[dict objectForKey:@"friendName"]);
+    }
+    
+    //NSLog(@"AppDelegate.m, didReceiveLocalNotification method, Posted Notification for name : %@",[dict objectForKey:@"friendName"]);
     
     // ## NSNotification
     
-    [[NSNotificationCenter defaultCenter] postNotificationName:[dict objectForKey:@"friendId"] object:nil userInfo:dict];
+    //[[NSNotificationCenter defaultCenter] postNotificationName:[dict objectForKey:@"friendId"] object:nil userInfo:dict];
     
+}
+
+- (void) handlePushNotification : (NSDictionary *) notifInfo
+{
+    NSLog(@"AppDelegate.m, handlePushNotification");
 }
 
 
