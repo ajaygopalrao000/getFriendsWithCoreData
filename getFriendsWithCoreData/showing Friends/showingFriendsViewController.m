@@ -25,6 +25,9 @@
     int count, iterationCount;
     
     FriendsTable *objEmployee;
+    
+    // ## Results array
+    NSArray * resultsGlobal;
 }
 @end
 
@@ -46,7 +49,7 @@
         appDel = [[UIApplication sharedApplication] delegate];
         [self showFriends];
         //## Sending Notification
-        [self sendNotifications];
+        //[self sendNotifications];
     }
     else
     {
@@ -58,17 +61,46 @@
 - (void) sendNotifications
 {
     UILocalNotification * notification = [[UILocalNotification alloc] init];
+    NSLog(@"ShowingFriendsVC.m, sendNotifications");
     
     for (int i = 0; i< [dataSource count]; i++) {
         objEmployee = [dataSource objectAtIndex:i];
-        notification.fireDate = [[NSDate date] dateByAddingTimeInterval:10*(i+1)];
+        notification.fireDate = [[NSDate date] dateByAddingTimeInterval:60*(i+1)];
         notification.alertBody =[NSString stringWithFormat: @"Notification from : %@",objEmployee.name];
-        NSDictionary *infoDict = [NSDictionary dictionaryWithObject:objEmployee.name forKey:@"friendName"];
+        NSDictionary *infoDict = [[NSDictionary alloc]initWithObjects:@[objEmployee.name, objEmployee.uId] forKeys:@[@"friendName", @"friendId"]];
         notification.userInfo = infoDict;
         [[UIApplication sharedApplication] scheduleLocalNotification:notification];
-        //NSLog(@"Notification with time interval : 10 Sec with name : %@",objEmployee.name);
+        
+        //NSLog(@"Notification with time interval : 60 Sec with name : %@",objEmployee.name);
+    }
+    for (int i = 0; i< [dataSource count]; i++) {
+        objEmployee = [dataSource objectAtIndex:i];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(updateNotificationMethod:) name:objEmployee.uId object:nil];
     }
 }
+
+- (void) updateNotificationMethod : (NSNotification *) nsNote;
+{
+    //NSString * name = nsNote.name;
+    NSDictionary *dict = nsNote.userInfo;
+    NSLog(@"ShowingFriendsVC.m, updateNotificationMethod, Recvd Notification for name : %@",[dict objectForKey:@"friendName"]);
+}
+
+
+-(void) viewDidDisappear:(BOOL)animated
+{
+    //NSLog(@"ShowingFriendsVC.m, viewDidDisappear, dataSource count before setting delegate %li",[dataSource count]);
+    //NSLog(@"ShowingFriendsVC.m, viewDidDisappear");
+    
+    // ## removing observer for notification
+    for (int i = 0; i< [dataSource count]; i++) {
+        objEmployee = [dataSource objectAtIndex:i];
+        [[NSNotificationCenter defaultCenter] removeObserver:self name:objEmployee.uId object:nil];
+    }
+    
+    [self.delegate notificationObject:dataSource];
+}
+
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView;
 {
@@ -156,10 +188,10 @@
     NSError * error;
     
     NSArray * results = [appDel.managedObjectContext executeFetchRequest:fetch error:&error];
-    //NSLog(@" results count in showingFriendsViewController is %li",[results count]);
+    //NSLog(@"showingFriendsViewController, results count after saving the data in database is %li",[results count]);
     
     if (error == nil) {
-        //NSLog(@"error == nil");
+        NSLog(@"error == nil");
         [dataSource removeAllObjects];
         [dataSource addObjectsFromArray:results];
         [_table reloadData];
@@ -175,9 +207,39 @@
     
     NSError * error;
     
-    NSArray * results = [appDel.managedObjectContext executeFetchRequest:fetch error:&error];
-    //NSLog(@" results count is %li",[results count]);
+    resultsGlobal = [appDel.managedObjectContext executeFetchRequest:fetch error:&error];
+    //NSLog(@"ShowingFriendsVC.m, results1 count before deletion is %li",[resultsGlobal count]);
     
+    // ## deleting null rows from friendsTable
+    if ([resultsGlobal count] == 26) {
+        NSString * nameFrnd;
+        //NSLog(@"ShowingFriendsVC.m, 25th object details names : ");
+        for (int i = 0; i<26; i++) {
+            objEmployee = [resultsGlobal objectAtIndex:i];
+            
+            nameFrnd = objEmployee.name;
+            if ( nameFrnd == (id)[NSNull null] ||  nameFrnd.length == 0)
+            {
+                //NSLog(@"Null String is %@ at index : %d",objEmployee.name,i);
+                [appDel.managedObjectContext deleteObject:objEmployee];
+                
+                NSError *error = nil;
+                if (![appDel.managedObjectContext save:&error]) {
+                    NSLog(@"Can't Delete! %@ %@", error, [error localizedDescription]);
+                    return;
+                }
+
+            }
+            
+            
+        }
+    
+    }
+    
+    NSArray * results = [appDel.managedObjectContext executeFetchRequest:fetch error:&error];
+    
+    //NSLog(@"ShowingFriendsVC.m, results count after deletion is %li",[results count]);
+
     if (error == nil && [results count] == 25) {
         NSLog(@" [results count] == 25 ");
         
@@ -241,11 +303,46 @@
 }
 
 
+//## deleting previous data
+-(void)deleteMethod : (NSString *) tableName;
+{
+    //NSLog(@"deleteMethod for %@",tableName);
+    NSFetchRequest * allCars = [[NSFetchRequest alloc] init];
+    [allCars setEntity:[NSEntityDescription entityForName:tableName inManagedObjectContext:appDel.managedObjectContext]];
+    [allCars setIncludesPropertyValues:NO]; //only fetch the managedObjectID
+    
+    NSError * error = nil;
+    NSArray * cars = [appDel.managedObjectContext executeFetchRequest:allCars error:&error];
+    //error handling goes here
+    if ([cars count] == 0) {
+        //NSLog(@"Count == 0");
+        UIAlertView * alert = [[UIAlertView alloc] initWithTitle:@"Sorry, the database is already empty !!" message:@" Please click GetMyfriendslist button to add elements to the database " delegate:self cancelButtonTitle:@"OK" otherButtonTitles: nil];
+        [alert show];
+        return;
+    }
+    else
+    {
+        for (NSManagedObject * car in cars) {
+            [appDel.managedObjectContext deleteObject:car];
+        }
+        //NSError *saveError = nil;
+        //[appDel.managedObjectContext save:&saveError];
+    }
+    
+}
+
+
 -(void)addMethod
 {
     
     //NSLog(@" in addMethod ");
-    //NSLog(@" Friends array size is %li",[friendsArray count]);
+    
+    // ## deleting all the elements from the databse before adding
+    if ([resultsGlobal count] > 0) {
+         [self deleteMethod:@"FriendsTable"];
+    }
+    
+    //NSLog(@"ShowingFriendsVC.m, addMethod, Friends array size is %li",[friendsArray count]);
     NSDictionary * dict;
     for (int i = 0; i<[friendsArray count]; i++) {
         FriendsTable * objFriend = [NSEntityDescription insertNewObjectForEntityForName:@"FriendsTable" inManagedObjectContext:appDel.managedObjectContext];
@@ -285,7 +382,7 @@
         });
     }
     if (addressBook != nil) {
-        NSLog(@"Succesful.");
+        //NSLog(@"Succesful.");
         
         //2
         NSArray *allContacts = (__bridge_transfer NSArray *)ABAddressBookCopyArrayOfAllPeople(addressBook);

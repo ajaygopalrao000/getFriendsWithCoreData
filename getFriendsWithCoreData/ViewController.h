@@ -10,9 +10,10 @@
 #import <FBSDKCoreKit/FBSDKCoreKit.h>
 #import <FBSDKLoginKit/FBSDKLoginKit.h>
 #import "editUserInfoVC.h"
+#import "showingFriendsViewController.h"
 
 
-@interface ViewController : UIViewController<editUserInforVCDelegate,UINavigationControllerDelegate,UIActionSheetDelegate,UIImagePickerControllerDelegate>
+@interface ViewController : UIViewController<showingFriendsVCDelegate,editUserInforVCDelegate,UINavigationControllerDelegate,UIActionSheetDelegate,UIImagePickerControllerDelegate>
 {
     NSMutableArray *userDataArray;
     NSDictionary *userDataCollection;

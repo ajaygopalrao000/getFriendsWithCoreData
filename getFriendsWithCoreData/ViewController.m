@@ -13,7 +13,6 @@
 #import <Social/Social.h>
 #import <FBSDKCoreKit/FBSDKCoreKit.h>
 #import <FBSDKLoginKit/FBSDKLoginKit.h>
-#import "showingFriendsViewController.h"
 #import "MySingleton.h"
 
 @interface ViewController ()
@@ -62,6 +61,65 @@
     // calling getUserData method to set the logged in user detail's like name, image.
     [self getUserData];
     
+    // ## Calling createNotification Method
+    [self createNotification];
+    
+}
+
+
+// ## delegate for ShowingFriends VC for notification
+
+-(void) notificationObject : (NSMutableArray *)  dataSource;
+{
+    NSLog(@"VC.m, notificationObject, dataSource count %li",[dataSource count]);
+    //FriendsTable * objFriend = [NSEntityDescription insertNewObjectForEntityForName:@"FriendsTable" inManagedObjectContext:appDel.managedObjectContext];
+    NSLog(@"VC.m, notificationObject delegate, with");
+//    for (int i = 0; i< [dataSource count]; i++) {
+//        objFriend = [dataSource objectAtIndex:i];
+//    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(updateNotificationMethod:) name:objFriend.uId object:nil];
+//    }
+
+}
+
+
+// ## Create Notification
+- (void) createNotification
+{
+    NSLog(@"VC.m, createNotification ");
+    NSFetchRequest * fetch = [NSFetchRequest fetchRequestWithEntityName:@"FriendsTable"];
+    
+    NSError * error;
+    
+    NSArray * resultsFriends = [appDel.managedObjectContext executeFetchRequest:fetch error:&error];
+    
+    //NSLog(@" results count in showingFriendsViewController is %li",[resultsFriends count]);
+    
+    if (error == nil) {
+        NSLog(@"error == nil");
+        FriendsTable * objFriend = [NSEntityDescription insertNewObjectForEntityForName:@"FriendsTable" inManagedObjectContext:appDel.managedObjectContext];
+        [self removeNotification:objFriend withDictionary:resultsFriends];
+//        for (int i = 0; i< [resultsFriends count]; i++) {
+//            objFriend = [resultsFriends objectAtIndex:i];
+//        [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(updateNotificationMethod:) name:objFriend.uId object:nil];
+//        }
+    }
+}
+
+-(void) removeNotification :(FriendsTable *) objFrnd withDictionary : (NSArray *) resultsFrnd;
+{
+    NSLog(@"VC.m, removeNotification ");
+    for (int i = 0; i< [resultsFrnd count]; i++) {
+        objFrnd = [resultsFrnd objectAtIndex:i];
+        [[NSNotificationCenter defaultCenter] removeObserver:self name:objFrnd.uId object:nil];
+    }
+}
+
+// ## NOtification method
+- (void) updateNotificationMethod : (NSNotification *) nsNote;
+{
+    //NSString * name = nsNote.name;
+    NSDictionary *dict = nsNote.userInfo;
+    NSLog(@"VC.m, updateNotificationMethod, Recvd Notification for name : %@",[dict objectForKey:@"friendName"]);
 }
 
 
@@ -77,7 +135,9 @@
     {
         //NSLog(@"ViewController, PrepareForSegue, ShowFriendsListSegue, indexLocal is %d",indexLocal);
         showingFriendsViewController * destVC = (showingFriendsViewController *) segue.destinationViewController;
+        destVC.delegate = self;
         destVC.index = indexLocal;
+        
     }
 }
 
@@ -228,7 +288,7 @@
         conn = YES;
         NSLog(@"Login");
         //[self deleteMethod:@"UserDataTable"];
-        [self getUserData];
+        //[self getUserData];
     } else {
         //Logged out
         //NSLog(@"LogOut");

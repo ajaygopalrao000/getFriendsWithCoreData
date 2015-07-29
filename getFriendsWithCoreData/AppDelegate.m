@@ -24,6 +24,8 @@
 //    UINavigationController * objNavCon = [[UINavigationController alloc] initWithRootViewController: objVC];
 //    self.window.rootViewController = objNavCon ;
     
+    // ## Cancelling all previous notifications
+    
     if ([application respondsToSelector:@selector(registerUserNotificationSettings:)]) {
         [application registerUserNotificationSettings:[UIUserNotificationSettings settingsForTypes:UIUserNotificationTypeAlert|UIUserNotificationTypeBadge|UIUserNotificationTypeSound categories:nil]];
     }
@@ -157,9 +159,14 @@
 - (void)application:(UIApplication *)app didReceiveLocalNotification:(UILocalNotification *)notif {
     // Handle notification when app is running
     NSDictionary * dict = notif.userInfo;
-    NSLog(@"AppDelegate.m, didReceiveLocalNotification method, Recvd Notification for name : %@",[dict objectForKey:@"friendName"]);
-//    showingFriendsViewController * objShowingFrndVC = [[showingFriendsViewController alloc] init];
-//    [objShowingFrndVC composeMailMethod:[dict objectForKey:@"friendName"]];
+    //NSLog(@"AppDelegate.m, didReceiveLocalNotification method, Recvd Notification for name : %@ with id : %@",[dict objectForKey:@"friendName"], [dict objectForKey:@"friendId"]);
+    
+    NSLog(@"AppDelegate.m, didReceiveLocalNotification method, Posted Notification for name : %@",[dict objectForKey:@"friendName"]);
+    
+    // ## NSNotification
+    
+    [[NSNotificationCenter defaultCenter] postNotificationName:[dict objectForKey:@"friendId"] object:nil userInfo:dict];
+    
 }
 
 

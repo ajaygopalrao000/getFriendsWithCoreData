@@ -12,11 +12,21 @@
 #import <AddressBook/AddressBook.h>
 #import <AddressBookUI/AddressBookUI.h>
 #import <MessageUI/MessageUI.h>
+#import "FriendsTable.h"
 
 //Declare the block that will execute after receiving success from the method
 typedef void (^FriendsCallbackSuccess)(NSArray *successArray);
 //Declre the block that will execute after receiving error from the method
 typedef void (^FriendsCallbackError)(NSString *errorString);
+
+
+// ## Creating Delegate
+@protocol showingFriendsVCDelegate <NSObject>
+
+-(void) notificationObject : (NSMutableArray *) dataSource;
+
+@end
+
 
 @interface showingFriendsViewController : UIViewController<MFMailComposeViewControllerDelegate,ABPeoplePickerNavigationControllerDelegate,UITableViewDataSource,UITableViewDelegate>
 {
@@ -27,6 +37,10 @@ typedef void (^FriendsCallbackError)(NSString *errorString);
     // ## Mail Composer
     MFMailComposeViewController * mailComposer;
 }
+
+// ## property for delegate
+@property (nonatomic, weak) id<showingFriendsVCDelegate> delegate;
+
 @property (strong, nonatomic) NSString * colorString;
 
 
